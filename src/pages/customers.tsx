@@ -251,26 +251,27 @@ const Customer = () => {
         <div className={caCss.card}>
           <div className={caCss.card__illustration}>
             <img
-              alt="A CNC milling machine built by DATRON"
+              alt="Logo for Counterflow AI's network threat detection suite ThreatEye"
               height={360}
-              src="/img/pages/case-study/datron/summary.png"
+              src="/img/pages/case-study/counterflow/summary.jpg"
               width={640}
             />
           </div>
           <p className={caCss.card__summary}>
             <img
-              alt="Datron logo"
+              alt="Counterflow AI logo"
               className={caCss.card__logo}
-              height={50}
-              src="/img/pages/customers/cards/datron.svg"
-              width={140}
+              height={80}
+              src="/img/pages/customers/cards/counterflow.svg"
+              width={160}
             />
-            “QuestDB offers new possibilities while reducing costs and
-            simplifying data analysis.”
+            “QuestDB is impressive and stands out as a superior option. We use
+            it as the basis of our time series analytics for network threat
+            detection.”
             <em className={caCss.card__author}>
-              - <strong>Tim Borowski</strong>, DATRON
+              - <strong>Randy Caldejon</strong>, Counterflow AI
             </em>
-            <Button className={caCss.card__cta} to="/case-study/datron/">
+            <Button className={caCss.card__cta} to="/case-study/counterflow/">
               View full case study
             </Button>
           </p>
