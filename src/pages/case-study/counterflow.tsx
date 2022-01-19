@@ -201,15 +201,14 @@ const Counterflow = () => {
           </p>
           <h3>Why we chose QuestDB for time series analytics</h3>
           <p className="font-size--large">
-            We initially used InfluxDB due to the features such as the web
-            console and ingestion over Telegraf. We’re typically executing
-            25,000 to 100,000 inserts per second depending on the size of the
-            customer and the amount of network activity. When moving to
-            production-like environments, we started hitting performance issues
-            with scalability and we needed to find a practical alternative.
-            After InfluxDB, we tried TimescaleDB, which was reasonable for
-            performance, but database configuration was painful and the system
-            had a poor footprint.
+            We’re typically executing 25k to 100k inserts per second, depending
+            on the size of the customer and the network activity. We started
+            with InfluxDB as our central time series database, but we quickly
+            started hitting performance issues with scalability in production
+            environments, and we needed to find a practical alternative. After
+            InfluxDB, we tried TimescaleDB, which was reasonable for
+            performance, but the database configuration was painful, and the
+            system had a poor footprint.
           </p>
 
           <p className="font-size--large">
