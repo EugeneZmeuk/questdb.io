@@ -156,14 +156,12 @@ const Counterflow = () => {
           />
           <h3>Encrypted traffic analysis for network security</h3>
           <p className="font-size--large">
-            Encrypted internet traffic has increased from around 50% in 2014 to
-            between 80% and 90% today. Alongside this rise in encrypted traffic
-            over HTTPS, the recent introduction of new protocols such as DNS
-            over HTTPS and TLS 1.3 means that network defenders are faced with
-            dramatically reduced server identity and content visibility. Our
-            security offering allows LiveAction partners to gain end-to-end
-            network visibility into the nature of this traffic using Encrypted
-            Traffic Analysis (ETA).
+            The rise in encrypted traffic over HTTPS and the recent introduction
+            of protocols such as DNS over HTTPS and TLS 1.3 means that network
+            defenders are faced with dramatically reduced server identity and
+            content visibility. Our security offering allows LiveAction partners
+            to gain end-to-end network visibility into the nature of this
+            traffic using Encrypted Traffic Analysis (ETA).
           </p>
           <p className="font-size--large">
             ETA provides techniques to gain insight into network behavior
