@@ -11,8 +11,7 @@ import seCss from "../../css/section.module.css"
 import chCss from "../../css/case-study/chart.module.css"
 
 const Counterflow = () => {
-  const title =
-    "Counterflow AI use QuestDB for machine learning-driven network security"
+  const title = "Counterflow AI offer machine learning-driven network security"
   const description =
     "QuestDB is used by Counterflow AI as a time series database for storing network packet data analyzed by their real-time threat detection offering."
 
