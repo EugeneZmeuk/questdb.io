@@ -259,11 +259,11 @@ const Customer = () => {
           </div>
           <p className={caCss.card__summary}>
             <img
-              alt="Counterflow AI logo"
+              alt="LiveAction logo"
               className={caCss.card__logo}
               height={80}
-              src="/img/pages/customers/cards/counterflow.svg"
-              width={160}
+              src="/img/pages/customers/logos/liveaction.svg"
+              width={120}
             />
             “QuestDB is impressive and stands out as a superior option. We use
             it as the basis of our time series analytics for network threat

@@ -171,13 +171,6 @@ const Counterflow = () => {
             encrypted protocols despite having no visibility into the content of
             the exchanges.
           </p>
-          <img
-            alt="A diagram showing six patterns of network traffic highlighted by Deep Packet Dynamics"
-            className={chCss.chart}
-            height={433}
-            src="/img/pages/case-study/counterflow/threateye_dpd.png"
-            width={800}
-          />
 
           <h3>Analytics to process millions of events per second</h3>
           <p className="font-size--large">
@@ -191,26 +184,45 @@ const Counterflow = () => {
             Distinct from batch processing, streaming ML is powered by analyzers
             designed to inspect network traffic without multiple passes over the
             data stream. The streaming nature of this solution means that we
-            have to process millions of events per second.
+            have to process millions of events per second. The QuestDB instances
+            we’re running are storing billions of records with the fields which
+            we analyze to perform our predictions. The performance of QuestDB
+            allows us to run queries such as these without our database being
+            the bottleneck:
           </p>
+
+          <img
+            alt="A diagram showing six patterns of network traffic highlighted by Deep Packet Dynamics"
+            className={chCss.chart}
+            height={433}
+            src="/img/pages/case-study/counterflow/console.png"
+            width={1000}
+          />
           <h3>Why we chose QuestDB for time series analytics</h3>
           <p className="font-size--large">
-            We’re typically executing 25k to 100k inserts per second, depending
-            on the size of the customer and the network activity. We started
-            with InfluxDB as our central time series database, but we quickly
-            started hitting performance issues with scalability in production
-            environments, and we needed to find a practical alternative. After
-            InfluxDB, we tried TimescaleDB, which was reasonable for
-            performance, but the database configuration was inconvenient for us
-            and the system had a poor footprint.
+            We started with InfluxDB as our central time series database, but we
+            quickly started hitting performance issues with scalability in
+            production environments, and we needed to find a practical
+            alternative. We’re typically executing 25k to 100k inserts per
+            second, depending on the size of the customer and the network
+            activity. After InfluxDB, we tried TimescaleDB, which was reasonable
+            for performance, but the database configuration was inconvenient for
+            us and the system had a poor footprint.
           </p>
 
           <p className="font-size--large">
-            When we tried QuestDB, importing data over CSV was orders of
-            magnitude faster than the other time series databases we used
-            before. Our tools export either JSON or CSV, which means that a
-            RESTful API to import and export data allows for seamless
-            interfacing with the rest of our technology stack.
+            When I first tried QuestDB using test scripts to evaluate time
+            series databases, I initially thought I had misconfigured something
+            because the ingestion speed seemed unrealistic. When I ran some SQL
+            queries in the console and got near-instant results returning our
+            full dataset, I started to get excited about QuestDB being a
+            legitimate alternative to other systems.
+          </p>
+          <p className="font-size--large">
+            Our tools export either JSON or CSV, which means that a RESTful API
+            to import and export data allows for seamless interfacing with the
+            rest of our technology stack. We’re now using InfluxDB line protocol
+            over TCP for ingestion, and the performance is even better.
           </p>
 
           <h3>Why performance matters for streaming data scenarios</h3>
@@ -251,7 +263,10 @@ const Counterflow = () => {
               <span className={caCss.card__quote}>&rdquo;</span>
             </p>
             <p className={caCss.card__title}>
-              <b>Randy Caldejon, VP Product Development at LiveAction</b>
+              <b>
+                Randy Caldejon, VP Product Development at LiveAction
+                (Counterflow AI)
+              </b>
             </p>
           </div>
         </div>
