@@ -11,9 +11,9 @@ import seCss from "../../css/section.module.css"
 import chCss from "../../css/case-study/chart.module.css"
 
 const Counterflow = () => {
-  const title = "Counterflow AI offer machine learning-driven network security"
+  const title = "LiveAction offer AI-driven network security"
   const description =
-    "QuestDB is used by Counterflow AI as a time series database for storing network packet data analyzed by their real-time threat detection offering."
+    "QuestDB is used by LiveAction (Counterflow AI) as a time series database for storing network packet data analyzed by their real-time threat detection offering."
 
   return (
     <PageLayout
@@ -31,21 +31,21 @@ const Counterflow = () => {
         <div className={juCss.jumbotron__summary}>
           <div className={juCss.jumbotron__header}>
             <Button
-              href="https://www.counterflow.ai/?utm_source=questdb"
+              href="https://www.liveaction.com/encrypted-traffic-analysis?utm_source=questdb"
               variant="plain"
             >
               <img
-                alt="Counterflow AI logo"
+                alt="LiveAction logo"
                 className={juCss.jumbotron__logo}
                 height={65}
-                src="/img/pages/customers/logos/counterflow.svg"
+                src="/img/pages/customers/logos/liveaction.svg"
                 width={150}
               />
             </Button>
             <span className={juCss.jumbotron__name}>Case study</span>
           </div>
           <h1 className={seCss.section__title}>
-            QuestDB powers analytics in Counterflow’s network security suite
+            QuestDB powers analytics in LiveAction’s network security suite
           </h1>
           <p
             className={clsx(
@@ -53,18 +53,18 @@ const Counterflow = () => {
               juCss.jumbotron__description,
             )}
           >
-            QuestDB is used by Counterflow AI as a time series database for
-            storing network packet data analyzed by their real-time threat
-            detection engine.
+            QuestDB is used by LiveAction (Counterflow AI) as a time series
+            database for storing network packet data analyzed by their real-time
+            threat detection engine.
           </p>
         </div>
 
         <div className={juCss.jumbotron__banner}>
           <img
-            alt="The web-based dashboard for Counterflow AI's ThreatEye network security system"
+            alt="The web-based dashboard for LiveAction's ThreatEye network security system"
             height={170}
             src="/img/pages/case-study/counterflow/dashboard.png"
-            width={900}
+            width={600}
           />
         </div>
       </section>
@@ -124,17 +124,17 @@ const Counterflow = () => {
 
       <section className={clsx(seCss.section, caCss.card)}>
         <p className={caCss.card__title}>
-          CounterFlow AI is a cybersecurity software company offering an AIOps
-          platform for network forensics. Their flagship product, ThreatEye,
-          integrates advanced security technologies into a streaming machine
-          learning pipeline to identify network faults, anomalies and threats at
-          wire speed.
+          LiveAction is a cybersecurity software company offering an end-to-end
+          platform for network forensics. Their encrypted traffic analysis
+          product, ThreatEye, integrates advanced security technologies into a
+          streaming machine learning pipeline to identify network faults,
+          anomalies and threats at wire speed.
         </p>
 
         <p className={caCss.card__subtitle}>
           In this case study, VP Product Development Randy Caldejon describes
           how and why QuestDB is relied upon within high-performance network
-          security systems developed by Counterflow AI.
+          security systems developed by LiveAction.
         </p>
       </section>
 
@@ -234,7 +234,7 @@ const Counterflow = () => {
             className={chCss.chart}
             height={433}
             src="/img/pages/case-study/counterflow/threateye_ip_filter.png"
-            width={800}
+            width={600}
           />
 
           <div
@@ -251,7 +251,7 @@ const Counterflow = () => {
               <span className={caCss.card__quote}>&rdquo;</span>
             </p>
             <p className={caCss.card__title}>
-              <b>Randy Caldejon, VP Product Development at Counterflow AI</b>
+              <b>Randy Caldejon, VP Product Development at LiveAction</b>
             </p>
           </div>
         </div>
