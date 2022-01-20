@@ -132,9 +132,9 @@ const Counterflow = () => {
         </p>
 
         <p className={caCss.card__subtitle}>
-          In this case study, VP Product Development Randy Caldejon describes
-          how and why QuestDB is relied upon within high-performance network
-          security systems developed by LiveAction.
+          In this case study, VP Product Development and founder of Counterflow
+          AI Randy Caldejon describes how and why QuestDB is relied upon within
+          high-performance network security systems developed by LiveAction.
         </p>
       </section>
 
