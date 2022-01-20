@@ -245,16 +245,20 @@ nav {
   --ifm-paragraph-margin-bottom: 0.5rem;
   --ifm-table-background: var(--palette-white-03);
   --ifm-table-border-color: var(--palette-charade);
-  --ifm-table-border-width: 4px;
+  --ifm-table-border-width: 1px;
   --ifm-table-head-background: var(--palette-gray);
   --ifm-table-head-color: var(--palette-white);
   --ifm-table-stripe-background: var(--palette-white-03);
 }
 
 html[data-theme='light'] .markdown {
-  --ifm-table-border-color: #9597a5;
+  --ifm-table-head-background: #f6f8fa;
+  --ifm-table-head-color: #24292f;
+  --ifm-table-border-color: #d0d7de;
+  --ifm-table-stripe-background: #f6f8fa;
 }
 
+/* syntax railroad charts in documentation */
 html[data-theme='light'] .markdown img[alt*="chart"] {
   filter: invert(1) hue-rotate(200deg);
 }

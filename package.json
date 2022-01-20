@@ -4,7 +4,7 @@
   "private": true,
   "license": "Apache-2.0",
   "scripts": {
-    "prestart": "plugins/ts-compile.sh",
+    "prestart": "tsc --project plugins/tsconfig.json",
     "start": "docusaurus start",
     "pre-build": "FORCE=true node scripts/optimise-images.js",
     "prebuild": "docusaurus clear && node scripts/optimise-images.js && npm run prestart",
