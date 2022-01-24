@@ -94,10 +94,7 @@
     }
   },
   "lint-staged": {
-    "static/img/**/*": "scripts/check-size-hook.sh",
-    "**/**/*.{js.jsx,js,es6,jsx,ts,tsx,md,yml}": [
-      "prettier --config ./prettier.config.js --write"
-    ]
+    "static/img/**/*": "scripts/check-size-hook.sh"
   },
   "resolutions": {
     "sharp": "0.26.3"

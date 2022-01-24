@@ -18,7 +18,7 @@ stored with the timestamp at which it was recorded, alongside optional key-value
 pairs called labels.
 
 QuestDB exposes a `/metrics` endpoint which provides internal system metrics in
-Prometheus format. To use this this functionality and get started with example
+Prometheus format. To use this functionality and get started with example
 configuration, refer to the
 [Prometheus documentation](/docs/third-party-tools/prometheus/).
 
@@ -45,7 +45,7 @@ to port `9003`:
 curl -v http://127.0.0.1:9003
 ```
 
-The server will respond with a HTTP status code of `200`, indicating that the
+The server will respond with an HTTP status code of `200`, indicating that the
 system is operational:
 
 ```shell title="200 'OK' response"
@@ -80,3 +80,14 @@ format. For more details, see the
 [Prometheus documentation](/docs/third-party-tools/prometheus/).
 
 :::
+
+## Avoiding CPU starvation
+
+On systems with
+[8 Cores and less](/docs/operations/capacity-planning#cpu-configuration),
+contention for threads might increase the latency of health check service
+responses. If you are in a situation where a load balancer thinks QuestDB
+service is dead with nothing apparent in QuestDB logs, you may need to configure
+a dedicated thread pool for the health check service. For more reference, see
+the
+[minimal HTTP server configuration](/docs/reference/configuration#minimal-http-server).

@@ -48,15 +48,15 @@ surcharges depending on a variety of factors such as the route taken or the time
 of the day.
 
 Most of the driver's earnings come from the `fare`, which consists of a
-`flat fare` $2.50 for entering the cab, and a `variable fare`. The variable fare
-is a function of speed, time and distance. It is calculated as follows:
+`flat fare` \$2.50 for entering the cab, and a `variable fare`. The variable
+fare is a function of speed, time and distance. It is calculated as follows:
 
-- When the cab drives above 12mph, $2.50 per mile
-- Otherwise, $0.50 per minute
+- When the cab drives above 12mph, \$2.50 per mile
+- Otherwise, \$0.50 per minute
 
 This post focuses on the variable fare, i.e the output of the meter excluding
-the $2.50 start fee and extras. To be able to compare rides with one another, we
-normalize it as an `hourly rate` of driving a customer around.
+the \$2.50 start fee and extras. To be able to compare rides with one another,
+we normalize it as an `hourly rate` of driving a customer around.
 
 ## Modelling variable earnings for taxi drivers
 
@@ -64,7 +64,7 @@ Let's assume a cab is driving a customer at a constant speed during one hour. At
 the end of the hour, the driver can expect to pocket `variable earnings` of:
 
 - $30 if they drove below 12mph ($0.50 a minute)
-- $2.50 x their average speed if they drove above 12mph
+- \$2.50 x their average speed if they drove above 12mph
 
 Let's plot the hourly earnings in function of speed. This instantly reminds me
 of an old friend: call options!
@@ -85,7 +85,7 @@ Interestingly, the above notation breaks down the hourly variable fare into two
 components.
 
 - A `guaranteed` component `30`: whenever driving a customer, a cab will make at
-  least $30 an hour.
+  least \$30 an hour.
 - An `optional` component `max(0, Speed - 12)`: driving customers faster earns
   the driver more.
 
@@ -136,7 +136,7 @@ since we know all `possible outcomes` and their
 | 6          | 16.66%      | 4      | 0.6664         |
 
 By summing all the potential payouts weighed by their probability, we compute
-the expected value of playing this game: $1.666.
+the expected value of playing this game: \$1.666.
 
 - If we pay less to play the game, we will make money over time.
 - If we pay more, we lose in the long run.
@@ -324,12 +324,14 @@ Lyft, and other FHV, along with urban planning, for example cycle lanes making
 for less space on the road and more congestion.
 
 Whatever the underlying reasons, the impact is visible, and it is significant.
-Over the past 10 years, slower traffic has cost up to $10/hour per taxi. To put
-this in context, this means $29,000/driver each year (8 hours a day, no
-holidays), or $300 million a year for the entire NYC cab industry! And these are
+Over the past 10 years, slower traffic has cost up to
+$10/hour per taxi. To put
+this in context, this means $29,000/driver each year (8
+hours a day, no holidays), or
+$300 million a year for the entire NYC cab industry! And these are
 lower bound numbers. In reality, drivers share cabs. If we assume all of the
-13,500 cabs are constantly on the road, this adds up to $1.2 billion a year lost
-for the industry!
+13,500 cabs are constantly on the road, this adds up to $1.2
+billion a year lost for the industry!
 
 ## Customers are losing too
 
@@ -348,7 +350,7 @@ incentive becomes apparent if we look at it over time as follows:
 
 So, are there any reasons left for cabs to drive customers around faster?
 
-The start fee of $2.50 provides another incentive. But it's efficacy depends on
+The start fee of \$2.50 provides another incentive. But it's efficacy depends on
 the waiting time between two rides. If the expected wait between customers is 5
 minutes or less, then drivers remain incentivized. Otherwise, it is economically
 more efficient to drive slowly and make the most of the current customer. A
@@ -363,7 +365,7 @@ fair to say that it lost a good part of it.
 If drivers are uncertain about their likelihood of finding the next ride, and if
 the optional fare component has become an insignificant fraction of their
 earnings, then it makes more sense to drive slow, and to hold on to the current
-customer for as long as possible. In the end, $30 per hour is better than 0.
+customer for as long as possible. In the end, \$30 per hour is better than 0.
 
 ## Your turn to explore the data
 

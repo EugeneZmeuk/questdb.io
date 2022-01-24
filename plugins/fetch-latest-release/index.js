@@ -6,9 +6,9 @@ module.exports = () => ({
     const response = await nodeFetch(
       `https://api.github.com/repos/questdb/questdb/releases/latest`,
     )
-    
+
     const data = await response.json()
-    
+
     return data
   },
   async contentLoaded({ content, actions }) {

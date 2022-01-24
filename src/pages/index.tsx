@@ -1,12 +1,12 @@
 import clsx from "clsx"
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext"
+import Highlight from "../components/Highlight"
 import React, { useCallback, useEffect, useState } from "react"
 import Customers from "../components/Customers"
 import customFields from "../config/customFields"
 
 import Button from "@theme/Button"
 import Chevron from "@theme/Chevron"
-import CodeBlock from "@theme/CodeBlock"
 import PageLayout from "@theme/PageLayout"
 import useWindowWidth from "@theme/useWindowWidth"
 import SvgImage from "../components/SvgImage"
@@ -620,26 +620,14 @@ const QueryScroller = () => {
               )}
               style={{ top: getTopByIndex(top, index) }}
             >
-              <CodeBlock>{`${searchQuery}`}</CodeBlock>
-              <CodeBlock>
-                {`-- Search time
-${searchQuery}`}
-              </CodeBlock>
-              <CodeBlock>{`${sliceQuery}`}</CodeBlock>
-              <CodeBlock>
-                {`-- Slice time
-${sliceQuery}`}
-              </CodeBlock>
-              <CodeBlock>{`${navigateQuery}`}</CodeBlock>
-              <CodeBlock>
-                {`-- Navigate time
-${navigateQuery}`}
-              </CodeBlock>
-              <CodeBlock>{`${mergeQuery}`}</CodeBlock>
-              <CodeBlock>
-                {`-- Merge time
-${mergeQuery}`}
-              </CodeBlock>
+              <Highlight code={searchQuery} />
+              <Highlight code={`-- Search time\n${searchQuery}`} />
+              <Highlight code={sliceQuery} />
+              <Highlight code={`-- Slice time\n${sliceQuery}`} />
+              <Highlight code={navigateQuery} />
+              <Highlight code={`-- Navigate time\n${navigateQuery}`} />
+              <Highlight code={mergeQuery} />
+              <Highlight code={`-- Merge time\n${mergeQuery}`} />
             </div>
           </div>
           <div

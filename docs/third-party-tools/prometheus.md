@@ -122,6 +122,33 @@ can be used to graph QuestDB-specific metrics which are all prefixed with
   width={750}
 />
 
+The following metrics are available:
+
+| Metric                                   | Type    | Description                                                       |
+| ---------------------------------------- | ------- | ----------------------------------------------------------------- |
+| `questdb_json_queries_total`             | counter | Number of total JSON queries, including retries.                  |
+| `questdb_json_queries_completed`         | counter | Number of successfully executed JSON queries.                     |
+| `questdb_memory_tag_MMAP_DEFAULT`        | gauge   | Amount of memory allocated for mmaped files.                      |
+| `questdb_memory_tag_NATIVE_DEFAULT`      | gauge   | Amount of allocated untagged native memory.                       |
+| `questdb_memory_tag_MMAP_O3`             | gauge   | Amount of memory allocated for O3 mmapped files.                  |
+| `questdb_memory_tag_NATIVE_O3`           | gauge   | Amount of memory allocated for O3.                                |
+| `questdb_memory_tag_NATIVE_RECORD_CHAIN` | gauge   | Amount of memory allocated for SQL record chains.                 |
+| `questdb_memory_tag_MMAP_TABLE_WRITER`   | gauge   | Amount of memory allocated for table writer mmapped files.        |
+| `questdb_memory_tag_NATIVE_TREE_CHAIN`   | gauge   | Amount of memory allocated for SQL tree chains.                   |
+| `questdb_memory_tag_MMAP_TABLE_READER`   | gauge   | Amount of memory allocated for table reader mmapped files.        |
+| `questdb_memory_tag_NATIVE_COMPACT_MAP`  | gauge   | Amount of memory allocated for SQL compact maps.                  |
+| `questdb_memory_tag_NATIVE_FAST_MAP`     | gauge   | Amount of memory allocated for SQL fast maps.                     |
+| `questdb_memory_tag_NATIVE_LONG_LIST`    | gauge   | Amount of memory allocated for long lists.                        |
+| `questdb_memory_tag_NATIVE_HTTP_CONN`    | gauge   | Amount of memory allocated for HTTP connections.                  |
+| `questdb_memory_tag_NATIVE_PGW_CONN`     | gauge   | Amount of memory allocated for PG wire connections.               |
+| `questdb_memory_tag_MMAP_INDEX_READER`   | gauge   | Amount of memory allocated for index reader mmapped files.        |
+| `questdb_memory_tag_MMAP_INDEX_WRITER`   | gauge   | Amount of memory allocated for index writer mmapped files.        |
+| `questdb_memory_tag_MMAP_INDEX_SLIDER`   | gauge   | Amount of memory allocated for indexed column view mmapped files. |
+| `questdb_memory_tag_NATIVE_REPL`         | gauge   | Amount of memory mapped for replication tasks.                    |
+| `questdb_memory_free_count`              | gauge   | Number of times native memory was freed.                          |
+| `questdb_memory_mem_used`                | gauge   | Current amount of allocated native memory.                        |
+| `questdb_memory_malloc_count`            | gauge   | Number of times native memory was allocated.                      |
+
 ## Configuring Prometheus Alertmanager
 
 QuestDB includes a log writer that sends any message logged at critical level

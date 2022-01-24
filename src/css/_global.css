@@ -452,7 +452,7 @@ html[data-theme='light'] .pagination-nav__sublabel {
   transition: opacity 200ms ease-in;
 }
 
-.katex { font-size: 1.5em; }
+.katex { font-size: 1.2em; }
 
 /**
  *

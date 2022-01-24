@@ -28,13 +28,16 @@ values={[
 
 <TabItem value="nix">
 
+
 ```shell
 ./questdb.sh [start|stop|status] [-d dir] [-f] [-t tag]
 ```
 
 </TabItem>
 
+
 <TabItem value="macos">
+
 
 ```shell
 questdb [start|stop|status] [-d dir] [-f] [-t tag]
@@ -42,7 +45,9 @@ questdb [start|stop|status] [-d dir] [-f] [-t tag]
 
 </TabItem>
 
+
 <TabItem value="windows">
+
 
 ```shell
 questdb.exe [start|stop|status|install|remove] \
@@ -51,7 +56,9 @@ questdb.exe [start|stop|status|install|remove] \
 
 </TabItem>
 
+
 </Tabs>
+
 
 ### Start
 
@@ -88,13 +95,16 @@ values={[
 
 <TabItem value="nix">
 
+
 ```shell
 ./questdb.sh start [-d dir] [-f] [-t tag]
 ```
 
 </TabItem>
 
+
 <TabItem value="macos">
+
 
 ```shell
 questdb start [-d dir] [-f] [-t tag]
@@ -102,7 +112,9 @@ questdb start [-d dir] [-f] [-t tag]
 
 </TabItem>
 
+
 <TabItem value="windows">
+
 
 ```shell
 questdb.exe start [-d dir] [-f] [-j JAVA_HOME] [-t tag]
@@ -110,7 +122,9 @@ questdb.exe start [-d dir] [-f] [-j JAVA_HOME] [-t tag]
 
 </TabItem>
 
+
 </Tabs>
+
 
 #### Default root directory
 
@@ -129,13 +143,16 @@ will be the following:
 
 <TabItem value="nix">
 
+
 ```shell
 $HOME/.questdb
 ```
 
 </TabItem>
 
+
 <TabItem value="macos">
+
 
 ```shell
 /usr/local/var/questdb
@@ -143,7 +160,9 @@ $HOME/.questdb
 
 </TabItem>
 
+
 <TabItem value="windows">
+
 
 ```shell
 C:\Windows\System32\questdb
@@ -151,7 +170,9 @@ C:\Windows\System32\questdb
 
 </TabItem>
 
+
 </Tabs>
+
 
 ### Stop
 
@@ -173,13 +194,16 @@ C:\Windows\System32\questdb
 
 <TabItem value="nix">
 
+
 ```shell
 ./questdb.sh stop
 ```
 
 </TabItem>
 
+
 <TabItem value="macos">
+
 
 ```shell
 questdb stop
@@ -187,7 +211,9 @@ questdb stop
 
 </TabItem>
 
+
 <TabItem value="windows">
+
 
 ```shell
 questdb.exe stop
@@ -195,7 +221,9 @@ questdb.exe stop
 
 </TabItem>
 
+
 </Tabs>
+
 
 ### Status
 
@@ -217,13 +245,16 @@ questdb.exe stop
 
 <TabItem value="nix">
 
+
 ```shell
 ./questdb.sh status
 ```
 
 </TabItem>
 
+
 <TabItem value="macos">
+
 
 ```shell
 questdb status
@@ -231,7 +262,9 @@ questdb status
 
 </TabItem>
 
+
 <TabItem value="windows">
+
 
 ```shell
 questdb.exe status
@@ -239,7 +272,9 @@ questdb.exe status
 
 </TabItem>
 
+
 </Tabs>
+
 
 ### Install (Windows)
 

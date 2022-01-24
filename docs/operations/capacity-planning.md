@@ -11,10 +11,10 @@ elements, depending on the expected demands of the system. This page describes
 configuring these system resources with example scenarios that align with both
 edge cases and common setup configurations.
 
-All of the configuration settings referred to below with the exception of OS
-settings are configured in QuestDB by either a `server.conf` configuration file
-or as environment variables. For more details on applying configuration settings
-in QuestDB, refer to the [configuration](/docs/reference/configuration/) page.
+All the configuration settings referred to below except for OS settings are
+configured in QuestDB by either a `server.conf` configuration file or as
+environment variables. For more details on applying configuration settings in
+QuestDB, refer to the [configuration](/docs/reference/configuration/) page.
 
 ## Storage and filesystem
 
@@ -105,7 +105,7 @@ exceed the limit for that particular type, savings on disk space can be made.
 
 ## CPU configuration
 
-In QuestDB, there are worker pools which can help separate CPU load between
+In QuestDB, there are worker pools which can help separate CPU-load between
 sub-systems. This section describes configuration strategies based on the
 forecast behavior of the database.
 
@@ -116,7 +116,7 @@ forecast behavior of the database.
   below, this must be avoided as it can lead to indeterminate behavior.
 - When configuring the affinity of worker threads to CPUs and setting dedicated
   worker threads for tasks as described in the following sections,
-  **hyperthreading must be disabled** in the system BIOS. If hyperthreading
+  **hyper-threading must be disabled** in the system BIOS. If hyper-threading
   cannot be disabled, the core IDs should be ascertained and workers should not
   use adjacent cores to prevent overlapping work.
 
@@ -127,10 +127,49 @@ forecast behavior of the database.
 The number of worker threads shared across the application can be configured as
 well as affinity to pin processes to specific CPUs by ID. Shared worker threads
 service SQL execution subsystems and, in the default configuration, every other
-subsystem. With the exception of SQL, every other subsystem can be configured to
-use their own worker threads. More information on these settings can be found on
-the [shared workers](/docs/reference/configuration/#shared-worker) configuration
+subsystem. Except for SQL, every other subsystem can be configured to use their
+own worker threads. More information on these settings can be found on the
+[shared worker](/docs/reference/configuration/#shared-worker) configuration
 page.
+
+QuestDB will allocate CPU resources differently depending on how many CPU cores
+are available. This behavior is default but can be overridden via configuration.
+By checking the CPU Core count, QuestDB will assume that CPU hyper-threading is
+enabled. If hyper-threading is disabled on your system, you will have to
+configure CPU pools manually. Please refer to [CPU affinity](#cpu-affinity)
+configuration.
+
+#### 8 CPU Cores or less
+
+QuestDB will configure a shared worker pool to handle everything except the
+InfluxDB line protocol (ILP) writer which gets a dedicated CPU core. The worker
+count is calculated as follows:
+
+$(cpuAvailable / 2) - 1 - (line.tcp.writer.worker.count)$
+
+#### 16 CPU Cores or less
+
+ILP I/O Worker pool is configured to use 2 CPU cores to speed up ingestion and
+the ILP Writer is using 1 core. The shared worker pool is handing everything
+else and is configured using this formula:
+
+$(cpuAvailable / 2) - 1 - (line.tcp.writer.worker.count) - (line.tcp.io.worker.count)$
+
+For example, with 16 hyper-threaded cores, the shared pool will have 4 threads:
+
+$16/2-1-2-1$
+
+#### 17 CPU Cores and more
+
+The ILP I/O Worker pool is configured to use 6 CPU Cores to speed up ingestion
+and the ILP Writer is using 1 core. The shared worker pool is handling
+everything else and is configured using this formula:
+
+$(cpuAvailable / 2) - 1 - (line.tcp.writer.worker.count) - (line.tcp.io.worker.count)$
+
+For example, with 32 hyper-threaded cores, the shared pool will have 8 threads:
+
+$32/2-1-6-1$
 
 ### Writer page size
 
@@ -225,11 +264,11 @@ pg.worker.affinity=1,2,3,4
 
 For InfluxDB line, Postgres wire and HTTP protocols, there are a set of
 configuration settings relating to the number of clients that may connect, the
-internal IO capacity and connection timeout settings. These settings are
+internal I/O capacity and connection timeout settings. These settings are
 configured in the `server.conf` file in the format:
 
 ```bash
-<protocol>.net.<config>
+<protocol>.net.connection.<config>
 ```
 
 Where `<protocol>` is one of:
@@ -240,29 +279,45 @@ Where `<protocol>` is one of:
 
 And `<config>` is one of the following settings:
 
-| key                       | description                                                                                                                                                                                                                                                                                 |
-| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `active.connection.limit` | The number of simultaneous connections to the server. This value is intended to control server memory consumption.                                                                                                                                                                          |
-| `event.capacity`          | Internal IO event queue capacity (EPoll, KQqueu, Select). Size of these queues **must be larger than** `active.connection.limit`.                                                                                                                                                           |
-| `io.queue.capacity`       | Internal IO queue of the server. The size of this queue **must be larger than** the `active.connection.limit`. A queue size smaller than active connection max will substantially slow down the server by increasing wait times. A queue larger than connection max reduces wait time to 0. |
-| `idle.connection.timeout` | Connection idle timeout in milliseconds. Connections are closed by the server when this timeout lapses.                                                                                                                                                                                     |
-| `interest.queue.capacity` | Internal queue size. This is also related to `active.connection.limit` in a way that sizes larger than connection max remove any waiting.                                                                                                                                                   |
-| `listen.backlog`          | Backlog argument value for [listen()](https://man7.org/linux/man-pages/man2/listen.2.html) call.                                                                                                                                                                                            |
-| `snd.buf.size`            | Maximum send buffer size on each TCP socket. If value is -1 socket send buffer remains unchanged from OS default.                                                                                                                                                                           |
-| `rcv.buf.size`            | Maximum receive buffer size on each TCP socket. If value is -1, the socket receive buffer remains unchanged from OS default.                                                                                                                                                                |
+| key       | description                                                                                                                                                                                                                |
+| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `limit`   | The number of simultaneous connections to the server. This value is intended to control server memory consumption.                                                                                                         |
+| `timeout` | Connection idle timeout in milliseconds. Connections are closed by the server when this timeout lapses.                                                                                                                    |
+| `hint`    | Applicable only for Windows, where TCP backlog limit is hit. For example Windows 10 allows max of 200 connection. Even if limit is set higher, without hint=true it won't be possible to connect more than 200 connection. |
+| `sndbuf`  | Maximum send buffer size on each TCP socket. If value is -1 socket send buffer remains unchanged from OS default.                                                                                                          |
+| `rcvbuf`  | Maximum receive buffer size on each TCP socket. If value is -1, the socket receive buffer remains unchanged from OS default.                                                                                               |
 
-For example, the default network configuration for InfluxDB line protocol is the
-following:
+For example, this is configuration for Linux with relatively low number of
+concurrent connections:
 
-```bash title="server.conf InfluxDB line protocol network defaults"
-line.tcp.net.active.connection.limit=10
+```bash title="server.conf InfluxDB line protocol network example configuration for moderate number of concurrent connections"
+# bind to all IP addresses on port 9009
 line.tcp.net.bind.to=0.0.0.0:9009
-line.tcp.net.event.capacity=1024
-line.tcp.net.io.queue.capacity=1024
-line.tcp.net.idle.timeout=0
-line.tcp.net.interest.queue.capacity=1024
-line.tcp.net.listen.backlog=50000
-line.tcp.net.recv.buf.size=-1
+# maximum of 30 concurrent connection allowed
+line.tcp.net.connection.limit=30
+# nothing to do here, connection limit is quite low
+line.tcp.net.connection.hint=false
+# connections will time out after 60s of no activity
+line.tcp.net.connection.timeout=60000
+# receive buffer is 4Mb to accomodate large messages
+line.tcp.net.rcvbuf=4m
+```
+
+Let's assume you would like to configure InfluxDB line protocol for large number
+of concurrent connection on Windows:
+
+```bash title="server.conf InfluxDB line protocol network example configuration for large number of concurrent connections on Windows"
+# bind to specific NIC on port 9009, NIC is identified by IP address
+line.tcp.net.bind.to=10.75.26.3:9009
+# large number of concurrent connections
+line.tcp.net.connection.limit=400
+# Windows will not allow 400 client to connect unless we use the "hint"
+line.tcp.net.connection.hint=true
+# connections will time out after 30s of no activity
+line.tcp.net.connection.timeout=30000
+# receive buffer is 1Mb because messages are small, smaller buffer will
+# reduce memory usage, 400 connection times 1MB = 400MB RAM is required to handle input
+line.tcp.net.rcvbuf=1m
 ```
 
 For reference on the defaults of the `http` and `pg` protocols, refer to the
@@ -279,10 +334,10 @@ done in response to such OS errors.
 ### Maximum open files
 
 The storage model of QuestDB has the benefit that most data structures relate
-closely to the file system, with columnar data being stored in it's own `.d`
-file per partition. In edge cases with extremely large tables, the number of
-open files may hit a user or system-wide maximum limit and can cause
-unpredictable behavior.
+closely to the file system, with columnar data being stored in its own `.d` file
+per partition. In edge cases with extremely large tables, the number of open
+files may hit a user or system-wide maximum limit and can cause unpredictable
+behavior.
 
 The following commands allow for checking current user and system limits for
 maximum number of open files:
@@ -323,7 +378,7 @@ persistent, mapped memory area limits can be changed in `/etc/sysctl.conf`:
 vm.max_map_count=262144
 ```
 
-Each mapped area needs kernel memory and it's recommended to have around 128
+Each mapped area needs kernel memory, and it's recommended to have around 128
 bytes available per 1 map count.
 
 ```bash

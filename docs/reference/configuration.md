@@ -180,10 +180,12 @@ the [health monitoring page](/docs/operations/health-monitoring/).
 
 :::
 
-| Property         | Default      | Description                                                                                                                                                   |
-| ---------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| http.min.enabled | true         | Enable or disable Minimal HTTP server.                                                                                                                        |
-| http.min.bind.to | 0.0.0.0:9003 | IPv4 address and port of the server. `0` means it will bind to all network interfaces, otherwise the IP address must be one of the existing network adapters. |
+| Property                 | Default      | Description                                                                                                                                                                    |
+| ------------------------ | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| http.min.enabled         | true         | Enable or disable Minimal HTTP server.                                                                                                                                         |
+| http.min.bind.to         | 0.0.0.0:9003 | IPv4 address and port of the server. `0` means it will bind to all network interfaces, otherwise the IP address must be one of the existing network adapters.                  |
+| http.min.worker.count    | -1           | By default, Minimal HTTP server uses shared thread pool for Core count 16 and below. It will use dedicated thread for Core count above 16. Do not set pool size to more than 1 |
+| http.min.worker.affinity | -1           | Core number to pin thread to                                                                                                                                                   |
 
 ### HTTP server
 
@@ -328,7 +330,7 @@ QuestDB.
 ### Postgres wire protocol
 
 This section describes configuration settings for client connections using
-PostreSQL wire protocol.
+PostgresSQL wire protocol.
 
 | Property                            | Default      | Description                                                                                                                                                                                                                                                                                  |
 | ----------------------------------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -414,7 +416,7 @@ line protocol over UDP.
 
 ### Telemetry
 
-QuestDB sends anonymized telemetry data with information about usage which helps
+QuestDB sends anonymous telemetry data with information about usage which helps
 us improve the product over time. We do not collect any personally-identifying
 information, and we do not share any of this data with third parties.
 
@@ -551,7 +553,7 @@ configured and a fail-over cannot occur, a delay of 250 milliseconds is added
 between send attempts.
 
 The `w.alert.location` property refers to the path (absolute, otherwise relative
-to `-d database-root`) of a template file. By default it is a resource file
+to `-d database-root`) of a template file. By default, it is a resource file
 which contains:
 
 ```json title="/alert-manager-tpt.json"
@@ -586,10 +588,9 @@ Four environment variables can be defined, and referred to with the
 - _CLUSTER_NAME_
 - _INSTANCE_NAME_
 
-Their default value is `GLOBAL`, they mean nothing outside of a cloud
-environment.
+Their default value is `GLOBAL`, they mean nothing outside a cloud environment.
 
-In addition, `ALERT_MESSAGE` is a place holder for the actual `critical` message
+In addition, `ALERT_MESSAGE` is a placeholder for the actual `critical` message
 being sent, and `QDB_VERSION` is the runtime version of the QuestDB instance
 sending the alert. The `${date: <format>}` syntax can be used to produce a
 timestamp at the time of sending the alert.
