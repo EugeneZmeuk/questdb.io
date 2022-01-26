@@ -2,7 +2,7 @@ import clsx from "clsx"
 import React from "react"
 
 import Button from "@theme/Button"
-import PageLayout from "@theme/PageLayout"
+import Layout from "../../theme/Layout"
 
 import caCss from "../../css/case-study/card.module.css"
 import juCss from "../../css/case-study/jumbotron.module.css"
@@ -16,7 +16,7 @@ const Counterflow = () => {
     "QuestDB is used by LiveAction (Counterflow AI) as a time series database for storing network packet data analyzed by their real-time threat detection offering."
 
   return (
-    <PageLayout
+    <Layout
       canonical="/case-study/counterflow/"
       description={description}
       title={title}
@@ -271,7 +271,7 @@ const Counterflow = () => {
           </div>
         </div>
       </section>
-    </PageLayout>
+    </Layout>
   )
 }
 
