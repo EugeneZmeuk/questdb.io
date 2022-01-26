@@ -2,7 +2,7 @@ import React, { FormEvent, ReactElement, useState } from "react"
 import { CSSTransition, TransitionGroup } from "react-transition-group"
 import clsx from "clsx"
 
-import PageLayout from "@theme/PageLayout"
+import Layout from "../theme/Layout"
 import Button from "@theme/Button"
 import Input from "@theme/Input"
 import SvgImage from "../components/SvgImage"
@@ -215,11 +215,11 @@ const CloudPage = () => {
   const description = ""
 
   return (
-    <PageLayout canonical="/cloud" description={description} title={title}>
+    <Layout canonical="/cloud" description={description} title={title}>
       <Top />
       <Highlights />
       <Slack />
-    </PageLayout>
+    </Layout>
   )
 }
 

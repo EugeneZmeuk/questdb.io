@@ -2,7 +2,7 @@ import clsx from "clsx"
 import React from "react"
 
 import Button from "@theme/Button"
-import PageLayout from "@theme/PageLayout"
+import Layout from "../../theme/Layout"
 
 import caCss from "../../css/case-study/card.module.css"
 import chCss from "../../css/case-study/chart.module.css"
@@ -16,7 +16,7 @@ const DATRON = () => {
     "DATRON migrated from InfluxDB to QuestDB for high-throughput time series data workloads and benefited from reliability and massive performance improvements."
 
   return (
-    <PageLayout
+    <Layout
       canonical="/case-study/datron"
       description={description}
       title={title}
@@ -215,7 +215,7 @@ const DATRON = () => {
           </div>
         </div>
       </section>
-    </PageLayout>
+    </Layout>
   )
 }
 

@@ -93,3 +93,7 @@
 [[redirects]]
   from = "/careers/backend-software-engineer/"
   to = "/careers/core-database-engineer/"
+
+[[redirects]]
+  from = "/case-study/innova/"
+  to = "/case-study/turk-telekom/"

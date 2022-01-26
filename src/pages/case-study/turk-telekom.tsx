@@ -2,7 +2,7 @@ import clsx from "clsx"
 import React from "react"
 
 import Button from "@theme/Button"
-import PageLayout from "@theme/PageLayout"
+import Layout from "../../theme/Layout"
 
 import caCss from "../../css/case-study/card.module.css"
 import chCss from "../../css/case-study/chart.module.css"
@@ -11,14 +11,13 @@ import ouCss from "../../css/case-study/outcome.module.css"
 import seCss from "../../css/section.module.css"
 
 const Innova = () => {
-  const title =
-    "Innova uses QuestDB for the big data requirements of Telecommunications providers"
+  const title = "Innova use QuestDB for Türk Telekom's big data requirements"
   const description =
-    "Innova migrated their big data workloads to QuestDB to provide insights on millions of data points to their customers in real-time."
+    "Türk Telekom's big data workloads were migrated to QuestDB to provide insights on millions of data points to their customers in real-time."
 
   return (
-    <PageLayout
-      canonical="/case-study/innova"
+    <Layout
+      canonical="/case-study/turk-telekom"
       description={description}
       title={title}
     >
@@ -31,39 +30,38 @@ const Innova = () => {
       >
         <div className={juCss.jumbotron__summary}>
           <div className={juCss.jumbotron__header}>
-            <Button
-              href="https://www.innova.com.tr/en?utm_source=questdb"
-              variant="plain"
-            >
+            <Button href="https://www.turktelekom.com.tr/en" variant="plain">
               <img
-                alt="Innova logo"
+                alt="Türk Telekom logo"
                 className={juCss.jumbotron__logo}
                 height={56}
-                src="/img/pages/customers/logos/innova.svg"
+                src="/img/pages/customers/logos/turk_telekom.svg"
                 width={140}
               />
             </Button>
             <span className={juCss.jumbotron__name}>Case study</span>
           </div>
-          <h1 className={seCss.section__title}>Innova migrated to QuestDB</h1>
+          <h1 className={seCss.section__title}>
+            QuestDB for high-performance big data workloads
+          </h1>
           <p
             className={clsx(
               seCss.section__subtitle,
               juCss.jumbotron__description,
             )}
           >
-            Innova chose QuestDB as part of their big data solution, which
-            requires writing millions of records while querying a constantly
-            changing data set for real-time analytics.
+            QuestDB is used as part of a big data solution used in
+            Telecommunications, which requires writing millions of records while
+            querying a constantly changing data set for real-time analytics.
           </p>
         </div>
 
         <div className={juCss.jumbotron__banner}>
           <img
-            alt="An illustration showing a person inspecting a chart of data from multiple international locations"
+            alt="The Türk Telekom logo above an illustration of a network graph"
             height={400}
-            src="/img/pages/case-study/innova/illustration.png"
-            width={600}
+            src="/img/pages/case-study/turk-telekom/illustration.png"
+            width={1000}
           />
         </div>
       </section>
@@ -123,14 +121,14 @@ const Innova = () => {
 
       <section className={clsx(seCss.section, caCss.card)}>
         <p className={caCss.card__title}>
-          Innova develops big data solutions for financial transactions, BI
+          We’re developing big data solutions for financial transactions, BI
           systems, IT infrastructure, security, and network operators. Our
           services include real-time analytics of the network infrastructure of
-          the largest Telecommunications provider in Turkey.
+          Türk Telekom, the largest Telecommunications provider in Turkey.
         </p>
 
         <p className={caCss.card__subtitle}>
-          In this case study, we summarize why Innova chose QuestDB, their
+          In this case study, we summarize why the team chose QuestDB, their
           migration experience, and the improvements they gained in query speed,
           maintainability, and compatibility.
         </p>
@@ -144,33 +142,33 @@ const Innova = () => {
             seCss["section--column"],
           )}
         >
-          <h3>Why Innova migrated to QuestDB</h3>
+          <h3>Migrating big data timeseries workloads to QuestDB</h3>
           <p className="font-size--large">
-            Innova found QuestDB because of its requirements to store and
-            analyze massive amounts of data that needs to be served to their
-            customers quickly. The data Innova collects needs to be presented to
-            customers so that it’s easy to understand changes over time. The
-            search for a database that can display this kind of information in a
-            timeline as fast as possible led to QuestDB.
+            We found QuestDB because of our requirements to store and analyze
+            massive amounts of data that needs to be served to users quickly.
+            The data we collect needs to be presented to customers in a way that
+            it’s easy to understand how it changes over time. The search for a
+            database that can display this kind of information in a timeline as
+            fast as possible led to QuestDB.
           </p>
           <p className="font-size--large">
-            Innova’s client is one of the largest telecommunications providers
-            in Turkey, serving internet connections to over 5 million customers.
+            Türk Telekom is one of the largest telecommunications providers in
+            Turkey, serving internet connections to over 5 million customers.
             Infrastructure at this scale uses massive amounts of resources and
-            generates a tremendous volume of data. Innova uses operational data
-            from this provider to show their customers information about their
-            own internet connections, such as the quality of service, download
+            generates a tremendous volume of data. We use operational data from
+            this provider to show their customers information about their own
+            internet connections, such as the quality of service, download
             speed, upload speed, bandwidth, and more.
           </p>
 
-          <h3>How Innova collect and analyze big data with QuestDB</h3>
+          <h3>How we collect and analyze big data with QuestDB</h3>
           <p className="font-size--large">
-            Innova store the bandwidth data of devices in Fiber To The Home
-            (FTTH) topology from collectors, which run on hourly intervals.
-            These collector jobs contain time series for each device in JSON
-            format and based on this metadata, Innova produce visualizations for
-            their customers to have insights into their network quality. For a
-            customer, this means that they have access to charts, tables, and
+            We store the bandwidth data of devices in Fiber To The Home (FTTH)
+            topology from collectors, which run on hourly intervals. These
+            collector jobs contain time series for each device in JSON format
+            and based on this metadata, we produce visualizations for our
+            customers so that they have insights into their network quality. For
+            a customer, this means that they have access to charts, tables, and
             line graphs so they can see the state of their connectivity for the
             last 30 days.
           </p>
@@ -178,26 +176,25 @@ const Innova = () => {
             alt="Chart showing the average transaction duration for QuestDB on a given day"
             className={chCss.chart}
             height={519}
-            src="/img/pages/case-study/innova/chart.png"
+            src="/img/pages/case-study/turk-telekom/chart.png"
             width={842}
           />
-          <h3>Why Innova use a time series database for big data</h3>
+          <h3>Why we use QuestDB for big data</h3>
           <p className="font-size--large">
-            The original stack built by Innova relied on MongoDB to store
-            connectivity information, which was convenient at first. However, it
-            soon became apparent that MongoDB was tightly dependent on physical
-            resources and required more powerful hardware that they were happy
-            with allocating. Moreover, as data sets grew in MongoDB, query
-            speeds degraded below what was acceptable for their customers.
+            The original stack relied on MongoDB to store connectivity
+            information, which was convenient at first. However, it soon became
+            apparent that MongoDB was tightly dependent on physical resources
+            and required more powerful hardware. As data sets grew in MongoDB,
+            query speeds degraded below what was acceptable for our customers.
           </p>
           <p className="font-size--large">
-            For communicating with QuestDB, Innova uses the QuestDB Docker image
-            for running production instances and the REST API to query data for
-            charts and insights. On average, Innova is writing hundreds of
-            millions of records per day while performing calculations on an
-            ever-changing data set. Usually, Innova will keep 30 days of data in
-            QuestDB and delete older partitions when they become less useful for
-            actionable insights.
+            For communicating with QuestDB, we uses the QuestDB Docker image for
+            running production instances and the REST API to query data for
+            charts and insights. On average, we’re writing hundreds of millions
+            of records per day while performing calculations on an ever-changing
+            data set. Usually, we will keep 30 days of data in QuestDB and
+            delete older partitions when they become less useful for actionable
+            insights.
           </p>
           <div
             className={clsx(
@@ -215,12 +212,12 @@ const Innova = () => {
               <span className={caCss.card__quote}>&rdquo;</span>
             </p>
             <p className={caCss.card__title}>
-              <b>Erdem Aydemir, Innova</b>
+              <b>Erdem Aydemir, Innova (Türk Telekom)</b>
             </p>
           </div>
         </div>
       </section>
-    </PageLayout>
+    </Layout>
   )
 }
 

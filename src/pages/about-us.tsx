@@ -8,7 +8,7 @@ import ubCss from "../css/about-us/used-by.module.css"
 import inCss from "../css/about-us/investors.module.css"
 import prCss from "../css/about-us/press.module.css"
 
-import PageLayout from "@theme/PageLayout"
+import Layout from "../theme/Layout"
 import Button from "@theme/Button"
 
 import SvgImage from "../components/SvgImage"
@@ -284,13 +284,13 @@ const AboutUsPage = () => {
   const description = ""
 
   return (
-    <PageLayout canonical="/about-us" description={description} title={title}>
+    <Layout canonical="/about-us" description={description} title={title}>
       <Top />
       <UsedBy />
       <Investors />
       <Team />
       <Press />
-    </PageLayout>
+    </Layout>
   )
 }
 

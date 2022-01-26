@@ -4,7 +4,7 @@ import React from "react"
 
 import MDXComponents from "@theme/MDXComponents"
 import type { Props } from "@theme/MDXPage"
-import PageLayout from "@theme/PageLayout"
+import Layout from "@theme/Layout"
 
 const MDXPage = (props: Props) => {
   const { content: MDXPageContent } = props
@@ -13,7 +13,7 @@ const MDXPage = (props: Props) => {
   const { permalink } = metadata
 
   return (
-    <PageLayout
+    <Layout
       title={title}
       description={description}
       permalink={permalink}
@@ -26,7 +26,7 @@ const MDXPage = (props: Props) => {
           </MDXProvider>
         </div>
       </main>
-    </PageLayout>
+    </Layout>
   )
 }
 

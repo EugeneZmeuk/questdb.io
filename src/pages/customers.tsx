@@ -4,7 +4,7 @@ import { CSSTransition, TransitionGroup } from "react-transition-group"
 
 import Button from "@theme/Button"
 import Chevron from "@theme/Chevron"
-import PageLayout from "@theme/PageLayout"
+import Layout from "../theme/Layout"
 import useResizeObserver from "@theme/useResizeObserver"
 
 import caCss from "../css/customers/card.module.css"
@@ -99,7 +99,7 @@ const Customer = () => {
     setIndex((index) => Math.max(index - viewportSize, 0))
   }, [viewportSize])
   return (
-    <PageLayout canonical="/customers" description={description} title={title}>
+    <Layout canonical="/customers" description={description} title={title}>
       <section className={clsx(seCss.section, seCss["section--odd"])}>
         <div className={juCss.jumbotron}>
           <div className={juCss.jumbotron__left}>
@@ -281,33 +281,31 @@ const Customer = () => {
         <div className={caCss.card}>
           <p className={caCss.card__summary}>
             <img
-              alt="Innova logo"
+              alt="Türk Telekom logo"
               className={caCss.card__logo}
               height={50}
-              src="/img/pages/customers/cards/innova.svg"
+              src="/img/pages/customers/logos/turk_telekom.svg"
               width={140}
             />
             “QuestDB allows us to query data while writing millions of records.
             It is an excellent database for time series analysis, calculation of
             aggregates and can efficiently store our data.”
             <em className={caCss.card__author}>
-              - <strong>Erdem Aydemir</strong>, Innova
+              - <strong>Erdem Aydemir</strong>, Innova (Türk Telekom)
             </em>
-            <Button className={caCss.card__cta} to="/case-study/innova/">
+            <Button className={caCss.card__cta} to="/case-study/turk-telekom/">
               View full case study
             </Button>
           </p>
           <div className={caCss.card__illustration}>
             <img
               alt="An illustration of a digital landscape"
-              height={360}
-              src="/img/pages/case-study/innova/summary.png"
-              width={640}
+              src="/img/pages/case-study/turk-telekom/card.png"
             />
           </div>
         </div>
       </section>
-    </PageLayout>
+    </Layout>
   )
 }
 

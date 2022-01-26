@@ -40,7 +40,6 @@
       "@theme/CareerEmailUs": ["src/theme/CareerEmailUs"],
       "@theme/Input": ["src/theme/Input"],
       "@theme/DocSidebar": ["src/theme/DocSidebar"],
-      "@theme/PageLayout": ["src/theme/PageLayout"],
       "@theme/Screenshot": ["src/theme/Screenshot"],
       "@theme/TutorialListPage": ["src/theme/TutorialListPage"],
       "@theme/TutorialPostItem": ["src/theme/TutorialPostItem"],

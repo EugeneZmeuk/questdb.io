@@ -5,7 +5,7 @@ import React, { ReactNode, useEffect, useState } from "react"
 
 import Button from "@theme/Button"
 import CodeBlock from "@theme/CodeBlock"
-import PageLayout from "@theme/PageLayout"
+import Layout from "../theme/Layout"
 
 import biCss from "../css/get-questdb/binary.module.css"
 import chCss from "../css/get-questdb/changelog.module.css"
@@ -237,11 +237,7 @@ brew install questdb`}
   }, [])
 
   return (
-    <PageLayout
-      canonical="/get-questdb"
-      description={description}
-      title={title}
-    >
+    <Layout canonical="/get-questdb" description={description} title={title}>
       <section
         className={clsx(seCss["section--inner"], seCss["section--accent"])}
       >
@@ -490,7 +486,7 @@ helm install my-questdb questdb/questdb --version ${customFields.helmVersion}`}
           </p>
         </div>
       </div>
-    </PageLayout>
+    </Layout>
   )
 }
 

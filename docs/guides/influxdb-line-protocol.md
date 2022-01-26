@@ -99,8 +99,11 @@ ilp_line = (
 
 Note the **space** character after `id=9876` to separate symbols from other
 columns as well as the **space** character after `liquidity=f` to separate the
-designated timestamp value. Given the Python example above, QuestDB will create
-the table `spot_trade` with column types, names and values as:
+designated timestamp value. Also note the importance of **quotes** around string
+values.
+
+Given the Python example above, QuestDB will create the table `spot_trade` with
+column types, names and values as:
 
 | Column Name | Type                 | Value               | ILP equivalent              |
 | ----------- | -------------------- | ------------------- | --------------------------- |
@@ -146,9 +149,13 @@ For details on the available data types in QuestDB, see the
 ## Table schema
 
 It is not necessary to create a table schema for messages passed via InfluxDB
-line protocol. A table will be dynamically created if one does not exist. If new
-columns are, the table is automatically updated and the new column will be
-back-propagated with null values.
+line protocol. A table will be dynamically created if one does not exist. If
+later new fields are introduced on the messages, the table is automatically
+updated and the new column will be back-propagated with null values. New fields
+can be added in both the symbol and columns sections of the message.
+
+Note that if a string value is added in the columns section without quotes the
+line will not be rejected, instead a symbol field will be created.
 
 :::info
 
@@ -159,11 +166,11 @@ General hints for table and schema design can be found in the
 
 When new tables are created by inserting records via InfluxDB line protocol, a
 default [partitioning strategy](/docs/concept/partitions/) by `DAY` is applied.
-This default can be overridden using `line.tcp.default.partition.by` via
+This default can be overridden for both the TCP and UDP interfaces via
 [server configuration](/docs/reference/configuration/):
 
 ```bash title="server.conf"
-line.tcp.default.partition.by=MONTH
+line.default.partition.by=MONTH
 ```
 
 ## Naming restrictions
@@ -195,29 +202,69 @@ _
 
 If QuestDB receives an invalid message, it will discard invalid lines and
 produce an error message in the logs but there is no mechanism built-in to the
-protocol to notify the sender. Data may be discarded because of:
+protocol to notify the sender.
 
-- an invalid data format such as unescaped special characters or missing new
-  line characters
+Data may be discarded because of:
+
+- missing new line characters
+- an invalid data format such as unescaped special characters
 - invalid column / table name characters
 - schema mismatch with existing tables
 - message size overflows input buffer
 - system errors such as no space left on the disk
 
+The following is tolerated by QuestDB:
+
+- a column is specified twice or more on the same line, QuestDB will pick the
+  first occurrence and ignore the rest
+- missing columns, their value will be defaulted to `null`/`0.0`/`false`
+  depending on the type of the column
+- missing designated timestamp, the current server time will be used to generate
+  the timestamp
+- the timestamp is specified as a column instead of appending it to the end of
+  the line
+- timestamp appears as a column and also present at the end of the line, the
+  value sent as a field will be used
+
 ## Automatic commit
 
-InfluxDB line protocol does not commit data every line or when a sender
+InfluxDB line protocol does not commit data on single lines or when the sender
 disconnects, but instead uses a number of rules to break incoming data into
 commit batches. This results in data not being visible in `SELECT` queries
-immediately after being received. The default behavior is to commit when
-uncommited row count exceeds configured parameter `maxUncommittedRows` for the
-table of when no data received for the table for `30s`.
+immediately after being received.
 
-Changing the `maxUncommittedRows` parameter is described in more details in
-[per-table commit lag and maximum uncommitted rows](/docs/guides/out-of-order-commit-lag/#per-table-commit-lag-and-maximum-uncommitted-rows).
-The `30s` default commit interval can be configured in `server.conf` using the
-`line.tcp.maintenance.job.interval` parameter, see more at the documentation for
-[ILP Commit Strategy](/docs/reference/api/influxdb/#commit-strategy-1).
+### TCP interface
+
+The default behavior is to issue a commit on a table when the number of pending
+rows exceeds a configured parameter `cairo.max.uncommitted.rows` for that table
+or when the table stays inactive for a configurable interval, this property is
+called `line.tcp.commit.timeout`. There is a maintenance job which frees up
+resources assigned to inactive tables. This job will commit any pending rows
+before freeing up resources. The maintenance interval (30 seconds by default) is
+configured in the `line.tcp.maintenance.job.interval` property. The commit
+timeout should be set to a lower value (1 second by default) so a commit
+strategy should not rely on the maintenance job.
+
+Changing the `cairo.max.uncommitted.rows` parameter is described in more details
+in per-table
+[commit lag and max uncommitted rows](/docs/guides/out-of-order-commit-lag/#per-table-commit-lag-and-maximum-uncommitted-rows).
+The commit timeout and maintenance job interval can also be configured in
+`server.conf` using the `line.tcp.commit.timeout` and
+`line.tcp.maintenance.job.interval` parameters, see more at the documentation
+for [ILP TCP Commit Strategy](/docs/reference/api/influxdb/#commit-strategy).
+
+### UDP interface
+
+The UDP receiver issues a commit when the number of pending rows exceeds a
+configured parameter `line.udp.commit.rate` or when it has idle time, i.e.
+ingestion slows down or completely stops. The commit rate is not per table, it
+set for the UDP interface. All lines ingested via UDP are considered when
+checking against the commit rate. Commit issued to all tables received rows via
+UDP at the same time.
+
+The commit rate can be configured in `server.conf` using the
+`line.udp.commit.rate` parameter, see more at the documentation for
+[ILP UDP Commit Strategy](/docs/reference/api/influxdb/#commit-strategy-1).
 
 ## Differences with InfluxDB
 

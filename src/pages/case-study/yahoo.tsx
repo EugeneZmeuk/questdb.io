@@ -2,7 +2,7 @@ import clsx from "clsx"
 import React from "react"
 
 import Button from "@theme/Button"
-import PageLayout from "@theme/PageLayout"
+import Layout from "../../theme/Layout"
 
 import caCss from "../../css/case-study/card.module.css"
 import juCss from "../../css/case-study/jumbotron.module.css"
@@ -16,7 +16,7 @@ const Yahoo = () => {
     "QuestDB is used as a time series database to store resource utilization metrics within a machine learning engine within systems serving over a billion users."
 
   return (
-    <PageLayout
+    <Layout
       canonical="/case-study/yahoo/"
       description={description}
       title={title}
@@ -262,7 +262,7 @@ const Yahoo = () => {
           </div>
         </div>
       </section>
-    </PageLayout>
+    </Layout>
   )
 }
 

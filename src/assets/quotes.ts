@@ -142,9 +142,9 @@ const quotes: Quote[] = [
     company: "Toggle",
   },
   {
-    website: "https://www.innova.com.tr/en/about-us/about-innova",
+    website: "https://www.turktelekom.com.tr/en",
     logo: {
-      alt: "Innova logo",
+      alt: "Türk Telekom logo",
       src: "/img/pages/customers/logos/turk_telekom.svg",
       height: 56,
       width: 140,
@@ -153,7 +153,7 @@ const quotes: Quote[] = [
       "QuestDB allows us to query data while writing millions of records. It is an excellent database for time series analysis and can efficiently store our data. QuestDB’s community is constantly growing and its popularity is on the rise.",
     author: "Erdem Aydemir",
     role: "Software Engineer",
-    company: "Türk Telekom",
+    company: "Innova (Türk Telekom)",
   },
   {
     website: "https://www.samtec.com/",

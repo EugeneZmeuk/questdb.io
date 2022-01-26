@@ -10,7 +10,7 @@ import type { Props } from "@theme/DocPage"
 import DocSidebar from "@theme/DocSidebar"
 import MDXComponents from "@theme/MDXComponents"
 import NotFound from "@theme/NotFound"
-import PageLayout from "@theme/PageLayout"
+import Layout from "@theme/Layout"
 
 import styles from "./styles.module.css"
 
@@ -74,7 +74,7 @@ const DocPage = ({
   const sidebar = sidebarName != null ? docsSidebars[sidebarName] : []
 
   return (
-    <PageLayout
+    <Layout
       description={customFields.description}
       key={isClient.toString()}
       title="Introduction"
@@ -134,7 +134,7 @@ const DocPage = ({
           </div>
         </main>
       </div>
-    </PageLayout>
+    </Layout>
   )
 }
 

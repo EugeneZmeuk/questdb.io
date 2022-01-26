@@ -2,7 +2,7 @@ import React from "react"
 import clsx from "clsx"
 
 import Button from "@theme/Button"
-import PageLayout from "@theme/PageLayout"
+import Layout from "../Layout"
 import TutorialPostItem from "@theme/TutorialPostItem"
 
 import seCss from "../../css/section.module.css"
@@ -53,7 +53,7 @@ function TutorialListPage(props: Props) {
     "Content from the QuestDB team and community contributors for learning about time series analytics, visualization, integrations, and example applications using QuestDB."
 
   return (
-    <PageLayout
+    <Layout
       canonical="/tutorial"
       description={description}
       title="Tutorials and community resources for working with time series data"
@@ -115,7 +115,7 @@ function TutorialListPage(props: Props) {
           </main>
         </div>
       </div>
-    </PageLayout>
+    </Layout>
   )
 }
 

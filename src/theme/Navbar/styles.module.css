@@ -82,7 +82,7 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 750px) {
   .getQuestdb {
     margin-left: 0.75rem;
     padding: 0.5rem;
@@ -106,17 +106,7 @@
   }
 }
 
-@media (max-width: 996px) and (min-width: 768px) {
-  .getQuestdb {
-    margin-left: 1.7rem;
-  }
-}
-
 @media (max-width: 996px) {
-  :global(.navbar-sidebar) .brand {
-    margin-left: 1.5rem;
-  }
-
   :global(.navbar__item.navbar__item--slack),
   :global(.navbar__item.navbar__item--github) {
     display: none;
@@ -126,11 +116,14 @@
   }
 }
 
-@media (max-width: 1150px) and (min-width: 996px) {
-  .getQuestdb {
-    margin-left: 1.7rem;
+/* prevent navbar right side to climb up on the left side, by shrinking the search bar */
+@media (min-width: 997px) and (max-width: 1027px), (min-width: 1201px) and (max-width: 1300px) {
+  :global(.DocSearch-Button-Keys) {
+    display: none;
   }
+}
 
+@media (min-width: 996px) and (max-width: 1200px) {
   :global(.navbar__link) {
     --ifm-navbar-item-padding-horizontal: 0.85rem;
   }
@@ -152,3 +145,4 @@
     max-width: calc(var(--ifm-container-width) + 100px);
   }
 }
+

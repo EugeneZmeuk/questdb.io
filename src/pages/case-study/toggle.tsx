@@ -2,7 +2,7 @@ import clsx from "clsx"
 import React from "react"
 
 import Button from "@theme/Button"
-import PageLayout from "@theme/PageLayout"
+import Layout from "../../theme/Layout"
 
 import caCss from "../../css/case-study/card.module.css"
 import chCss from "../../css/case-study/chart.module.css"
@@ -16,7 +16,7 @@ const Toggle = () => {
     "Toggle switched from InfluxDB to QuestDB and benefited from faster queries, massive cost reduction, and performance improvements on ingestion."
 
   return (
-    <PageLayout
+    <Layout
       canonical="/case-study/toggle"
       description={description}
       title={title}
@@ -242,7 +242,7 @@ const Toggle = () => {
           </div>
         </div>
       </section>
-    </PageLayout>
+    </Layout>
   )
 }
 

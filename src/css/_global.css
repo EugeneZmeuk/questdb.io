@@ -313,37 +313,6 @@ body {
 
 /**
  *
- * Scrollbars
- *
- **/
-
-/* Firefox */
-* {
-  scrollbar-color: var(--palette-pale-blue) var(--palette-gray);
-  scrollbar-width: thin;
-}
-
-/* WebKit / Blink */
-::-webkit-scrollbar {
-  width: 7px !important;
-  height: 7px !important;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--palette-gray) !important;
-}
-
-::-webkit-scrollbar-thumb {
-  border-radius: 0 !important;
-  background: var(--palette-pale-blue) !important;
-}
-
-::-webkit-scrollbar-corner {
-  background: var(--palette-gray) !important;
-}
-
-/**
- *
  * Utils
  *
  **/

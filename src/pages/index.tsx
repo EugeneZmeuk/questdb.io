@@ -7,7 +7,7 @@ import customFields from "../config/customFields"
 
 import Button from "@theme/Button"
 import Chevron from "@theme/Chevron"
-import PageLayout from "@theme/PageLayout"
+import Layout from "../theme/Layout"
 import useWindowWidth from "@theme/useWindowWidth"
 import SvgImage from "../components/SvgImage"
 
@@ -724,7 +724,7 @@ const Home = () => {
   const title = "QuestDB | Time series data, faster"
 
   return (
-    <PageLayout
+    <Layout
       canonical=""
       description={customFields.description}
       title={title}
@@ -738,7 +738,7 @@ const Home = () => {
       <QueryScroller />
       <Cards />
       <Console />
-    </PageLayout>
+    </Layout>
   )
 }
 

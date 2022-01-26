@@ -1,6 +1,6 @@
 import React from "react"
 import clsx from "clsx"
-import PageLayout from "@theme/PageLayout"
+import Layout from "../theme/Layout"
 import Button from "@theme/Button"
 import seCss from "../css/section.module.css"
 import paCss from "../css/community/page.module.css"
@@ -84,7 +84,7 @@ const Community = () => {
     "Get involved with the developer community that's building the fastest open-source time series database."
 
   return (
-    <PageLayout canonical="/community" description={description} title={title}>
+    <Layout canonical="/community" description={description} title={title}>
       <section className={clsx(seCss.section)}>
         <h1
           className={clsx(
@@ -350,7 +350,7 @@ const Community = () => {
           </div>
         </div>
       </section>
-    </PageLayout>
+    </Layout>
   )
 }
 

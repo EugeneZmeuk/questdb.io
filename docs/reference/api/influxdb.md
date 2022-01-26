@@ -132,10 +132,14 @@ busiest worker thread will be reassigned to the least busy worker thread.
 
 ### Commit strategy
 
-Uncommitted rows are committed either:
+Uncommitted rows are committed:
 
-- after `line.tcp.maintenance.job.interval` milliseconds have passed
-- once reaching `cairo.max.uncommitted.rows` uncommitted rows.
+- once reaching `cairo.max.uncommitted.rows` pending rows or
+- after `line.tcp.commit.timeout` milliseconds inactivity (i.e. no inserts into
+  the table) or
+- after `line.tcp.maintenance.job.interval` milliseconds have passed (but in
+  practice this value is expected to be set much higher than the commit
+  timeout).
 
 ### Configuration
 
@@ -170,9 +174,10 @@ QuestDB to listen for `unicast`.
 
 Uncommitted rows are committed either:
 
-- after `line.tcp.maintenance.job.interval` milliseconds have passed
 - after receiving a number of continuous messages equal to
-  `line.udp.commit.rate` or `cairo.max.uncommitted.rows` whichever is smaller.
+  `line.udp.commit.rate` or
+- when UDP receiver has idle time, i.e. ingestion slows down or completely
+  stops.
 
 ### Configuration
 

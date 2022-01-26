@@ -2,7 +2,7 @@ import clsx from "clsx"
 import React, { useCallback, useRef } from "react"
 
 import Button from "@theme/Button"
-import PageLayout from "@theme/PageLayout"
+import Layout from "../theme/Layout"
 
 import caCss from "../css/careers/card.module.css"
 import joCss from "../css/careers/job.module.css"
@@ -19,7 +19,7 @@ const CareersPage = () => {
   }, [titleRef])
 
   return (
-    <PageLayout canonical="/careers" description={description} title={title}>
+    <Layout canonical="/careers" description={description} title={title}>
       <section
         className={clsx(seCss["section--inner"], seCss["section--center"])}
       >
@@ -240,7 +240,7 @@ const CareersPage = () => {
           </div>
         </div>
       </section>
-    </PageLayout>
+    </Layout>
   )
 }
 

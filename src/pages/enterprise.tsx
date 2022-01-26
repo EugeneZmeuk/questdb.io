@@ -5,7 +5,7 @@ import { CSSTransition, TransitionGroup } from "react-transition-group"
 import Button from "@theme/Button"
 import Chevron from "@theme/Chevron"
 import Input from "@theme/Input"
-import PageLayout from "@theme/PageLayout"
+import Layout from "../theme/Layout"
 import useResizeObserver from "@theme/useResizeObserver"
 
 import clCss from "../css/enterprise/cloud.module.css"
@@ -131,7 +131,7 @@ const Enterprise = () => {
   }, [viewportSize])
 
   return (
-    <PageLayout canonical="/enterprise" description={description} title={title}>
+    <Layout canonical="/enterprise" description={description} title={title}>
       <section className={seCss["section--inner"]}>
         <div className={seCss.section__header}>
           <h1
@@ -429,7 +429,7 @@ const Enterprise = () => {
           </div>
         </div>
       </section>
-    </PageLayout>
+    </Layout>
   )
 }
 
