@@ -39,8 +39,8 @@ export const logos: CustomerLogo[] = [
     height: 56,
   },
   {
-    src: "/img/pages/customers/logos/datron.svg",
-    alt: "DATRON logo",
+    src: "/img/pages/customers/logos/tqs.svg",
+    alt: "TQS Integration logo",
     width: 140,
     height: 56,
   },
