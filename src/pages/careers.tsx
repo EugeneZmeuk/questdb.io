@@ -9,6 +9,44 @@ import joCss from "../css/careers/job.module.css"
 import liCss from "../css/careers/list.module.css"
 import seCss from "../css/section.module.css"
 
+type Opening = {
+  href: string
+  title: string
+  location: string
+}
+
+const currentOpenings: Opening[] = [
+  {
+    href: "core-database-engineer/",
+    title: "Core Database Engineers",
+    location: "Remote",
+  },
+
+  {
+    href: "developer-relations-engineer/",
+    title: "Developer Relations Engineers",
+    location: "Remote",
+  },
+
+  {
+    href: "senior-backend-engineer-python/",
+    title: "Backend Engineers (Python)",
+    location: "Remote",
+  },
+
+  {
+    href: "senior-cloud-engineer/",
+    title: "Cloud Engineers",
+    location: "Remote",
+  },
+
+  {
+    href: "technical-content-writer/",
+    title: "Technical Content Writers",
+    location: "Remote",
+  },
+]
+
 const CareersPage = () => {
   const title = "Careers at QuestDB"
   const description =
@@ -49,6 +87,7 @@ const CareersPage = () => {
             />
           </div>
         </div>
+
         <div className={clsx(caCss.card, caCss["card--reverse"])}>
           <div
             className={clsx(
@@ -92,108 +131,33 @@ const CareersPage = () => {
             </ul>
           </div>
         </div>
+
         <div className={caCss.card}>
           <div className={caCss.card__side}>
             <h2 className={caCss.card__title} ref={titleRef}>
               Current openings
             </h2>
           </div>
+
           <div className={clsx(caCss.card__side, caCss["card__side--center"])}>
-            <a className={joCss.job} href="core-database-engineer/">
-              <h3 className={joCss.job__title}>Core Database Engineers</h3>
-              <p className={joCss.job__location}>Remote</p>
-              <span className={joCss.job__cta}>
-                Details&nbsp;
-                <img
-                  alt="Right arrow"
-                  height={20}
-                  src="/img/pages/careers/arrowRight.svg"
-                  width={20}
-                />
-              </span>
-            </a>
-            <a className={joCss.job} href="developer-in-test/">
-              <h3 className={joCss.job__title}>Developers in Test</h3>
-              <p className={joCss.job__location}>Remote</p>
-              <span className={joCss.job__cta}>
-                Details&nbsp;
-                <img
-                  alt="Right arrow"
-                  height={20}
-                  src="/img/pages/careers/arrowRight.svg"
-                  width={20}
-                />
-              </span>
-            </a>
-            <a className={joCss.job} href="developer-relations-engineer/">
-              <h3 className={joCss.job__title}>
-                Developer Relations Engineers
-              </h3>
-              <p className={joCss.job__location}>Remote</p>
-              <span className={joCss.job__cta}>
-                Details&nbsp;
-                <img
-                  alt="Right arrow"
-                  height={20}
-                  src="/img/pages/careers/arrowRight.svg"
-                  width={20}
-                />
-              </span>
-            </a>
-            <a className={joCss.job} href="senior-backend-engineer-python/">
-              <h3 className={joCss.job__title}>Backend Engineers (Python)</h3>
-              <p className={joCss.job__location}>Remote</p>
-              <span className={joCss.job__cta}>
-                Details&nbsp;
-                <img
-                  alt="Right arrow"
-                  height={20}
-                  src="/img/pages/careers/arrowRight.svg"
-                  width={20}
-                />
-              </span>
-            </a>
-            <a className={joCss.job} href="senior-cloud-engineer/">
-              <h3 className={joCss.job__title}>Cloud Engineers</h3>
-              <p className={joCss.job__location}>Remote</p>
-              <span className={joCss.job__cta}>
-                Details&nbsp;
-                <img
-                  alt="Right arrow"
-                  height={20}
-                  src="/img/pages/careers/arrowRight.svg"
-                  width={20}
-                />
-              </span>
-            </a>
-            <a className={joCss.job} href="people-and-talent-acquisition/">
-              <h3 className={joCss.job__title}>People & Talent Acquisition</h3>
-              <p className={joCss.job__location}>Remote</p>
-              <span className={joCss.job__cta}>
-                Details&nbsp;
-                <img
-                  alt="Right arrow"
-                  height={20}
-                  src="/img/pages/careers/arrowRight.svg"
-                  width={20}
-                />
-              </span>
-            </a>
-            <a className={joCss.job} href="technical-content-writer/">
-              <h3 className={joCss.job__title}>Technical Content Writers</h3>
-              <p className={joCss.job__location}>Remote</p>
-              <span className={joCss.job__cta}>
-                Details&nbsp;
-                <img
-                  alt="Right arrow"
-                  height={20}
-                  src="/img/pages/careers/arrowRight.svg"
-                  width={20}
-                />
-              </span>
-            </a>
+            {currentOpenings.map(({ href, title, location }) => (
+              <a key={href} className={joCss.job} href={href}>
+                <h3 className={joCss.job__title}>{title}</h3>
+                <p className={joCss.job__location}>{location}</p>
+                <span className={joCss.job__cta}>
+                  Details&nbsp;
+                  <img
+                    alt="Right arrow"
+                    height={20}
+                    src="/img/pages/careers/arrowRight.svg"
+                    width={20}
+                  />
+                </span>
+              </a>
+            ))}
           </div>
         </div>
+
         <div className={clsx(caCss.card, caCss["card--reverse"])}>
           <div
             className={clsx(
