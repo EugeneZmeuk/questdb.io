@@ -527,7 +527,7 @@ gcc libpq_example.c -o run_example.c -I pgsql/include -L /usr/local/Cellar/postg
 This example uses the [psycopg2](https://github.com/psycopg/psycopg2) database
 adapter which does not support prepared statements (bind variables). This
 functionality is on the roadmap for the antecedent
-[psychopg3](https://github.com/psycopg/psycopg3/projects/1) adapter.
+[psycopg3](https://github.com/psycopg/psycopg3/projects/1) adapter.
 
 ```python
 import psycopg2 as pg

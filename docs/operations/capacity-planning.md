@@ -103,6 +103,14 @@ exceed the limit for that particular type, savings on disk space can be made.
 | short | 16 bits           | -32768 to 32767           |
 | int   | 32 bits           | -2147483648 to 2147483647 |
 
+
+## InfluxDB line protocol (ILP)
+
+Details on optimizing ingestion via InfluxDB line protocol is covered in the
+ingestion optimization sections of the reference documentation for
+[ILP over TCP](/docs/reference/api/influxdb/#tcp-ingestion-optimization) and
+[ILP over UDP](/docs/reference/api/influxdb/#udp-ingestion-optimization).
+
 ## CPU configuration
 
 In QuestDB, there are worker pools which can help separate CPU-load between
@@ -181,72 +189,6 @@ multiple of OS page sizes:
 
 ```bash title="server.conf"
 cairo.sql.append.page.size=1
-```
-
-### InfluxDB over TCP
-
-This section describes methods for optimizing ingestion of InfluxDB line
-protocol messages over TCP. For all configuration settings available for this
-subsystem, see the [InfluxDB line over TCP](#influxdb-line-protocol-tcp)
-configuration reference.
-
-#### Message length
-
-When the message length is known, a starting point for optimization on ingestion
-is setting maximum measurement sizes and specifying buffer size for processing
-records:
-
-```bash title="server.conf"
-# max line length for measurements
-line.tcp.max.measurement.size=2048
-# buffer size to process messages at one time, cannot be less than measurement size
-line.tcp.msg.buffer.size=2048
-```
-
-#### CPU affinity
-
-Given a single client sending data to QuestDB via InfluxDB line protocol over
-TCP, the following configuration can be applied which sets a dedicated worker
-and pins it with `affinity` to a CPU by core ID:
-
-```bash title="server.conf"
-line.tcp.worker.count=1
-line.tcp.worker.affinity=1
-```
-
-Given two clients writing over TCP, multiple worker threads can be pinned to CPU
-cores by a comma-separated list of CPUs by core ID:
-
-```bash title="server.conf"
-line.tcp.worker.count=2
-line.tcp.worker.affinity=1,2
-```
-
-#### Committing records
-
-These two configuration settings are relevant for maintenance jobs which commit
-uncommitted records to tables. This maintenance of committing records will occur
-if either:
-
-- the max number of uncommitted rows is hit (default of `1000`) or
-- when the maintenance job interval is reached
-
-```bash title="server.conf"
-# commit when this number of uncommitted records is reached
-cairo.max.uncommitted.rows=1000
-# commit uncommitted rows when this timer is reached
-line.tcp.maintenance.job.interval=1000
-```
-
-### InfluxDB over UDP
-
-Given a single client sending data to QuestDB via InfluxDB line protocol over
-UDP, the following configuration can be applied which dedicates a thread for a
-UDP writer and specifies a CPU core by ID:
-
-```bash title="server.conf"
-line.udp.own.thread=true
-line.udp.own.thread.affinity=1
 ```
 
 ### Postgres

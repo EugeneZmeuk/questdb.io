@@ -52,19 +52,6 @@ creates a new row in the `sensors` table with the following contents:
 
 ### Data types
 
-#### Strings
-
-If field values are passed string types, the field values must be double-quoted.
-Special characters are supported without escaping:
-
-```shell
-sensors,location=london temperature=22,software_version="A.B C-123"
-sensors,location=london temperature=22,software_version="SV .#_123"
-```
-
-For string types in QuestDB, the storage is allocated as `32+n*16` bits where
-`n` is the string length with a maximum value of `0x7fffffff`.
-
 #### Symbols
 
 QuestDB introduces a `symbol` type which is used for storing repetitive
@@ -83,10 +70,29 @@ be skipped:
 sensors temperature=22,software_version="ABC-1234"
 ```
 
-The `SYMBOL` type is deigned to store metadata-like enums which are used for
-filtering data. It's strongly recommended to avoid sending values such as
-`floats` in ILP messages as `SYMBOL`; this leads to unnecessary performance
-impact due to indexing a large number of unique values on disk.
+:::info
+
+The `symbol` type is deigned to store enum-like metadata for filtering large
+data sets. It's strongly recommended to avoid using `symbol` where other column
+types are more efficient. Specifically, `float` and `string` values which are
+likely to contain unique values per record should not be stored as `symbol`;
+doing so leads to performance impact on ingestion and query speed due to the
+large number of unique values on this column.
+
+:::
+
+#### Strings
+
+If field values are passed string types, the field values must be double-quoted.
+Special characters are supported without escaping:
+
+```shell
+sensors,location=london temperature=22,software_version="A.B C-123"
+sensors,location=london temperature=22,software_version="SV .#_123"
+```
+
+For string types in QuestDB, the storage is allocated as `32+n*16` bits where
+`n` is the string length with a maximum value of `0x7fffffff`.
 
 #### Numeric
 
@@ -195,14 +201,21 @@ protocol to notify the sender.
 
 Data may be discarded because of:
 
-- missing new line characters
+- missing new line characters at the end of messages
 - an invalid data format such as unescaped special characters
 - invalid column / table name characters
 - schema mismatch with existing tables
-- message size overflows input buffer
+- message size overflows on the input buffer
 - system errors such as no space left on the disk
 
-The following is tolerated by QuestDB:
+Detecting malformed input can be achieved through QuestDB logs by searching for
+`LineTcpMeasurementScheduler` and `LineTcpConnectionContext`, for example:
+
+```bash
+2022-02-03T11:01:51.007235Z I i.q.c.l.t.LineTcpMeasurementScheduler could not create table [tableName=trades, ex=`column name contains invalid characters [colName=trade_%]`, errno=0]
+```
+
+The following input is tolerated by QuestDB:
 
 - a column is specified twice or more on the same line, QuestDB will pick the
   first occurrence and ignore the rest
@@ -315,41 +328,58 @@ JSON Web Token (JWT) to sign a server challenge. Details of authentication over
 ILP can be found in the
 [authentication documentation](/docs/develop/authenticate/)
 
-### Load balancing
+### TCP ingestion optimization
 
-A load balancing job reassigns work between threads in order to relieve the
-busiest threads and maintain high ingestion speed. It can be triggered in two
-ways.
+This section describes methods for optimizing ingestion via InfluxDB line
+protocol over TCP with CPU configuration, commit, and server properties.
 
-- After a certain number of updates per table
-- After a certain amount of time has passed
+#### Message length
 
-Once either is met, QuestDB will calculate a load ratio as the number of writes
-by the busiest thread divided by the number of writes in the least busy thread.
-If this ratio is above the threshold, the table with the least writes in the
-busiest worker thread will be reassigned to the least busy worker thread.
+When the message length is known, a starting point for optimization on ingestion
+is setting maximum measurement sizes and specifying buffer size for processing
+records:
 
-![InfluxDB line protocol load balancing diagram](/img/docs/diagrams/influxLineProtocolTCPLoadBalancing.svg)
+```bash title="server.conf"
+# max line length for measurements
+line.tcp.max.measurement.size=2048
+# buffer size to process messages at one time, cannot be less than measurement size
+line.tcp.msg.buffer.size=2048
+```
 
-### TCP commit strategy
+#### CPU affinity
 
-The default behavior is to issue a commit on a table when the number of pending
-rows exceeds a configured parameter `cairo.max.uncommitted.rows` for that table
-or when the table stays inactive for a configurable interval, this property is
-called `line.tcp.commit.timeout`. There is a maintenance job which frees up
-resources assigned to inactive tables. This job will commit any pending rows
-before freeing up resources. The maintenance interval (30 seconds by default) is
-configured in the `line.tcp.maintenance.job.interval` property. The commit
-timeout should be set to a lower value (1 second by default) so a commit
-strategy should not rely on the maintenance job.
+Given a single client sending data to QuestDB via InfluxDB line protocol over
+TCP, the following configuration can be applied which sets a dedicated worker
+and pins it with `affinity` to a CPU by core ID:
 
-Changing the `cairo.max.uncommitted.rows` parameter is described in more details
-in per-table
-[commit lag and max uncommitted rows](/docs/guides/out-of-order-commit-lag/#per-table-commit-lag-and-maximum-uncommitted-rows).
-The commit timeout and maintenance job interval can also be configured in
-`server.conf` using the `line.tcp.commit.timeout` and
-`line.tcp.maintenance.job.interval` parameters, see more at the documentation
-for [ILP TCP Commit Strategy](/docs/reference/api/influxdb/#commit-strategy).
+```bash title="server.conf"
+line.tcp.worker.count=1
+line.tcp.worker.affinity=1
+```
+
+Given two clients writing over TCP, multiple worker threads can be pinned to CPU
+cores by a comma-separated list of CPUs by core ID:
+
+```bash title="server.conf"
+line.tcp.worker.count=2
+line.tcp.worker.affinity=1,2
+```
+
+#### Committing records
+
+These two configuration settings are relevant for maintenance jobs which commit
+uncommitted records to tables. This maintenance of committing records will occur
+if either:
+
+- the max number of uncommitted rows is hit (default of `1000`) or
+- when the maintenance job interval is reached
+
+```bash title="server.conf"
+# commit when this number of uncommitted records is reached
+cairo.max.uncommitted.rows=1000
+# commit uncommitted rows when this timer is reached
+line.tcp.maintenance.job.interval=1000
+```
 
 ### Examples
 
@@ -376,7 +406,23 @@ to configure the IP address and port the receiver binds to, commit rates, buffer
 size, whether it should run on a separate thread, set QuestDB to listen for
 `unicast` etc.
 
-### UDP commit strategy
+### UDP ingestion optimization
+
+This section describes methods for optimizing ingestion via InfluxDB line
+protocol over UDP with CPU configuration, commit, and server properties.
+
+#### CPU affinity
+
+Given a single client sending data to QuestDB via InfluxDB line protocol over
+UDP, the following configuration can be applied which dedicates a thread for a
+UDP writer and specifies a CPU core by ID:
+
+```bash title="server.conf"
+line.udp.own.thread=true
+line.udp.own.thread.affinity=1
+```
+
+#### Committing records
 
 The UDP receiver issues a commit when the number of pending rows exceeds a
 configured parameter `line.udp.commit.rate` or when it has idle time, i.e.
@@ -386,8 +432,7 @@ checking against the commit rate. Commit issued to all tables received rows via
 UDP at the same time.
 
 The commit rate can be configured in `server.conf` using the
-`line.udp.commit.rate` parameter, see more at the documentation for
-[ILP UDP Commit Strategy](/docs/reference/api/influxdb/#commit-strategy-1).
+`line.udp.commit.rate` parameter.
 
 ### Examples
 
