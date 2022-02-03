@@ -6,9 +6,9 @@ description:
   as the InfluxDB integration.
 ---
 
-import CodeBlock from "@theme/CodeBlock"
-import InterpolateReleaseData from "../../src/components/InterpolateReleaseData"
-import InsertDataJava from "../../src/components/InsertDataJava"
+import CodeBlock from "@theme/CodeBlock"; import InterpolateReleaseData from
+"../../src/components/InterpolateReleaseData"; import InsertDataJava from
+"../../src/components/InsertDataJava";
 
 This page shows how to insert data into QuestDB using different programming
 languages and tools. To ingest data to a running instance, there are three main
@@ -52,12 +52,10 @@ benefits:
   [server configuration](/docs/reference/configuration/#influxdb-line-protocol-tcp)
   settings
 
-For additional details on the message format, see the
-[InfluxDB line protocol guide](/docs/guides/influxdb-line-protocol/). Details on
-ports and authentication can be found on the
-[InfluxDB API reference](/docs/reference/api/influxdb/) page, and a guide on the
-Telegraf agent for collecting and sending metrics to QuestDB via this protocol
-can be found on the [Telegraf guide](/docs/third-party-tools/telegraf/).
+For additional details on the message format and API, see the
+[InfluxDB reference](/docs/reference/api/influxdb/). A guide for the Telegraf
+agent for collecting and sending metrics to QuestDB via this protocol can be
+found on the [Telegraf guide](/docs/third-party-tools/telegraf/).
 
 :::info
 
@@ -82,7 +80,6 @@ can be found on the [Telegraf guide](/docs/third-party-tools/telegraf/).
 <!-- prettier-ignore-end -->
 
 <TabItem value="nodejs">
-
 
 ```javascript
 "use strict"
@@ -134,9 +131,7 @@ run()
 
 </TabItem>
 
-
 <TabItem value="go">
-
 
 ```go
 package main
@@ -181,17 +176,13 @@ func checkErr(err error) {
 
 </TabItem>
 
-
 <TabItem value="java">
-
 
 <InsertDataJava />
 
 </TabItem>
 
-
 <TabItem value="python">
-
 
 ```python
 import time
@@ -219,9 +210,7 @@ sock.close()
 
 </TabItem>
 
-
 </Tabs>
-
 
 ## Postgres compatibility
 
@@ -244,7 +233,6 @@ supported features can be found on the
 <!-- prettier-ignore-end -->
 
 <TabItem value="nodejs">
-
 
 This example uses the [`pg` package](https://www.npmjs.com/package/pg) which
 allows for quickly building queries using Postgres wire protocol. Details on the
@@ -310,9 +298,7 @@ start()
 
 </TabItem>
 
-
 <TabItem value="go">
-
 
 This example uses the [pgx](https://github.com/jackc/pgx) driver and toolkit for
 postgres in Go. More details on the use of this toolkit can be found on the
@@ -388,9 +374,7 @@ func main() {
 
 </TabItem>
 
-
 <TabItem value="rust">
-
 
 The following example shows how to use parameterized queries and prepared
 statements using the [rust-postgres](https://docs.rs/postgres/0.19.0/postgres/)
@@ -434,9 +418,7 @@ fn main() -> Result<(), Error> {
 
 </TabItem>
 
-
 <TabItem value="java">
-
 
 ```java
 package com.myco;
@@ -471,7 +453,6 @@ class App {
 ```
 
 </TabItem>
-
 
 <!--
 
@@ -543,7 +524,6 @@ gcc libpq_example.c -o run_example.c -I pgsql/include -L /usr/local/Cellar/postg
 
 <TabItem value="python">
 
-
 This example uses the [psycopg2](https://github.com/psycopg/psycopg2) database
 adapter which does not support prepared statements (bind variables). This
 functionality is on the roadmap for the antecedent
@@ -589,9 +569,7 @@ finally:
 
 </TabItem>
 
-
 </Tabs>
-
 
 ## REST API
 
@@ -625,7 +603,6 @@ import TabItem from "@theme/TabItem"
 
 <TabItem value="curl">
 
-
 This example imports a CSV file with automatic schema detection.
 
 ```shell title="Basic import"
@@ -645,9 +622,7 @@ curl \
 
 </TabItem>
 
-
 <TabItem value="nodejs">
-
 
 ```javascript
 const fetch = require("node-fetch")
@@ -683,9 +658,7 @@ run()
 
 </TabItem>
 
-
 <TabItem value="python">
-
 
 ```python
 import requests
@@ -702,9 +675,7 @@ except requests.exceptions.RequestException as e:
 
 </TabItem>
 
-
 <TabItem value="go">
-
 
 ```go
 package main
@@ -764,9 +735,7 @@ func checkErr(err error) {
 
 </TabItem>
 
-
 </Tabs>
-
 
 ### `/exec` endpoint
 
@@ -786,7 +755,6 @@ Alternatively, the `/exec` endpoint can be used to create a table and the
 
 <TabItem value="curl">
 
-
 ```shell
 # Create Table
 curl -G \
@@ -801,9 +769,7 @@ curl -G \
 
 </TabItem>
 
-
 <TabItem value="nodejs">
-
 
 The `node-fetch` package can be installed using `npm i node-fetch`.
 
@@ -849,9 +815,7 @@ insertData()
 
 </TabItem>
 
-
 <TabItem value="python">
-
 
 ```python
 import requests
@@ -876,9 +840,7 @@ run_query("INSERT INTO trades VALUES('abc', 123456)")
 
 </TabItem>
 
-
 <TabItem value="go">
-
 
 ```go
 package main
@@ -930,9 +892,7 @@ func checkErr(err error) {
 
 </TabItem>
 
-
 </Tabs>
-
 
 ## Web Console
 

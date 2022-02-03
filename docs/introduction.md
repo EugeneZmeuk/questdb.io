@@ -60,9 +60,9 @@ programming languages.
 
 ## Guides
 
-- [Configuring commit lag of out-of-order (O3) data](/docs/guides/out-of-order-commit-lag/)
-- [InfluxDB line protocol](/docs/guides/influxdb-line-protocol/)
+- [Timestamps and time zones](/docs/guides/working-with-timestamps-timezones/)
 - [Importing data in bulk via CSV](/docs/guides/importing-data/)
+- [Configuring commit lag of out-of-order (O3) data](/docs/guides/out-of-order-commit-lag/)
 - [Version 6.0 migration](/docs/guides/v6-migration/)
 
 ### Deployment
@@ -70,18 +70,7 @@ programming languages.
 - [Deploy a QuestDB AMI to AWS using Packer](/docs/guides/aws-packer/)
 - [Run QuestDB on Kubernetes](/docs/guides/kubernetes/)
 - [Google Cloud Platform](/docs/guides/google-cloud-platform/)
-
-## Third-party tools
-
-This section describes how to integrate QuestDB with third-party tools and
-utilities for collecting metrics and visualizing data:
-
-- [Grafana](/docs/third-party-tools/grafana/) instructions for connecting
-  QuestDB as a datasource for building visualizations and dashboards
-- [Kafka](/docs/third-party-tools/kafka/) guide for ingesting data from topics
-  into QuestDB by means of Kafka Connect
-- [Telegraf](/docs/third-party-tools/telegraf/) guide for collecting system
-  metrics, specifying QuestDB as an output and visualizing the results
+- [DigitalOcean Droplet](/docs/guides/digitalocean/)
 
 ## Operations
 
@@ -92,8 +81,24 @@ pages for the following topics:
   server settings and system resources for common scenarios and edge cases
 - [Data retention](/docs/operations/data-retention/) strategy to delete old data
   and save disk space
-- [Health monitoring](/docs/operations/health-monitoring/) endpoint for
-  determining the status of the instance
+- [Health monitoring](/docs/operations/health-monitoring/) endpoint for health
+  status of the instance and Prometheus metrics
+- [Backup and restore](/docs/operations/backup) for point-in-time backups and
+  filesystem backup to prevent data loss
+
+## Third-party tools
+
+This section describes how to integrate QuestDB with third-party tools and
+utilities for collecting metrics and visualizing data:
+
+- [Prometheus](/docs/third-party-tools/prometheus/) metrics for monitoring and
+  alerting
+- [Grafana](/docs/third-party-tools/grafana/) instructions for connecting
+  QuestDB as a datasource for building visualizations and dashboards
+- [Kafka](/docs/third-party-tools/kafka/) guide for ingesting data from topics
+  into QuestDB by means of Kafka Connect
+- [Telegraf](/docs/third-party-tools/telegraf/) guide for collecting system
+  metrics, specifying QuestDB as an output and visualizing the results
 
 ## Reference
 
