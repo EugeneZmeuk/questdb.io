@@ -1,5 +1,5 @@
 ---
-title: InfluxDB line protocol
+title: InfluxDB line protocol (ILP)
 description: InfluxDB line protocol reference documentation.
 ---
 
