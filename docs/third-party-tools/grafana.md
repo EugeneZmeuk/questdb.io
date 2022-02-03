@@ -22,7 +22,7 @@ QuestDB with Grafana step by step.
 ## Configure database
 
 To avoid unnecessary memory usage, it is recommended to disable QuestDB's SELECT
-query cache by setting the property `pg.select.cache.enabled=true` in your
+query cache by setting the property `pg.select.cache.enabled=false` in your
 `server.conf`. That's because Grafana does not use prepared statements when
 sending the queries and the query cache becomes much less efficient.
 

@@ -107,5 +107,5 @@ The first implementation of the JIT SQL compiler has a number of limitations:
 - Only the following arithmetic operations are allowed to be present in the
   filter: `+`, `-`, `*`, `/`.
 - Only filters with fixed-size columns are supported: BOOLEAN, BYTE, GEOBYTE,
-  SHORT, GEOSHORT, CHAR, INT, GEOINT, STRING, FLOAT, LONG, GEOLONG, DATE,
+  SHORT, GEOSHORT, CHAR, INT, GEOINT, SYMBOL, FLOAT, LONG, GEOLONG, DATE,
   TIMESTAMP, DOUBLE.

@@ -84,7 +84,7 @@ CREATE TABLE readings
 AS(
     SELECT
         x ID,
-        timestamp_sequence(to_timestamp('2019-10-17T00:00:00', 'yyyy-MM-ddTHH:mm:ss'), rnd_long(1,10,2) * 100000L) ts,
+        timestamp_sequence(to_timestamp('2019-10-17T00:00:00', 'yyyy-MM-ddTHH:mm:ss'), rnd_long(1,10,0) * 100000L) ts,
         rnd_double(0)*8 + 15 temp,
         rnd_long(0, 10000, 0) sensorId
     FROM long_sequence(10000000) x)

@@ -167,6 +167,7 @@ when starting services:
 - [SELECT](/docs/reference/sql/select/)
 - [SHOW](/docs/reference/sql/show/)
 - [TRUNCATE TABLE](/docs/reference/sql/truncate/)
+- [VACUUM PARTITIONS](/docs/reference/sql/vacuum-partitions/)
 - [UNION](/docs/reference/sql/union/)
 - [WHERE](/docs/reference/sql/where/)
 - [WITH](/docs/reference/sql/with/)

@@ -160,3 +160,6 @@ attachPartition
 
 setParam
  ::= 'SET' 'PARAM' ( 'maxUncommittedRows' '=' n | 'commitLag' '=' n ( 'us' | 's' | 'm' | 'h' | 'd' ))
+
+VacuumQuery
+ ::= 'VACUUM' 'PARTITIONS' tableName

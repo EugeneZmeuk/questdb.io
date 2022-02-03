@@ -189,6 +189,7 @@ module.exports = {
             "reference/sql/show",
             "reference/sql/truncate",
             "reference/sql/union",
+            "reference/sql/vacuum-partitions",
             "reference/sql/where",
             "reference/sql/with",
           ],

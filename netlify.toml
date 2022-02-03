@@ -97,3 +97,11 @@
 [[redirects]]
   from = "/case-study/innova/"
   to = "/case-study/turk-telekom/"
+
+[[redirects]]
+  from = "/developer-in-test"
+  to = "/careers"
+
+[[redirects]]
+  from = "/people-and-talent-acquisition"
+  to = "/careers"

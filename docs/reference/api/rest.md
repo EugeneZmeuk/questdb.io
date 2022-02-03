@@ -310,7 +310,8 @@ closed.
 | `limit`   | No       |         | Allows limiting the number of rows to return. `limit=10` will return the first 10 rows (equivalent to `limit=1,10`), `limit=10,20` will return row numbers 10 through to 20 inclusive. |
 | `nm`      | No       | `false` | `true` or `false`. Skips the metadata section of the response when set to `true`.                                                                                                      |
 | `query`   | Yes      |         | URL encoded query text. It can be multi-line.                                                                                                                                          |
-| `timings` | No       | `false` | `true` or `false`. When set to `true`, QuestDB will also include a `timings` property in the response which gives details about the execution.                                         |
+| `timings` | No       | `false` | `true` or `false`. When set to `true`, QuestDB will also include a `timings` property in the response which gives details about the execution times.                                   |
+| `explain` | No       | `false` | `true` or `false`. When set to `true`, QuestDB will also include an `explain` property in the response which gives details about the execution plan.                                   |
 
 The parameters must be URL encoded.
 
@@ -324,7 +325,8 @@ This endpoint returns responses in the following format:
   "columns": Array<{ "name": string, "type": string }>
   "dataset": Array<Array<Value for Column1, Value for Column2>>,
   "count": Optional<number>,
-  "timings": Optional<{ compiler: number, count: number, execute: number}>
+  "timings": Optional<{ compiler: number, count: number, execute: number }>,
+  "explain": Optional<{ jitCompiled: boolean }>
 }
 ```
 
@@ -423,7 +425,7 @@ Considering the query:
 
 ```shell
 curl -G \
-  --data-urlencode "query=SELECTT * FROM table;" \
+  --data-urlencode "query=SELECT * FROM table;" \
   http://localhost:9000/exp
 ```
 
@@ -431,7 +433,7 @@ A HTTP status code of `200` is returned with the following response body:
 
 ```json
 {
-  "query": "SELECTT * FROM table;",
+  "query": "SELECT * FROM table;",
   "error": "function, literal or constant is expected",
   "position": 8
 }

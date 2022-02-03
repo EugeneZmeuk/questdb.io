@@ -79,7 +79,7 @@ required value is read.
 import Screenshot from "@theme/Screenshot"
 
 <Screenshot
-  alt="An illustration showing two maps with different geohash precision levels applied"
+  alt="A diagram showing the data model in QuestDB"
   height={598}
   src="/img/blog/2022-01-12/data-model.png"
   width={650}
@@ -111,7 +111,7 @@ object that allows accessing column values for the current row. The call tree is
 minuscule in our example and only consists of three objects.
 
 <Screenshot
-  alt="An illustration showing two maps with different geohash precision levels applied"
+  alt="A diagram showing a function call tree in QuestDB"
   height={598}
   src="/img/blog/2022-01-12/object-tree.png"
   width={650}
@@ -184,7 +184,7 @@ SQL JIT compiler is a beta feature and is disabled by default. To enable it, you
 should change the `cairo.sql.jit.mode` setting in your `server.conf` file.
 
 ```bash title="path/to/server.conf"
-cairo.sql.jit.mode=scalar
+cairo.sql.jit.mode=on
 ```
 
 Embedded API users are able to enable the compiler globally by providing their
@@ -248,7 +248,7 @@ first query run, while "hot run" means a subsequent run where the table data is
 in the page cache.
 
 <Screenshot
-  alt="An illustration showing two maps with different geohash precision levels applied"
+  alt="A chart comparing query execution times in QuestDB with JIT enabled and disabled"
   height={598}
   src="/img/blog/2022-01-12/cold-v-hot-run.png"
   width={650}
@@ -282,7 +282,7 @@ WHERE total_amount > 150 AND passenger_count = 1;
 The measurement results for this query are the following:
 
 <Screenshot
-  alt="An illustration showing two maps with different geohash precision levels applied"
+  alt="A chart comparing query execution times in QuestDB with JIT enabled and disabled"
   height={598}
   src="/img/blog/2022-01-12/cold-v-hot-run-two.png"
   width={650}
