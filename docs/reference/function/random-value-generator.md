@@ -221,17 +221,6 @@ null,null,null,null,null
 
 - `rnd_long256()` - generates a random `long256` value between 0 and 2^256.
 
-**Arguments:**
-
-- `min`: is a `long256` representing the lowest possible generated value
-  (inclusive).
-- `max`: is a `long256` representing the highest possible generated value
-  (inclusive).
-- `nanRate` is an `int` defining the frequency of occurrence of `NaN` values:
-  - `0`: No `NaN` will be returned.
-  - `1`: Will only return `NaN`.
-  - `N > 1`: On average, one in N generated values will be `NaN`.
-
 **Return value:**
 
 Return value type is `long256`.

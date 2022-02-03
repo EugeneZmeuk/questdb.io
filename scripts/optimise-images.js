@@ -1,16 +1,12 @@
-const util = require("util")
 const path = require("path")
-
 const glob = require("glob")
-const fs = require("graceful-fs")
+const fs = require("fs")
 const imagemin = require("imagemin")
 const imageminGifsicle = require("imagemin-gifsicle")
 const imageminSvgo = require("imagemin-svgo")
-const makeDir = require("make-dir")
 const rimraf = require("rimraf")
 const sharp = require("sharp")
 
-const writeFile = util.promisify(fs.writeFile)
 const src = "static/img"
 const dist = src
 
@@ -107,12 +103,10 @@ const optimiseImages = async () => {
       let source = path.parse(file.sourcePath)
       console.log(`Optimised:  ${file.sourcePath}`)
 
-      file.destinationPath = `${source.dir.replace(src, dist)}/${source.name}${
-        source.ext
-      }`
+      file.destinationPath = `${source.dir.replace(src, dist)}/${source.name}${source.ext}`
 
-      await makeDir(path.dirname(file.destinationPath))
-      await writeFile(file.destinationPath, file.data)
+      fs.mkdirSync(path.dirname(file.destinationPath), {recursive: true})
+      fs.writeFileSync(file.destinationPath, file.data)
     }),
   )
 }
