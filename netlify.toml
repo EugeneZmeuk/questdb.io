@@ -99,5 +99,14 @@
   to = "/case-study/turk-telekom/"
 
 [[redirects]]
+  from = "/developer-in-test"
+  to = "/careers"
+
+[[redirects]]
+  from = "/people-and-talent-acquisition"
+  to = "/careers"
+
+[[redirects]]
   from = "/docs/guides/influxdb-line-protocol/"
   to = "/docs/reference/api/influxdb/"
+  
