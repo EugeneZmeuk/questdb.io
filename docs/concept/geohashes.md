@@ -205,7 +205,7 @@ CREATE TABLE geo_data
   (ts timestamp,
   device_id symbol,
   g1c geohash(1c),
-  g8c geohash(8c))
+  g8c geohash(8c)),
 index(device_id) timestamp(ts);
 ```
 
