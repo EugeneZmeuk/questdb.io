@@ -184,6 +184,21 @@ _
 
 ### Table schema
 
+Types are mapped to QuestDB types according to the table below. When a new
+column is added to the table dynamically by means of ILP messages, the default
+type mapping will be used below. If the column already exist QuestDB will try to
+cast to the required type according to these supported type conversions.
+
+| ILP value                | Example                 | QuestDB type | boolean | byte | short | char | int  | float | symbol  | string  | long    | date | timestamp | double  | binary | long256 | geohash |
+| ------------------------ | ----------------------- | ------------ | ------- | ---- | ----- | ---- | ---- | ----- | ------- | ------- | ------- | ---- | --------- | ------- | ------ | ------- | ------- |
+| boolean                  | T, F, t, f, True, False | boolean      | default | cast | cast  | no   | cast | cast  | no      | no      | cast    | no   | no        | cast    | no     | no      | no      |
+| string                   | "Some string value"     | string       | no      | no   | no    | cast | no   | no    | no      | default | no      | no   | no        | no      | no     | no      | cast    |
+| string (not quoted)      | Sensor14                | symbol       | no      | no   | no    | cast | no   | no    | default | no      | no      | no   | no        | no      | no     | no      | cast    |
+| integer                  | 15481i, -459i           | long         | no      | cast | cast  | no   | cast | cast  | no      | no      | default | cast | cast      | cast    | no     | no      | no      |
+| integer (starts with 0x) | 0x1234i                 | long256      | no      | no   | no    | no   | no   | no    | no      | no      | no      | no   | no        | no      | no     | default | no      |
+| float                    | 167, 3.0, -2.31, 1.E+78 | double       | no      | no   | no    | no   | no   | cast  | no      | no      | no      | no   | no        | default | no     | no      | no      |
+| timestamp                | 1465839830102500200t    | timestamp    | no      | no   | no    | no   | no   | no    | no      | no      | no      | no   | default   | no      | no     | no      | no      |
+
 A table will be dynamically created if one does not exist using the schema
 interpreted from the incoming messages. If later new fields are introduced on
 the messages, the table is automatically updated and the new column will be
