@@ -298,11 +298,9 @@ Notice the `where false` condition.
 :::
 
 ```questdb-sql title="Clone an existing wide table and change type of cherry-picked columns"
-CREATE TABLE x AS(
-  SELECT * FROM table WHERE false),
+CREATE TABLE x AS (SELECT * FROM table WHERE false),
   cast(price AS LONG),
   cast(instrument as SYMBOL INDEX);
-)
 ```
 
 Here we changed type of `price` (assuming it was `INT`) to `LONG` and changed
