@@ -6,18 +6,23 @@ description: InfluxDB line protocol reference documentation.
 QuestDB implements
 [InfluxDB line protocol](https://docs.influxdata.com/influxdb/v1.8/write_protocols/line_protocol_tutorial/)
 to ingest data. This enables you to use QuestDB as a replacement for InfluxDB
-and other applications implementing this protocol. QuestDB can listen for line
-protocol packets both over TCP and UDP. This page describes InfluxDB line
-protocol APIs including practical hints for understanding and working with the
-message format.
+and other applications implementing this protocol. Unlike InfluxDB which uses
+HTTP, QuestDB listens for line protocol messages over TCP or UDP, so there is no
+compatibility with HTTP-only InfluxDB clients.
+
+This page describes InfluxDB line protocol APIs including practical hints for
+understanding and working with the message format.
 
 ## Message format
 
-InfluxDB line protocol messages have the following syntax in QuestDB (square
-brackets represent an optional part):
+InfluxDB line protocol messages have the following syntax in QuestDB. Required
+whitespace characters are emphasized as they are common message components that
+cause parsing errors if omitted. Square brackets represent an optional part.
 
 ```shell
 table_name[,symbolset][ columnset] timestamp
+                       ^          ^
+                     space      space
 ```
 
 For example:
@@ -26,8 +31,7 @@ For example:
 trade,ticker=USD,id=9876 price=30,details="Latest price" 1638202821000000000
 ```
 
-The data of each row is serialized in a "pseudo-CSV" format where each line is
-composed of:
+Each row is serialized in a "pseudo-CSV" format where each line is composed of:
 
 - the table name
 - a comma followed by several comma-separated items of symbol type in the format
@@ -84,6 +88,9 @@ large number of unique values on this column.
 #### Strings
 
 If field values are passed string types, the field values must be double-quoted.
+Non-quoted string fields are supported, but are interpreted as `symbol` types if
+a new field has to be created.
+
 Special characters are supported without escaping:
 
 ```shell
@@ -302,6 +309,51 @@ column types, names and values as:
 | of          | TIMESTAMP            | 2021-11-29T16:20:21 | `of=1638202821000000t`      |
 | liquidity   | BOOLEAN              | FALSE               | `liquidity=f`               |
 | timestamp   | DESIGNATED TIMESTAMP | 2021-11-29T16:20:21 | `1638202821000000000`       |
+
+## ILP transactions
+
+ILP transactions are implicit; the protocol is built to stream data at a high
+rate of speed and to support batching. There are three ways data is committed
+and becomes visible or partially visible. The commit method is chosen based on
+whichever occurs first.
+
+### Row-based commit
+
+Each table has a max uncommitted rows metadata property. The ILP server will
+issue a commit when the number of uncommitted rows reaches this value. The table
+commit implementation retains data under max uncommitted rows or newer than the
+commit lag (whichever is smallest) as uncommitted data. Committed data is
+visible to table readers.
+
+### Idle table timeout
+
+When there is no data ingested in the table after a set period, the ingested
+uncommitted data is fully committed, and table data becomes fully visible. The
+timeout value is server-global and can be configured via the server
+configuration property `line.tcp.min.idle.ms.before.writer.release`.
+
+### Interval-based commit
+
+A table's commit lag metadata property determines how much uncommitted data will
+need to remain uncommitted for performance reasons. This lag value is measured
+in time units from the table's data. Data older than the lag value will be
+committed and become visible. ILP derives the commit interval as a function of
+the commit lag value for each table. The difference is that the commit interval
+is a wall clock.
+
+To ease understanding of how time interval interacts with commit lag , let's
+look at how real-time data stream will become visible. The wall clock is roughly
+aligned with time in the data stream in real-time data. Let's assume that table
+has a commit lag value of 60 seconds and a commit interval of 20 seconds. After
+the first 60 seconds of ingestion, ILP will attempt to commit 3 times. After
+each attempt, there will be no data visible to the application. This is because
+all the data will fall within the lag interval.
+
+On the 4th commit, which would occur, 80 seconds after the data stream begins,
+the application will see the first 20 seconds of the data, with the remaining 60
+seconds uncommitted. Each subsequent commit will reveal more data in 20-second
+increments. It should be noted that both commit lag and commit interval should
+be carefully chosen with both data visibility and ingestion performance in mind.
 
 ## ILP over TCP
 
