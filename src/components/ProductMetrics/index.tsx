@@ -52,7 +52,7 @@ const ProductMetrics = () => {
           />
           <div className={pmCss["product-metric__content__text"]}>
             <h3 className={pmCss["product-metric__content__text__header"]}>
-              {numberWithCommas(1000)}+
+              {numberWithCommas(1100)}+
             </h3>
             <p className={pmCss["product-metric__content__text__description"]}>
               developers
