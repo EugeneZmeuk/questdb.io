@@ -67,6 +67,12 @@ message contains two `symbol` columns (`location` and `ticker`):
 sensors,location=london,ticker=USD temperature=22,software_version="A.B C-123"
 ```
 
+Escaping spaces in `symbol` values can be done using backslashes:
+
+```shell
+sensors,location=hyde\ park temperature=22
+```
+
 To omit `symbol` types from tables completely, the comma and symbol values can
 be skipped:
 
@@ -187,7 +193,9 @@ _
 Types are mapped to QuestDB types according to the table below. When a new
 column is added to the table dynamically by means of ILP messages, the default
 type mapping will be used below. If the column already exist QuestDB will try to
-cast to the required type according to these supported type conversions.
+cast to the required type according to these supported type conversions. Where a
+cell specifies `no`, an error will be produced and the logs provide details of
+the type conversion exception.
 
 | ILP value                | Example                 | QuestDB type | boolean | byte | short | char | int  | float | symbol  | string  | long    | date | timestamp | double  | binary | long256 | geohash |
 | ------------------------ | ----------------------- | ------------ | ------- | ---- | ----- | ---- | ---- | ----- | ------- | ------- | ------- | ---- | --------- | ------- | ------ | ------- | ------- |
@@ -203,13 +211,12 @@ A table will be dynamically created if one does not exist using the schema
 interpreted from the incoming messages. If later new fields are introduced on
 the messages, the table is automatically updated and the new column will be
 back-propagated with null values. New fields can be added in both the symbol and
-columns sections of the message. Hints for schema design are described in the
-[capacity planning section](/#capacity-planning).
+columns sections of the message.
 
 When new tables are created by inserting records via InfluxDB line protocol, a
 default [partitioning strategy](/docs/concept/partitions/) by `DAY` is applied.
 This default can be overridden for both the TCP and UDP interfaces via
-[server configuration](/docs/reference/configuration/):
+[server configuration](/docs/reference/configuration/#influxdb-line-protocol):
 
 ```shell title="server.conf"
 line.default.partition.by=MONTH
@@ -340,12 +347,24 @@ commit implementation retains data under max uncommitted rows or newer than the
 commit lag (whichever is smallest) as uncommitted data. Committed data is
 visible to table readers.
 
+This parameter is set using in the the following server configuration property:
+
+```shell
+# commit when this number of uncommitted records is reached
+cairo.max.uncommitted.rows=1000
+```
+
 ### Idle table timeout
 
 When there is no data ingested in the table after a set period, the ingested
 uncommitted data is fully committed, and table data becomes fully visible. The
-timeout value is server-global and can be configured via the server
-configuration property `line.tcp.min.idle.ms.before.writer.release`.
+timeout value is server-global and can be set via the following server
+configuration property:
+
+```shell
+# Minimum amount of idle time before a table writer is released
+line.tcp.min.idle.ms.before.writer.release=30000
+```
 
 ### Interval-based commit
 
@@ -369,6 +388,13 @@ the application will see the first 20 seconds of the data, with the remaining 60
 seconds uncommitted. Each subsequent commit will reveal more data in 20-second
 increments. It should be noted that both commit lag and commit interval should
 be carefully chosen with both data visibility and ingestion performance in mind.
+
+This parameter is set using in the the following server configuration property:
+
+```shell
+# commit uncommitted rows when this timer is reached
+line.tcp.maintenance.job.interval=1000
+```
 
 ## ILP over TCP
 
@@ -409,7 +435,8 @@ records:
 ```bash title="server.conf"
 # max line length for measurements
 line.tcp.max.measurement.size=2048
-# buffer size to process messages at one time, cannot be less than measurement size
+# line.tcp.msg.buffer.size - TCP receive buffer size. It should be big enough to accommodate batches of ILP messages.
+# The size it typically a multiple of `line.tcp.max.measurement.size` and should be a nearest power of 2
 line.tcp.msg.buffer.size=2048
 ```
 
@@ -430,22 +457,6 @@ cores by a comma-separated list of CPUs by core ID:
 ```bash title="server.conf"
 line.tcp.worker.count=2
 line.tcp.worker.affinity=1,2
-```
-
-#### Committing records
-
-These two configuration settings are relevant for maintenance jobs which commit
-uncommitted records to tables. This maintenance of committing records will occur
-if either:
-
-- the max number of uncommitted rows is hit (default of `1000`) or
-- when the maintenance job interval is reached
-
-```bash title="server.conf"
-# commit when this number of uncommitted records is reached
-cairo.max.uncommitted.rows=1000
-# commit uncommitted rows when this timer is reached
-line.tcp.maintenance.job.interval=1000
 ```
 
 ### Examples
