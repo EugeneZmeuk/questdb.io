@@ -13,7 +13,7 @@ import chCss from "../../css/case-study/chart.module.css"
 const Counterflow = () => {
   const title = "LiveAction offer AI-driven network security"
   const description =
-    "QuestDB is used by LiveAction (Counterflow AI) as a time series database for storing network packet data analyzed by their real-time threat detection offering."
+    "QuestDB is used by LiveAction (Counterflow AI) as a time series database for storing flow and encrypted traffic metadata analyzed by their real-time threat detection offering."
 
   return (
     <Layout
@@ -54,8 +54,8 @@ const Counterflow = () => {
             )}
           >
             QuestDB is used by LiveAction (Counterflow AI) as a time series
-            database for storing network packet data analyzed by their real-time
-            threat detection engine.
+            database for storing flow and encrypted traffic metadata analyzed by
+            their real-time threat detection engine.
           </p>
         </div>
 
@@ -124,17 +124,18 @@ const Counterflow = () => {
 
       <section className={clsx(seCss.section, caCss.card)}>
         <p className={caCss.card__title}>
-          LiveAction is a cybersecurity software company offering an end-to-end
-          platform for network forensics. Their encrypted traffic analysis
-          product, ThreatEye, integrates advanced security technologies into a
-          streaming machine learning pipeline to identify network faults,
+          LiveAction is a cybersecurity software company offering a SaaS
+          platform for network monitoring and security. Their encrypted traffic
+          analysis product, ThreatEye, integrates advanced security technologies
+          into a streaming machine learning pipeline to identify network faults,
           anomalies and threats at wire speed.
         </p>
 
         <p className={caCss.card__subtitle}>
           In this case study, VP Product Development and founder of Counterflow
-          AI Randy Caldejon describes how and why QuestDB is relied upon within
-          high-performance network security systems developed by LiveAction.
+          AI Randy Caldejon describes how and why QuestDB is an important
+          component of their SaaS platform for time-series and behavioural
+          analytics.
         </p>
       </section>
 
@@ -157,13 +158,13 @@ const Counterflow = () => {
           <p className="font-size--large">
             The rise in encrypted traffic over HTTPS and the recent introduction
             of protocols such as DNS over HTTPS and TLS 1.3 means that network
-            defenders are faced with dramatically reduced server identity and
-            content visibility. Our security offering allows LiveAction partners
-            to gain end-to-end network visibility into the nature of this
+            defenders are faced with dramatically reduced deep packet inspection
+            capabilities and visibility. Our security offering allows LiveAction
+            partners to extend network visibility into the nature of this
             traffic using Encrypted Traffic Analysis (ETA).
           </p>
           <p className="font-size--large">
-            ETA provides techniques to gain insight into network behavior
+            ETA provides techniques to gain insight into network behaviour
             despite encryption while protecting user privacy. It combines Deep
             Packet Dynamics with machine learning to identify malicious patterns
             in network activity. The benefit of this approach is that it can
@@ -207,7 +208,7 @@ const Counterflow = () => {
             second, depending on the size of the customer and the network
             activity. After InfluxDB, we tried TimescaleDB, which was reasonable
             for performance, but the database configuration was inconvenient for
-            us and the system had a poor footprint.
+            us and the system footprint was not ideal.
           </p>
 
           <p className="font-size--large">
