@@ -190,28 +190,23 @@ _
 
 ### Table schema
 
-Types are mapped to QuestDB types according to the table below. When a new
-column is added to the table dynamically by means of ILP messages, the default
-type mapping will be used below. If the column already exist QuestDB will try to
-cast to the required type according to these supported type conversions. Where a
-cell specifies `no`, an error will be produced and the logs provide details of
-the type conversion exception.
+QuestDB will dynamically create a table if one does not exist yet for a given
+measurement. The schema of the table will be inferred from the incoming message.
+If later new tags and/or fields introduced on the messages, the table is
+automatically updated and the new column will be back-propagated with null values.
+The type of the new column will also be inferred based on the ILP message.
+The grid below shows how QuestDB determines the type of the columns based on
+the ILP types observed on the incoming messages.
 
-| ILP value                | Example                 | QuestDB type | boolean | byte | short | char | int  | float | symbol  | string  | long    | date | timestamp | double  | binary | long256 | geohash |
-| ------------------------ | ----------------------- | ------------ | ------- | ---- | ----- | ---- | ---- | ----- | ------- | ------- | ------- | ---- | --------- | ------- | ------ | ------- | ------- |
-| boolean                  | T, F, t, f, True, False | boolean      | default | cast | cast  | no   | cast | cast  | no      | no      | cast    | no   | no        | cast    | no     | no      | no      |
-| string                   | "Some string value"     | string       | no      | no   | no    | cast | no   | no    | no      | default | no      | no   | no        | no      | no     | no      | cast    |
-| string (not quoted)      | Sensor14                | symbol       | no      | no   | no    | cast | no   | no    | default | no      | no      | no   | no        | no      | no     | no      | cast    |
-| integer                  | 15481i, -459i           | long         | no      | cast | cast  | no   | cast | cast  | no      | no      | default | cast | cast      | cast    | no     | no      | no      |
-| integer (starts with 0x) | 0x1234i                 | long256      | no      | no   | no    | no   | no   | no    | no      | no      | no      | no   | no        | no      | no     | default | no      |
-| float                    | 167, 3.0, -2.31, 1.E+78 | double       | no      | no   | no    | no   | no   | cast  | no      | no      | no      | no   | no        | default | no     | no      | no      |
-| timestamp                | 1465839830102500200t    | timestamp    | no      | no   | no    | no   | no   | no    | no      | no      | no      | no   | default   | no      | no     | no      | no      |
-
-A table will be dynamically created if one does not exist using the schema
-interpreted from the incoming messages. If later new fields are introduced on
-the messages, the table is automatically updated and the new column will be
-back-propagated with null values. New fields can be added in both the symbol and
-columns sections of the message.
+| ILP value                | Example                 | QuestDB type |
+| ------------------------ | ----------------------- | ------------ |
+| boolean                  | T, F, t, f, True, False | boolean      |
+| string                   | "Some string value"     | string       |
+| string (not quoted)      | Sensor14                | symbol       |
+| integer                  | 15481i, -459i           | long         |
+| integer (starts with 0x) | 0x1234i                 | long256      |
+| float                    | 167, 3.0, -2.31, 1.E+78 | double       |
+| timestamp                | 1465839830102500200t    | timestamp    |
 
 When new tables are created by inserting records via InfluxDB line protocol, a
 default [partitioning strategy](/docs/concept/partitions/) by `DAY` is applied.
@@ -221,6 +216,30 @@ This default can be overridden for both the TCP and UDP interfaces via
 ```shell title="server.conf"
 line.default.partition.by=MONTH
 ```
+
+When ILP messages are ingested into an existing table QuestDB will try to cast the
+values to the type of the already existing columns. The below table shows all
+supported type conversions.
+Where a cell specifies `no`, an error will be produced and the logs provide details
+of the type conversion exception.
+
+Supported conversions of string types:
+
+| ILP value                | Example                 | symbol  | string  | char | geohash |
+| ------------------------ | ----------------------- |---------| ------- | -----| ------- |
+| string                   | "Some string value"     | no      | default | cast | cast    |
+| string (not quoted)      | Sensor14                | default | no      | no   | cast    |
+
+Supported conversions of numeric types:
+
+| ILP value                | Example                 |  boolean | byte | short | int  | long    | double  | float | date | timestamp | long256 |
+| ------------------------ | ----------------------- |  ------- | ---- | ----- | ---- |---------| ------- | ----- | ---- | --------- | ------- |
+| boolean                  | T, F, t, f, True, False |  default | cast | cast  | cast | cast    | cast    | cast  | no   | no        | no      |
+| integer                  | 15481i, -459i           |  no      | cast | cast  | cast | default | cast    | cast  | cast | cast      | no      |
+| integer (starts with 0x) | 0x1234i                 |  no      | no   | no    | no   | no      | no      | no    | no   | no        | default |
+| float                    | 167, 3.0, -2.31, 1.E+78 |  no      | no   | no    | no   | no      | default | cast  | no   | no        | no      |
+| timestamp                | 1465839830102500200t    |  no      | no   | no    | no   | no      | no      | no    | no   | default   | no      |
+
 
 ### Malformed input
 
