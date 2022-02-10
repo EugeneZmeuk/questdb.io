@@ -129,7 +129,7 @@ host = 'http://localhost:9000'
 sql_query = "select * from long_sequence(10)"
 
 try:
-  response = requests.post(host + '/exec', params={'query': sql_query})
+  response = requests.get(host + '/exec', params={'query': sql_query})
   json_response = json.loads(response.text)
   rows = json_response['dataset']
   for row in rows:

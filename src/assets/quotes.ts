@@ -83,7 +83,7 @@ const quotes: Quote[] = [
       "Sapient ingests, analyzes and converts billions of data points into meaningful insights through AI and machine learning. We chose QuestDB for the simplicity of SQL, high-throughput ingestion, and PostgreSQL wire compatibility with our tooling.",
     author: "Dan Worth",
     role: "Principal Software Engineer",
-    company: "Sapient",
+    company: "Sapient Industries",
   },
   {
     website: "https://syndica.io",

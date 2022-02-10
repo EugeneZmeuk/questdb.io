@@ -251,6 +251,68 @@ const Customer = () => {
         <div className={caCss.card}>
           <div className={caCss.card__illustration}>
             <img
+              alt="An photo of a cellphone with the Turk Telekom logo"
+              src="/img/pages/case-study/turk-telekom/card.png"
+            />
+          </div>
+          <p className={caCss.card__summary}>
+            <img
+              alt="Türk Telekom logo"
+              className={caCss.card__logo}
+              height={50}
+              src="/img/pages/customers/logos/turk_telekom.svg"
+              width={140}
+            />
+            “QuestDB allows us to query data while writing millions of records.
+            It is an excellent database for time series analysis, calculation of
+            aggregates and can efficiently store our data.”
+            <em className={caCss.card__author}>
+              - <strong>Erdem Aydemir</strong>, Innova (Türk Telekom)
+            </em>
+            <Button className={caCss.card__cta} to="/case-study/turk-telekom/">
+              View full case study
+            </Button>
+          </p>
+        </div>
+      </section>
+      <section className={clsx(seCss.section, seCss["section--inner"])}>
+        <div className={caCss.card}>
+          <p className={caCss.card__summary}>
+            <img
+              alt="Sapient Industries logo"
+              className={caCss.card__logo}
+              height={80}
+              src="/img/pages/customers/cards/sapient.svg"
+              width={120}
+            />
+            “Sapient ingests, analyzes and converts billions of data points into
+            meaningful insights through AI and machine learning. We chose
+            QuestDB for the simplicity of SQL, high-throughput ingestion, and
+            PostgreSQL wire compatibility with our tooling.”
+            <em className={caCss.card__author}>
+              - <strong>Dan Worth</strong>, Sapient Industries
+            </em>
+            <Button
+              className={caCss.card__cta}
+              to="/case-study/sapient-industries/"
+            >
+              View full case study
+            </Button>
+          </p>
+          <div className={caCss.card__illustration}>
+            <img
+              alt="Logo of Sapient Industries along with an illustration of their analytics dashboard."
+              height={360}
+              src="/img/pages/case-study/sapient-industries/card.png"
+              width={640}
+            />
+          </div>
+        </div>
+      </section>
+      <section className={clsx(seCss.section, seCss["section--inner"])}>
+        <div className={caCss.card}>
+          <div className={caCss.card__illustration}>
+            <img
               alt="A CNC milling machine built by DATRON"
               height={360}
               src="/img/pages/case-study/datron/summary.png"
@@ -274,34 +336,6 @@ const Customer = () => {
               View full case study
             </Button>
           </p>
-        </div>
-      </section>
-      <section className={clsx(seCss.section, seCss["section--inner"])}>
-        <div className={caCss.card}>
-          <p className={caCss.card__summary}>
-            <img
-              alt="Türk Telekom logo"
-              className={caCss.card__logo}
-              height={50}
-              src="/img/pages/customers/logos/turk_telekom.svg"
-              width={140}
-            />
-            “QuestDB allows us to query data while writing millions of records.
-            It is an excellent database for time series analysis, calculation of
-            aggregates and can efficiently store our data.”
-            <em className={caCss.card__author}>
-              - <strong>Erdem Aydemir</strong>, Innova (Türk Telekom)
-            </em>
-            <Button className={caCss.card__cta} to="/case-study/turk-telekom/">
-              View full case study
-            </Button>
-          </p>
-          <div className={caCss.card__illustration}>
-            <img
-              alt="An illustration of a digital landscape"
-              src="/img/pages/case-study/turk-telekom/card.png"
-            />
-          </div>
         </div>
       </section>
     </Layout>
