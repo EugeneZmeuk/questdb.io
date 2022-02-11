@@ -13,11 +13,11 @@ import chCss from "../../css/case-study/chart.module.css"
 const Counterflow = () => {
   const title = "LiveAction offer AI-driven network security"
   const description =
-    "QuestDB is used by LiveAction (Counterflow AI) as a time series database for storing flow and encrypted traffic metadata analyzed by their real-time threat detection offering."
+    "QuestDB is used by LiveAction  as a time series database for storing flow and encrypted traffic metadata analyzed by their real-time threat detection offering."
 
   return (
     <Layout
-      canonical="/case-study/counterflow/"
+      canonical="/case-study/liveaction/"
       description={description}
       title={title}
     >
@@ -53,9 +53,9 @@ const Counterflow = () => {
               juCss.jumbotron__description,
             )}
           >
-            QuestDB is used by LiveAction (Counterflow AI) as a time series
-            database for storing flow and encrypted traffic metadata analyzed by
-            their real-time threat detection engine.
+            QuestDB is used by LiveAction as a time series database for storing
+            flow and encrypted traffic metadata analyzed by their real-time
+            threat detection engine.
           </p>
         </div>
 
@@ -63,7 +63,7 @@ const Counterflow = () => {
           <img
             alt="The web-based dashboard for LiveAction's ThreatEye network security system"
             height={170}
-            src="/img/pages/case-study/counterflow/dashboard.png"
+            src="/img/pages/case-study/liveaction/dashboard.png"
             width={600}
           />
         </div>
@@ -132,10 +132,10 @@ const Counterflow = () => {
         </p>
 
         <p className={caCss.card__subtitle}>
-          In this case study, VP Product Development and founder of Counterflow
-          AI Randy Caldejon describes how and why QuestDB is an important
-          component of their SaaS platform for time-series and behavioural
-          analytics.
+          In this case study, VP Product Development of ThreatEye and founder of
+          Counterflow AI Randy Caldejon describes how and why QuestDB is an
+          important component of their SaaS platform for time-series and
+          behavioural analytics.
         </p>
       </section>
 
@@ -151,7 +151,7 @@ const Counterflow = () => {
             alt="Encrypted traffic is growing, SSL is nearly obsolete, and malware is hidden within encryption"
             className={chCss.chart}
             height={433}
-            src="/img/pages/case-study/counterflow/traffic-overview.jpg"
+            src="/img/pages/case-study/liveaction/traffic-overview.jpg"
             width={791}
           />
           <h3>Encrypted traffic analysis for network security</h3>
@@ -196,7 +196,7 @@ const Counterflow = () => {
             alt="A diagram showing six patterns of network traffic highlighted by Deep Packet Dynamics"
             className={chCss.chart}
             height={433}
-            src="/img/pages/case-study/counterflow/console.png"
+            src="/img/pages/case-study/liveaction/console.png"
             width={1000}
           />
           <h3>Why we chose QuestDB for time series analytics</h3>
@@ -246,7 +246,7 @@ const Counterflow = () => {
             alt="The web-based dashboard for Counterflow AI’s ThreatEye network security system"
             className={chCss.chart}
             height={433}
-            src="/img/pages/case-study/counterflow/threateye_ip_filter.png"
+            src="/img/pages/case-study/liveaction/threateye_ip_filter.png"
             width={600}
           />
 
@@ -265,8 +265,7 @@ const Counterflow = () => {
             </p>
             <p className={caCss.card__title}>
               <b>
-                Randy Caldejon, VP Product Development at LiveAction
-                (Counterflow AI)
+                Randy Caldejon, VP Product Development ThreatEye, LiveAction
               </b>
             </p>
           </div>

@@ -2,7 +2,7 @@
 title: Web Console
 description:
   How to use the Web Console in QuestDB for importing, querying, and visualizing
-  data
+  data.
 ---
 
 The Web Console is a client that allows you to interact with QuestDB. It

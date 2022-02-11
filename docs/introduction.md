@@ -181,6 +181,12 @@ following is reference documentation which describes how to use this UI:
 
 ## Support
 
+For hints on diagnosing common configuration issues, see the following
+resources:
+
+- [Troubleshooting](/docs/faq/troubleshooting/) guide with solutions for various
+  HW & SW configuration issues
+
 We are happy to help with any question you may have, particularly to help you
 optimize the performance of your application. Feel free to reach out using the
 following channels:

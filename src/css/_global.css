@@ -202,6 +202,8 @@ html[data-theme="light"] {
 
   --theme-tutorial-post-card-border: 1px solid transparent;
   --theme-tutorial-post-card-hover-border: 1px solid var(--palette-dark-10);
+
+  --theme-screenshot-background-color: white;
 }
 
 html[data-theme="dark"] .DocSearch {
@@ -259,7 +261,7 @@ html[data-theme='light'] .markdown {
 }
 
 /* syntax railroad charts in documentation */
-html[data-theme='light'] .markdown img[alt*="chart"] {
+html[data-theme='light'] .markdown img[src*="data:image/svg+xml"][alt*="chart"] {
   filter: invert(1) hue-rotate(200deg);
 }
 

@@ -862,7 +862,7 @@ host = 'http://localhost:9000'
 def run_query(sql_query):
   query_params = {'query': sql_query, 'fmt' : 'json'}
   try:
-    response = requests.post(host + '/exec', params=query_params)
+    response = requests.get(host + '/exec', params=query_params)
     json_response = json.loads(response.text)
     print(json_response)
   except requests.exceptions.RequestException as e:

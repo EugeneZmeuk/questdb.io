@@ -25,3 +25,13 @@
   border-radius: 2px;
   background: var(--palette-pink);
 }
+
+@media (max-width: 996px) {
+  .outcome {
+    flex-direction: row;
+    align-items: center;
+  }
+  .outcome__icon {
+    margin: 0 1rem 0 0;
+  }
+}

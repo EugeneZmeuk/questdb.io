@@ -39,7 +39,7 @@ export const logos: CustomerLogo[] = [
     height: 56,
   },
   {
-    src: "/img/pages/customers/logos/tqs.svg",
+    src: "/img/pages/customers/logos/tqs-integration.svg",
     alt: "TQS Integration logo",
     width: 140,
     height: 56,

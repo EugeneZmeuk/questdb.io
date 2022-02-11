@@ -110,9 +110,9 @@ const Customer = () => {
                 juCss.jumbotron__subtitle,
               )}
             >
-              These are some of the most innovative stories from our users
-              highlighting how QuestDB is powering the core infrastructure of
-              companies working with time-series data.
+              Here are the most innovative stories from our users highlighting
+              how QuestDB is powering the core infrastructure of companies
+              working with time-series data.
             </p>
           </div>
           <div className={juCss.jumbotron__illustration}>
@@ -209,9 +209,140 @@ const Customer = () => {
             personalization via models and aggregations on continuously-changing
             data.”
             <em className={caCss.card__author}>
-              - <strong>Jon Bratseth</strong>, Yahoo
+              - <strong>Jon Bratseth</strong>, VP Architect, Yahoo
             </em>
             <Button className={caCss.card__cta} to="/case-study/yahoo/">
+              View full case study
+            </Button>
+          </p>
+        </div>
+      </section>
+      <section className={clsx(seCss.section, seCss["section--inner"])}>
+        <div className={caCss.card}>
+          <p className={caCss.card__summary}>
+            <img
+              alt="LiveAction logo"
+              className={caCss.card__logo}
+              height={80}
+              src="/img/pages/customers/logos/liveaction.svg"
+              width={120}
+            />
+            “QuestDB is impressive and stands out as a superior option. We use
+            it as the basis of our time series analytics for network threat
+            detection.”
+            <em className={caCss.card__author}>
+              - <strong>Randy Caldejon</strong>, VP, ThreatEye Product
+              Development, LiveAction
+            </em>
+            <Button className={caCss.card__cta} to="/case-study/liveaction/">
+              View full case study
+            </Button>
+          </p>
+          <div className={caCss.card__illustration}>
+            <img
+              alt="Logo for liveaction AI's network threat detection suite ThreatEye"
+              height={360}
+              src="/img/pages/case-study/liveaction/summary.jpg"
+              width={640}
+            />
+          </div>
+        </div>
+      </section>
+      <section className={clsx(seCss.section, seCss["section--inner"])}>
+        <div className={caCss.card}>
+          <div className={caCss.card__illustration}>
+            <img
+              alt="Logo of Sapient Industries along with an illustration of their analytics dashboard."
+              height={360}
+              src="/img/pages/case-study/sapient-industries/card.png"
+              width={640}
+            />
+          </div>
+          <p className={caCss.card__summary}>
+            <img
+              alt="Sapient Industries logo"
+              className={caCss.card__logo}
+              height={80}
+              src="/img/pages/customers/cards/sapient.svg"
+              width={120}
+            />
+            “Sapient ingests, analyzes and converts billions of data points into
+            meaningful insights through AI and machine learning. We chose
+            QuestDB for the simplicity of SQL, high-throughput ingestion, and
+            PostgreSQL wire compatibility with our tooling.”
+            <em className={caCss.card__author}>
+              - <strong>Dan Worth</strong>, Principal Software Engineer, Sapient
+              Industries
+            </em>
+            <Button
+              className={caCss.card__cta}
+              to="/case-study/sapient-industries/"
+            >
+              View full case study
+            </Button>
+          </p>
+        </div>
+      </section>
+      <section className={clsx(seCss.section, seCss["section--inner"])}>
+        <div className={caCss.card}>
+          <p className={caCss.card__summary}>
+            <img
+              alt="TQS Integration logo"
+              className={caCss.card__logo}
+              height={40}
+              src="/img/pages/customers/cards/tqs-integration.svg"
+              width={140}
+            />
+            “TQS Integration uses QuestDB in data architecture solutions for
+            clients in Life Science, Pharmaceutical, Energy, and Renewables. We
+            use QuestDB when we require a time series database that’s simple and
+            efficient for data collection, contextualization, visualization, and
+            analytics.”
+            <em className={caCss.card__author}>
+              - <strong>Holger Amort</strong>, Senior Data Scientist, TQS
+              Integration
+            </em>
+            <Button
+              className={caCss.card__cta}
+              to="/case-study/tqs-integration/"
+            >
+              View full case study
+            </Button>
+          </p>
+          <div className={caCss.card__illustration}>
+            <img
+              alt="A graphic with the logo of TQS Integration"
+              height={360}
+              src="/img/pages/case-study/tqs-integration/card.png"
+              width={640}
+            />
+          </div>
+        </div>
+      </section>
+      <section className={clsx(seCss.section, seCss["section--inner"])}>
+        <div className={caCss.card}>
+          <div className={caCss.card__illustration}>
+            <img
+              alt="An photo of a cellphone with the Turk Telekom logo"
+              src="/img/pages/case-study/turk-telekom/card.png"
+            />
+          </div>
+          <p className={caCss.card__summary}>
+            <img
+              alt="Türk Telekom logo"
+              className={caCss.card__logo}
+              height={50}
+              src="/img/pages/customers/logos/turk_telekom.svg"
+              width={140}
+            />
+            “QuestDB allows us to query data while writing millions of records.
+            It is an excellent database for time series analysis, calculation of
+            aggregates and can efficiently store our data.”
+            <em className={caCss.card__author}>
+              - <strong>Erdem Aydemir</strong>, Software Engineer, Innova (Türk
+              Telekom)
+            </em>
+            <Button className={caCss.card__cta} to="/case-study/turk-telekom/">
               View full case study
             </Button>
           </p>
@@ -231,7 +362,7 @@ const Customer = () => {
             average 300x faster utilizing 1/4 of the hardware, without ever
             overtaxing our servers.”
             <em className={caCss.card__author}>
-              - <strong>Armenak Mayalian</strong>, Toggle
+              - <strong>Armenak Mayalian</strong>, CTO, Toggle
             </em>
             <Button className={caCss.card__cta} to="/case-study/toggle/">
               View full case study
@@ -243,64 +374,6 @@ const Customer = () => {
               height={453}
               src="/img/pages/case-study/toggle/summary.png"
               width={600}
-            />
-          </div>
-        </div>
-      </section>
-      <section className={clsx(seCss.section, seCss["section--inner"])}>
-        <div className={caCss.card}>
-          <div className={caCss.card__illustration}>
-            <img
-              alt="Logo for Counterflow AI's network threat detection suite ThreatEye"
-              height={360}
-              src="/img/pages/case-study/counterflow/summary.jpg"
-              width={640}
-            />
-          </div>
-          <p className={caCss.card__summary}>
-            <img
-              alt="LiveAction logo"
-              className={caCss.card__logo}
-              height={80}
-              src="/img/pages/customers/logos/liveaction.svg"
-              width={120}
-            />
-            “QuestDB is impressive and stands out as a superior option. We use
-            it as the basis of our time series analytics for network threat
-            detection.”
-            <em className={caCss.card__author}>
-              - <strong>Randy Caldejon</strong>, Counterflow AI
-            </em>
-            <Button className={caCss.card__cta} to="/case-study/counterflow/">
-              View full case study
-            </Button>
-          </p>
-        </div>
-      </section>
-      <section className={clsx(seCss.section, seCss["section--inner"])}>
-        <div className={caCss.card}>
-          <p className={caCss.card__summary}>
-            <img
-              alt="Türk Telekom logo"
-              className={caCss.card__logo}
-              height={50}
-              src="/img/pages/customers/logos/turk_telekom.svg"
-              width={140}
-            />
-            “QuestDB allows us to query data while writing millions of records.
-            It is an excellent database for time series analysis, calculation of
-            aggregates and can efficiently store our data.”
-            <em className={caCss.card__author}>
-              - <strong>Erdem Aydemir</strong>, Innova (Türk Telekom)
-            </em>
-            <Button className={caCss.card__cta} to="/case-study/turk-telekom/">
-              View full case study
-            </Button>
-          </p>
-          <div className={caCss.card__illustration}>
-            <img
-              alt="An illustration of a digital landscape"
-              src="/img/pages/case-study/turk-telekom/card.png"
             />
           </div>
         </div>

@@ -83,7 +83,7 @@ const quotes: Quote[] = [
       "Sapient ingests, analyzes and converts billions of data points into meaningful insights through AI and machine learning. We chose QuestDB for the simplicity of SQL, high-throughput ingestion, and PostgreSQL wire compatibility with our tooling.",
     author: "Dan Worth",
     role: "Principal Software Engineer",
-    company: "Sapient",
+    company: "Sapient Industries",
   },
   {
     website: "https://syndica.io",
@@ -100,18 +100,18 @@ const quotes: Quote[] = [
     company: "Syndica",
   },
   {
-    website: "https://www.datron.com/",
+    website: "https://www.tqsintegration.com",
     logo: {
-      alt: "Datron logo",
-      src: "/img/pages/customers/cards/datron.svg",
+      alt: "TQS Integration logo",
+      src: "/img/pages/customers/cards/tqs-integration.svg",
       height: 56,
       width: 140,
     },
     text:
-      "With QuestDB's turnkey solution in Docker, we quickly built a solid foundation for a data acquisition pipeline with billions of measurements.",
-    author: "Andreas Landmann",
-    role: "Director, Research & Technology",
-    company: "DATRON",
+      "TQS Integration uses QuestDB in data architecture solutions for clients in the Life Science, Pharmaceutical, Energy, and Renewables industries. We use QuestDB when we require a time series database that’s simple and efficient for data collection, contextualization, visualization, and analytics.",
+    author: "Holger Amort",
+    role: "Senior Data Scientist",
+    company: "TQS Integration",
   },
   {
     website: "https://www.ably.io/",
