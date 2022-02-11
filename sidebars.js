@@ -196,5 +196,12 @@ module.exports = {
         "reference/web-console",
       ],
     },
+    {
+      label: "FAQ",
+      type: "category",
+      items: [
+        "faq/troubleshooting"
+      ],
+    },
   ].filter(Boolean),
 }
