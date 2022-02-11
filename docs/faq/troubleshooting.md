@@ -12,8 +12,8 @@ InfluxDB line protocol (ILP) does not commit data on single lines or when the
 sender disconnects, but instead uses a number of rules to break incoming data
 into commit batches. This results in data not being visible in `SELECT` queries
 immediately after being received. Refer to
-[InfluxDB line protocol](/docs/guides/influxdb-line-protocol/#automatic-commit)
-guide to understand these rules.
+[InfluxDB line protocol](/docs/reference/api/influxdb) guide to understand these
+rules.
 
 ## How do I update or delete a row?
 

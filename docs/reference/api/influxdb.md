@@ -54,9 +54,9 @@ creates a new row in the `sensors` table with the following contents:
 | -------- | ----------- | --------------------------- |
 | london-1 | 22          | 2016-06-13T17:43:50.100399Z |
 
-### Data types
+## Data types
 
-#### Symbols
+### Symbols
 
 QuestDB introduces a `symbol` type which is used for storing repetitive
 string-like values internally as integers. For more information on this type,
@@ -91,7 +91,7 @@ large number of unique values on this column.
 
 :::
 
-#### Strings
+### Strings
 
 If field values are passed string types, the field values must be double-quoted.
 Non-quoted string fields are supported, but are interpreted as `symbol` types if
@@ -107,7 +107,7 @@ sensors,location=london temperature=22,software_version="SV .#_123"
 For string types in QuestDB, the storage is allocated as `32+n*16` bits where
 `n` is the string length with a maximum value of `0x7fffffff`.
 
-#### Numeric
+### Numeric
 
 The default numerical type is a 64-bit `double` type. To store numeric values as
 integers, a trailing `i` must follow the value. The following ILP message adds a
@@ -128,7 +128,7 @@ The `sensors` table would have the following row added:
 QuestDB handles `long` types as a signed integer from `0x8000000000000000L` to
 `0x7fffffffffffffffL`.
 
-#### Boolean
+### Boolean
 
 Boolean values can be passed in InfluxDB line protocol messages with any of the
 following:
@@ -144,7 +144,7 @@ The following example adds a `boolean` type column called `warning`:
 sensors,location=london temperature=22,warning=false
 ```
 
-#### Timestamp
+### Timestamp
 
 Designated timestamps are set in **nanoseconds** while all other timestamp
 values are set in **microseconds**. This is for compatibility with InfluxDB and
@@ -193,10 +193,10 @@ _
 QuestDB will dynamically create a table if one does not exist yet for a given
 measurement. The schema of the table will be inferred from the incoming message.
 If later new tags and/or fields introduced on the messages, the table is
-automatically updated and the new column will be back-propagated with null values.
-The type of the new column will also be inferred based on the ILP message.
-The grid below shows how QuestDB determines the type of the columns based on
-the ILP types observed on the incoming messages.
+automatically updated and the new column will be back-propagated with null
+values. The type of the new column will also be inferred based on the ILP
+message. The grid below shows how QuestDB determines the type of the columns
+based on the ILP types observed on the incoming messages.
 
 | ILP value                | Example                 | QuestDB type |
 | ------------------------ | ----------------------- | ------------ |
@@ -217,82 +217,27 @@ This default can be overridden for both the TCP and UDP interfaces via
 line.default.partition.by=MONTH
 ```
 
-When ILP messages are ingested into an existing table QuestDB will try to cast the
-values to the type of the already existing columns. The below table shows all
-supported type conversions.
-Where a cell specifies `no`, an error will be produced and the logs provide details
-of the type conversion exception.
+When ILP messages are ingested into an existing table QuestDB will try to cast
+the values to the type of the already existing columns. The below table shows
+all supported type conversions. Where a cell specifies `no`, an error will be
+produced and the logs provide details of the type conversion exception.
 
 Supported conversions of string types:
 
-| ILP value                | Example                 | symbol  | string  | char | geohash |
-| ------------------------ | ----------------------- |---------| ------- | -----| ------- |
-| string                   | "Some string value"     | no      | default | cast | cast    |
-| string (not quoted)      | Sensor14                | default | no      | no   | cast    |
+| ILP value           | Example             | symbol  | string  | char | geohash |
+| ------------------- | ------------------- | ------- | ------- | ---- | ------- |
+| string              | "Some string value" | no      | default | cast | cast    |
+| string (not quoted) | Sensor14            | default | no      | no   | cast    |
 
 Supported conversions of numeric types:
 
-| ILP value                | Example                 |  boolean | byte | short | int  | long    | double  | float | date | timestamp | long256 |
-| ------------------------ | ----------------------- |  ------- | ---- | ----- | ---- |---------| ------- | ----- | ---- | --------- | ------- |
-| boolean                  | T, F, t, f, True, False |  default | cast | cast  | cast | cast    | cast    | cast  | no   | no        | no      |
-| integer                  | 15481i, -459i           |  no      | cast | cast  | cast | default | cast    | cast  | cast | cast      | no      |
-| integer (starts with 0x) | 0x1234i                 |  no      | no   | no    | no   | no      | no      | no    | no   | no        | default |
-| float                    | 167, 3.0, -2.31, 1.E+78 |  no      | no   | no    | no   | no      | default | cast  | no   | no        | no      |
-| timestamp                | 1465839830102500200t    |  no      | no   | no    | no   | no      | no      | no    | no   | default   | no      |
-
-
-### Malformed input
-
-If QuestDB receives an invalid message, it will discard invalid lines and
-produce an error message in the logs but there is no mechanism built-in to the
-protocol to notify the sender.
-
-Data may be discarded because of:
-
-- missing new line characters at the end of messages
-- an invalid data format such as unescaped special characters
-- invalid column / table name characters
-- schema mismatch with existing tables
-- message size overflows on the input buffer
-- system errors such as no space left on the disk
-
-Detecting malformed input can be achieved through QuestDB logs by searching for
-`LineTcpMeasurementScheduler` and `LineTcpConnectionContext`, for example:
-
-```bash
-2022-02-03T11:01:51.007235Z I i.q.c.l.t.LineTcpMeasurementScheduler could not create table [tableName=trades, ex=`column name contains invalid characters [colName=trade_%]`, errno=0]
-```
-
-The following input is tolerated by QuestDB:
-
-- a column is specified twice or more on the same line, QuestDB will pick the
-  first occurrence and ignore the rest
-- missing columns, their value will be defaulted to `null`/`0.0`/`false`
-  depending on the type of the column
-- missing designated timestamp, the current server time will be used to generate
-  the timestamp
-- the timestamp is specified as a column instead of appending it to the end of
-  the line
-- timestamp appears as a column and also present at the end of the line, the
-  value sent as a field will be used
-
-### Differences with InfluxDB
-
-In InfluxDB, table names, tag keys, and field keys cannot begin with an
-underscore `_`. This restriction is **not enforced** in QuestDB, and therefore
-the following InfluxDB line protocol message will produce a valid row in
-QuestDB:
-
-```shell
-_sensor_data,_sensor=london_1 _value=12.4,string="sensor data, rev 1"
-```
-
-Spaces and commas do not require an escaping backslash in the field value for
-`string`, but whitespace in tags (`symbol`) must be escaped:
-
-```shell
-_sensor_data,_sensor=berlin\ 2 _value=12.4,string="sensor data, rev 1"
-```
+| ILP value                | Example                 | boolean | byte | short | int  | long    | double  | float | date | timestamp | long256 |
+| ------------------------ | ----------------------- | ------- | ---- | ----- | ---- | ------- | ------- | ----- | ---- | --------- | ------- |
+| boolean                  | T, F, t, f, True, False | default | cast | cast  | cast | cast    | cast    | cast  | no   | no        | no      |
+| integer                  | 15481i, -459i           | no      | cast | cast  | cast | default | cast    | cast  | cast | cast      | no      |
+| integer (starts with 0x) | 0x1234i                 | no      | no   | no    | no   | no      | no      | no    | no   | no        | default |
+| float                    | 167, 3.0, -2.31, 1.E+78 | no      | no   | no    | no   | no      | default | cast  | no   | no        | no      |
+| timestamp                | 1465839830102500200t    | no      | no   | no    | no   | no      | no      | no    | no   | default   | no      |
 
 ### Constructing messages
 
@@ -351,7 +296,49 @@ column types, names and values as:
 | liquidity   | BOOLEAN              | FALSE               | `liquidity=f`               |
 | timestamp   | DESIGNATED TIMESTAMP | 2021-11-29T16:20:21 | `1638202821000000000`       |
 
-## ILP transactions
+## Examples
+
+Examples of sending data using ILP over TCP can be found here:
+
+- [Insert data](/docs/develop/insert-data/#influxdb-line-protocol)
+- [Authentication](/docs/develop/authenticate/)
+
+## Error handling
+
+If QuestDB receives an invalid message, it will discard invalid lines and
+produce an error message in the logs but there is no mechanism built-in to the
+protocol to notify the sender.
+
+Data may be discarded because of:
+
+- missing new line characters at the end of messages
+- an invalid data format such as unescaped special characters
+- invalid column / table name characters
+- schema mismatch with existing tables
+- message size overflows on the input buffer
+- system errors such as no space left on the disk
+
+Detecting malformed input can be achieved through QuestDB logs by searching for
+`LineTcpMeasurementScheduler` and `LineTcpConnectionContext`, for example:
+
+```bash
+2022-02-03T11:01:51.007235Z I i.q.c.l.t.LineTcpMeasurementScheduler could not create table [tableName=trades, ex=`column name contains invalid characters [colName=trade_%]`, errno=0]
+```
+
+The following input is tolerated by QuestDB:
+
+- a column is specified twice or more on the same line, QuestDB will pick the
+  first occurrence and ignore the rest
+- missing columns, their value will be defaulted to `null`/`0.0`/`false`
+  depending on the type of the column
+- missing designated timestamp, the current server time will be used to generate
+  the timestamp
+- the timestamp is specified as a column instead of appending it to the end of
+  the line
+- timestamp appears as a column and also present at the end of the line, the
+  value sent as a field will be used
+
+## Transactions
 
 ILP transactions are implicit; the protocol is built to stream data at a high
 rate of speed and to support batching. There are three ways data is committed
@@ -415,7 +402,9 @@ This parameter is set using in the the following server configuration property:
 line.tcp.maintenance.job.interval=1000
 ```
 
-## ILP over TCP
+## Performance tuning
+
+### ILP over TCP
 
 The TCP receiver can handle both single and multi-row write requests. It is
 fully multi-threaded and customizable. It can work from the common worker pool
@@ -431,21 +420,12 @@ The TCP receiver can be customized using
 to specify the tread pool, buffer and queue sizes, receiver IP address and port,
 load balancing etc.
 
-### Authentication
-
-Although the original protocol does not support it, we have added authentication
-over TCP. This works by using an
-[elliptic curve P-256](https://en.wikipedia.org/wiki/Elliptic-curve_cryptography)
-JSON Web Token (JWT) to sign a server challenge. Details of authentication over
-ILP can be found in the
-[authentication documentation](/docs/develop/authenticate/)
-
 ### TCP ingestion optimization
 
 This section describes methods for optimizing ingestion via InfluxDB line
 protocol over TCP with CPU configuration, commit, and server properties.
 
-#### Message length
+### Message length
 
 When the message length is known, a starting point for optimization on ingestion
 is setting maximum measurement sizes and specifying buffer size for processing
@@ -459,7 +439,7 @@ line.tcp.max.measurement.size=2048
 line.tcp.msg.buffer.size=2048
 ```
 
-#### CPU affinity
+### CPU affinity
 
 Given a single client sending data to QuestDB via InfluxDB line protocol over
 TCP, the following configuration can be applied which sets a dedicated worker
@@ -478,12 +458,32 @@ line.tcp.worker.count=2
 line.tcp.worker.affinity=1,2
 ```
 
-### Examples
+## Authentication
 
-Examples of sending data using ILP over TCP can be found here:
+Although the original protocol does not support it, we have added authentication
+over TCP. This works by using an
+[elliptic curve P-256](https://en.wikipedia.org/wiki/Elliptic-curve_cryptography)
+JSON Web Token (JWT) to sign a server challenge. Details of authentication over
+ILP can be found in the
+[authentication documentation](/docs/develop/authenticate/)
 
-- [Insert data](/docs/develop/insert-data/#influxdb-line-protocol)
-- [Authentication](/docs/develop/authenticate/)
+## Differences with InfluxDB
+
+In InfluxDB, table names, tag keys, and field keys cannot begin with an
+underscore `_`. This restriction is **not enforced** in QuestDB, and therefore
+the following InfluxDB line protocol message will produce a valid row in
+QuestDB:
+
+```shell
+_sensor_data,_sensor=london_1 _value=12.4,string="sensor data, rev 1"
+```
+
+Spaces and commas do not require an escaping backslash in the field value for
+`string`, but whitespace in tags (`symbol`) must be escaped:
+
+```shell
+_sensor_data,_sensor=berlin\ 2 _value=12.4,string="sensor data, rev 1"
+```
 
 ## ILP over UDP
 
@@ -503,12 +503,7 @@ to configure the IP address and port the receiver binds to, commit rates, buffer
 size, whether it should run on a separate thread, set QuestDB to listen for
 `unicast` etc.
 
-### UDP ingestion optimization
-
-This section describes methods for optimizing ingestion via InfluxDB line
-protocol over UDP with CPU configuration, commit, and server properties.
-
-#### CPU affinity
+### CPU affinity
 
 Given a single client sending data to QuestDB via InfluxDB line protocol over
 UDP, the following configuration can be applied which dedicates a thread for a
@@ -519,7 +514,7 @@ line.udp.own.thread=true
 line.udp.own.thread.affinity=1
 ```
 
-#### Committing records
+### Committing records
 
 The UDP receiver issues a commit when the number of pending rows exceeds a
 configured parameter `line.udp.commit.rate` or when it has idle time, i.e.
@@ -530,8 +525,3 @@ UDP at the same time.
 
 The commit rate can be configured in `server.conf` using the
 `line.udp.commit.rate` parameter.
-
-### Examples
-
-Find an example of how to use this in the
-[InfluxDB sender library section](/docs/reference/api/java-embedded/#influxdb-sender-library).
