@@ -110,9 +110,9 @@ const Customer = () => {
                 juCss.jumbotron__subtitle,
               )}
             >
-              These are some of the most innovative stories from our users
-              highlighting how QuestDB is powering the core infrastructure of
-              companies working with time-series data.
+              Here are the most innovative stories from our users highlighting
+              how QuestDB is powering the core infrastructure of companies
+              working with time-series data.
             </p>
           </div>
           <div className={juCss.jumbotron__illustration}>
@@ -209,67 +209,9 @@ const Customer = () => {
             personalization via models and aggregations on continuously-changing
             data.”
             <em className={caCss.card__author}>
-              - <strong>Jon Bratseth</strong>, Yahoo
+              - <strong>Jon Bratseth</strong>, VP Architect, Yahoo
             </em>
             <Button className={caCss.card__cta} to="/case-study/yahoo/">
-              View full case study
-            </Button>
-          </p>
-        </div>
-      </section>
-      <section className={clsx(seCss.section, seCss["section--inner"])}>
-        <div className={caCss.card}>
-          <p className={caCss.card__summary}>
-            <img
-              alt="Toggle.global logo"
-              className={caCss.card__logo}
-              height={50}
-              src="/img/pages/customers/cards/toggle.svg"
-              width={140}
-            />
-            “We switched from InfluxDB to QuestDB to get queries that are on
-            average 300x faster utilizing 1/4 of the hardware, without ever
-            overtaxing our servers.”
-            <em className={caCss.card__author}>
-              - <strong>Armenak Mayalian</strong>, Toggle
-            </em>
-            <Button className={caCss.card__cta} to="/case-study/toggle/">
-              View full case study
-            </Button>
-          </p>
-          <div className={caCss.card__illustration}>
-            <img
-              alt="Comparison of AI and chess to investing"
-              height={453}
-              src="/img/pages/case-study/toggle/summary.png"
-              width={600}
-            />
-          </div>
-        </div>
-      </section>
-      <section className={clsx(seCss.section, seCss["section--inner"])}>
-        <div className={caCss.card}>
-          <div className={caCss.card__illustration}>
-            <img
-              alt="An photo of a cellphone with the Turk Telekom logo"
-              src="/img/pages/case-study/turk-telekom/card.png"
-            />
-          </div>
-          <p className={caCss.card__summary}>
-            <img
-              alt="Türk Telekom logo"
-              className={caCss.card__logo}
-              height={50}
-              src="/img/pages/customers/logos/turk_telekom.svg"
-              width={140}
-            />
-            “QuestDB allows us to query data while writing millions of records.
-            It is an excellent database for time series analysis, calculation of
-            aggregates and can efficiently store our data.”
-            <em className={caCss.card__author}>
-              - <strong>Erdem Aydemir</strong>, Innova (Türk Telekom)
-            </em>
-            <Button className={caCss.card__cta} to="/case-study/turk-telekom/">
               View full case study
             </Button>
           </p>
@@ -290,7 +232,8 @@ const Customer = () => {
             QuestDB for the simplicity of SQL, high-throughput ingestion, and
             PostgreSQL wire compatibility with our tooling.”
             <em className={caCss.card__author}>
-              - <strong>Dan Worth</strong>, Sapient Industries
+              - <strong>Dan Worth</strong>, Principal Software Engineer, Sapient
+              Industries
             </em>
             <Button
               className={caCss.card__cta}
@@ -313,26 +256,92 @@ const Customer = () => {
         <div className={caCss.card}>
           <div className={caCss.card__illustration}>
             <img
-              alt="A CNC milling machine built by DATRON"
+              alt="A graphic with the logo of TQS Integration"
               height={360}
-              src="/img/pages/case-study/datron/summary.png"
+              src="/img/pages/case-study/tqs-integration/card.png"
               width={640}
             />
           </div>
           <p className={caCss.card__summary}>
             <img
-              alt="Datron logo"
+              alt="TQS Integration logo"
               className={caCss.card__logo}
-              height={50}
-              src="/img/pages/customers/cards/datron.svg"
+              height={40}
+              src="/img/pages/customers/cards/tqs-integration.svg"
               width={140}
             />
-            “QuestDB offers new possibilities while reducing costs and
-            simplifying data analysis.”
+            “TQS Integration uses QuestDB in data architecture solutions for
+            clients in Life Science, Food & Beverage, Energy, and Renewables. We
+            use QuestDB when we require a time series database that’s simple and
+            efficient for data collection, contextualization, visualization, and
+            analytics.”
             <em className={caCss.card__author}>
-              - <strong>Tim Borowski</strong>, DATRON
+              - <strong>Holger Amort</strong>, Senior Data Scientist, TQS
+              Integration
             </em>
-            <Button className={caCss.card__cta} to="/case-study/datron/">
+            <Button
+              className={caCss.card__cta}
+              to="/case-study/tqs-integration/"
+            >
+              View full case study
+            </Button>
+          </p>
+        </div>
+      </section>
+      <section className={clsx(seCss.section, seCss["section--inner"])}>
+        <div className={caCss.card}>
+          <p className={caCss.card__summary}>
+            <img
+              alt="Türk Telekom logo"
+              className={caCss.card__logo}
+              height={50}
+              src="/img/pages/customers/logos/turk_telekom.svg"
+              width={140}
+            />
+            “QuestDB allows us to query data while writing millions of records.
+            It is an excellent database for time series analysis, calculation of
+            aggregates and can efficiently store our data.”
+            <em className={caCss.card__author}>
+              - <strong>Erdem Aydemir</strong>, Software Engineer, Innova (Türk
+              Telekom)
+            </em>
+            <Button className={caCss.card__cta} to="/case-study/turk-telekom/">
+              View full case study
+            </Button>
+          </p>
+          <div className={caCss.card__illustration}>
+            <img
+              alt="An photo of a cellphone with the Turk Telekom logo"
+              src="/img/pages/case-study/turk-telekom/card.png"
+            />
+          </div>
+        </div>
+      </section>
+      <section className={clsx(seCss.section, seCss["section--inner"])}>
+        <div className={caCss.card}>
+          <div className={caCss.card__illustration}>
+            <img
+              alt="Comparison of AI and chess to investing"
+              height={453}
+              src="/img/pages/case-study/toggle/summary.png"
+              width={600}
+            />
+          </div>
+          <p className={caCss.card__summary}>
+            <img
+              alt="Toggle.global logo"
+              className={caCss.card__logo}
+              height={50}
+              src="/img/pages/customers/cards/toggle.svg"
+              width={140}
+            />
+            “We switched from InfluxDB to QuestDB to get queries that are on
+            average 300x faster utilizing 1/4 of the hardware, without ever
+            overtaxing our servers.”
+            <em className={caCss.card__author}>
+              - <strong>Armenak Mayalian</strong>, CTO, Toggle
+            </em>
+            <Button className={caCss.card__cta} to="/case-study/toggle/">
               View full case study
             </Button>
           </p>
