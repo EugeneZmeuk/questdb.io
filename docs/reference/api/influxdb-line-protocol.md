@@ -127,7 +127,7 @@ for columns are subject to [duplicate rules](#duplicate-column-names) and [name 
 
 ### Tagset values
 
-`tagset` values are always interpreted as [SYMBOL](/concept/symbol/). Parser takes values literally so please beware of
+`tagset` values are always interpreted as [SYMBOL](/docs/concept/symbol/). Parser takes values literally so please beware of
 accidentally using high cardinality types such as `9092i` or `1.245667`. This will result in a significant
 performance loss due to bulging mapping tables.
 
