@@ -61,7 +61,6 @@ programming languages.
 ## Guides
 
 - [Configuring commit lag of out-of-order (O3) data](/docs/guides/out-of-order-commit-lag/)
-- [InfluxDB line protocol](/docs/guides/influxdb-line-protocol/)
 - [Importing data in bulk via CSV](/docs/guides/importing-data/)
 - [Version 6.0 migration](/docs/guides/v6-migration/)
 

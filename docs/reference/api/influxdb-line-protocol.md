@@ -1,5 +1,5 @@
 ---
-title: InfluxDB
+title: InfluxDB Line Protocol
 description: InfluxDB line protocol reference documentation.
 ---
 
@@ -8,15 +8,6 @@ QuestDB implements the
 to ingest data. This enables you to use QuestDB as a drop-in replacement for
 InfluxDB and others implementing the protocol. QuestDB can listen for line
 protocol packets both over [TCP](#tcp-receiver) and [UDP](#udp-receiver).
-
-:::info
-
-This page describes InfluxDB line protocol APIs. More details on the protocol,
-including including practical hints for understanding and working with the
-message format can be found in the
-[InfluxDB line protocol guide](/docs/guides/influxdb-line-protocol/).
-
-:::
 
 ## Usage
 

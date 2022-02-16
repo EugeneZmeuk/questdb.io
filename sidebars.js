@@ -115,7 +115,7 @@ module.exports = {
           items: [
             "reference/api/rest",
             "reference/api/postgres",
-            "reference/api/influxdb",
+            "reference/api/influxdb-line-protocol",
             "reference/api/java-embedded",
           ],
         },

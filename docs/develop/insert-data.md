@@ -53,7 +53,7 @@ benefits:
   settings
 
 For additional details on the message format, see the
-[InfluxDB line protocol guide](/docs/guides/influxdb-line-protocol/). Details on
+[InfluxDB line protocol](/docs/reference/api/influxdb-line-protocol/). Details on
 ports and authentication can be found on the
 [InfluxDB API reference](/docs/reference/api/influxdb/) page, and a guide on the
 Telegraf agent for collecting and sending metrics to QuestDB via this protocol
