@@ -10,7 +10,7 @@ over TCP for InfluxDB line protocol. This works by using an
 [elliptic curve P-256](https://en.wikipedia.org/wiki/Elliptic-curve_cryptography)
 JSON Web Token (JWT) to sign a server challenge. This page shows how to
 authenticate clients with QuestDB when using
-[InfluxDB line protocol](/docs/reference/api/influxdb/) for the TCP endpoint.
+[InfluxDB line protocol](/docs/reference/api/influxdb-line-protocol/) for the TCP endpoint.
 
 ## Prerequisites
 

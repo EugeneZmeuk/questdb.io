@@ -41,7 +41,7 @@ This parameter will publish a port to the host, you can specify:
 
 - `-p 9000:9000` - [REST API](/docs/reference/api/rest/) and
   [Web Console](/docs/reference/web-console/)
-- `-p 9009:9009` - [InfluxDB line protocol](/docs/reference/api/influxdb/)
+- `-p 9009:9009` - [InfluxDB line protocol](/docs/reference/api/influxdb-line-protocol/)
 - `-p 8812:8812` - [Postgres wire protocol](/docs/reference/api/postgres/)
 - `-p 9003:9003` -
   [Min health server](/docs/reference/configuration/#minimal-http-server)
@@ -104,7 +104,7 @@ Now that QuestDB is running, you can start interacting with it:
 - If you published the port `8812`, follow our
   [Postgres](/docs/reference/api/postgres/) page
 - If you published the port `9009`, follow our
-  [InfluxDB](/docs/reference/api/influxdb/) page
+  [InfluxDB](/docs/reference/api/influxdb-line-protocol/) page
 
 ## Data persistence
 

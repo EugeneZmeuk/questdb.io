@@ -33,7 +33,7 @@ added this functionality and how to enable it via QuestDB configuration.
 
 ## Adding InfluxDB line protocol support to QuestDB
 
-[InfluxDB line protocol](/docs/reference/api/influxdb/) is popular because it is
+[InfluxDB line protocol](/docs/reference/api/influxdb-line-protocol/) is popular because it is
 a simple text based format, you simply open a socket and send data points line
 by line. Implementation is easy because encoding is trivial and there is no
 response to parse. The protocol can be used over UDP or TCP with minimal

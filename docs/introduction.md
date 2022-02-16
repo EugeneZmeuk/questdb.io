@@ -102,7 +102,7 @@ This section contains the reference documentation for the following categories:
 
 - [REST](/docs/reference/api/rest/)
 - [Postgres](/docs/reference/api/postgres/)
-- [InfluxDB](/docs/reference/api/influxdb/)
+- [InfluxDB](/docs/reference/api/influxdb-line-protocol/)
 - [Java (embedded)](/docs/reference/api/java-embedded/)
 
 ### Configuration

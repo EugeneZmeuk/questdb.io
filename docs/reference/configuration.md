@@ -81,7 +81,7 @@ This publishes the following ports:
 
 - `-p 9000:9000` - [REST API](/docs/reference/api/rest/) and
   [Web Console](/docs/reference/web-console/)
-- `-p 9009:9009` - [InfluxDB line protocol](/docs/reference/api/influxdb/)
+- `-p 9009:9009` - [InfluxDB line protocol](/docs/reference/api/influxdb-line-protocol/)
 - `-p 8812:8812` - [Postgres wire protocol](/docs/reference/api/postgres/)
 - `-p 9003:9003` -
   [Min health server and Prometheus metrics](#minimal-http-server)

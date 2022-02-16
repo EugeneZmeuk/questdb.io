@@ -73,4 +73,4 @@ The following ports may also be used:
 - 9000: [REST API](/docs/reference/api/rest/) and
   [Web Console](/docs/reference/web-console/)
 - 8812: [Postgres](/docs/reference/api/postgres/)
-- 9009: [InfluxDB line protocol](/docs/reference/api/influxdb/)
+- 9009: [InfluxDB line protocol](/docs/reference/api/influxdb-line-protocol/)

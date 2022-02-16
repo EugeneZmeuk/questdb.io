@@ -390,7 +390,7 @@ create table (loc symbol, ts timestamp) timestamp(ts) partition by day
 
 When we send:
 
-```shell
+```shell title=""
 tracking,loc=north ts=2000000000t 1000000000
 tracking,loc=south ts=3000000000t
 ```
@@ -413,6 +413,18 @@ The result is `fieldset` value always wins:
 
 `geohash` values can be passed via `fieldset` as `string`. Please refer to [`fieldset` values](#fieldset-values)
 
+### Designated timestamp
+
+Designated timestamp is trailing part of ILP message. It is optional. When present, designated timestamp is Epoch 
+`nanoseconds`. When timestamp is omitted, server will timestamp each message using system's clock. 
+
+```shell title="Example of ILP message with desginated timestamp value"
+tracking,loc=north val=200i 1000000000
+```
+
+```shell title="Example of ILP message sans timestamp"
+tracking,loc=north val=200i
+```
 
 ## TCP receiver
 

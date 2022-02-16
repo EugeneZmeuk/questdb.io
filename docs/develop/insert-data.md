@@ -52,10 +52,8 @@ benefits:
   [server configuration](/docs/reference/configuration/#influxdb-line-protocol-tcp)
   settings
 
-For additional details on the message format, see the
-[InfluxDB line protocol](/docs/reference/api/influxdb-line-protocol/). Details on
-ports and authentication can be found on the
-[InfluxDB API reference](/docs/reference/api/influxdb/) page, and a guide on the
+For additional details on the message format, ports and authentication can be found on the
+[InfluxDB line protocol](/docs/reference/api/influxdb-line-protocol/) page, and a guide on the
 Telegraf agent for collecting and sending metrics to QuestDB via this protocol
 can be found on the [Telegraf guide](/docs/third-party-tools/telegraf/).
 
