@@ -71,7 +71,6 @@ module.exports = {
       items: [
         "guides/working-with-timestamps-timezones",
         "guides/importing-data",
-        "guides/influxdb-line-protocol",
         "guides/out-of-order-commit-lag",
         "guides/v6-migration",
       ],

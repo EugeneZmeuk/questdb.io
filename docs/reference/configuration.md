@@ -391,11 +391,8 @@ line protocol.
 | line.tcp.net.connection.limit        | 10           | The number of simultaneous connections to the server. This value is intended to control server memory consumption.                            |
 | line.tcp.net.connection.timeout      | 300000       | Connection idle timeout in milliseconds. Connections are closed by the server when this timeout lapses.                                       |
 | line.tcp.net.connection.hint         | false        | Windows specific flag to overcome OS limitations on TCP backlog size                                                                          |
+| line.tcp.net.connection.rcvbuf       | -1           | Maximum buffer receive size on each TCP socket. If value is -1, the socket receive buffer remains unchanged from OS default.                  |
 | line.tcp.auth.db.path                |              | Path which points to the authentication db file.                                                                                              |
-| line.tcp.net.interest.queue.capacity | 1024         | Internal queue size. This is also related to `active.connection.limit` in a way that sizes larger than connection max remove any waiting.     |
-| line.tcp.net.listen.backlog          | 50000        | Backlog argument value for [listen()](https://man7.org/linux/man-pages/man2/listen.2.html) call.                                              |
-| line.tcp.net.recv.buf.size           | -1           | Maximum buffer receive size on each TCP socket. If value is -1, the socket receive buffer remains unchanged from OS default.                  |
-| line.tcp.net.snd.buf.size            | -1           | Maximum buffer send size on each TCP socket. If value is -1, the socket receive buffer remains unchanged from OS default.                     |
 | line.tcp.connection.pool.capacity    | 64           | The maximum amount of pooled connections this interface may have.                                                                             |
 | line.tcp.timestamp                   | n            | Input timestamp resolution. Possible values are `n`, `u`, `ms`, `s` and `h`.                                                                  |
 | line.tcp.msg.buffer.size             | 2048         | Size of the buffer read from queue. Maximum size of write request, regardless of the number of measurements.                                  |
