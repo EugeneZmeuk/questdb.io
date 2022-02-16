@@ -81,6 +81,17 @@ format. For more details, see the
 
 :::
 
+## Unhandled error detection
+
+When metrics subsystem is [enabled](/docs/third-party-tools/prometheus/) on the
+database, the health endpoint checks the occurrences of unhandled, critical
+errors since the database start and, if any of them were detected, it returns
+HTTP 500 status code. The check is based on the `questdb_unhandled_errors_total`
+metric.
+
+When metrics subsystem is disabled, the health check endpoint always returns
+HTTP 200 status code.
+
 ## Avoiding CPU starvation
 
 On systems with
