@@ -179,7 +179,7 @@ import TabItem from "@theme/TabItem"
 <TabItem value="integer">
 
 64-bit signed integer values, which correspond to QuestDB type `long`. The values are required to have `i` suffix. For
-example.
+example:
 
 ```shell
 temps,device=cpu,location=south value=96i 1638202821000000000\n
