@@ -202,9 +202,9 @@ Type casts that cause data loss will cause entire line to be rejected.
 
 The following `cast` operations are supported when existing table column type is not `long`:
 
-|           | `byte` | `short` | `int` | `long`   | `float` | `double` |
-|-----------|--------|---------|-------|----------|---------|----------|
-| `integer` | cast   | cast    | cast  | `native` | cast    | cast     |
+|           | `byte` | `short` | `int` | `long`   | `float` | `double` | `date` | `timestamp` |
+|-----------|--------|---------|-------|----------|---------|----------|--------|-------------|
+| `integer` | cast   | cast    | cast  | `native` | cast    | cast     | cast   | cast        |
 
 
 </TabItem>
