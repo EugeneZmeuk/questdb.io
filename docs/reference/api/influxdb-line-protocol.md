@@ -449,7 +449,7 @@ The TCP receiver is a high-throughput streaming-in service for QuestDB. Here are
 - supports automatic table and column creation
 - multi-threaded, non-blocking
 - supports authentication
-- encryption is via optional reverse-proxy
+- encryption requires an optional external reverse-proxy
 
 ### Overview
 
