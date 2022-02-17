@@ -14,14 +14,14 @@ protocol packets both over [TCP](#tcp-receiver) and [UDP](#udp-receiver).
 ### Syntax
 
 ```shell
-table_name,tagset fieldset timestamp
+table_name,symbolset columnset timestamp
 ```
 
 | Element      | Definition                                                                                |
 |--------------|-------------------------------------------------------------------------------------------|
 | `table_name` | Name of the table where QuestDB will write data.                                          |
-| `tagset`     | A set of `name=value` pairs separated by commas that will be parsed as symbol columns     |
-| `fieldset`   | A set of `name=value` pairs separated by commas that will be parsed as non-symbol columns |
+| `symbolset`     | A set of `name=value` pairs separated by commas that will be parsed as symbol columns     |
+| `columnset`   | A set of `name=value` pairs separated by commas that will be parsed as non-symbol columns |
 | `timestamp`  | UNIX timestamp. By default in nanoseconds. Can be changed in the configuration            |
 
 `name` in `name=value` pair always corresponds to `column name` in the table
@@ -113,7 +113,7 @@ Table name and columns name must not contain any of the forbidden characters:
 `.`, `?`,`,`,`:`,`\`,`/`,`\0`,`)`,`(`,`+`,`*`,`~`,`%` and `-`
 
 
-### Tagset
+### Symbolset
 
 Area of the message that contains comma-separated set of `name=value` pairs for symbol columns.
 For example in a message like this:
@@ -122,16 +122,16 @@ For example in a message like this:
 trade,ticker=BTCUSD,venue=coinbase price=30,price=60 1638202821000000000
 ```
 
-`tagset` is `ticker=BTCUSD,venue=coinbase`. Please note the mandatory space between `tagset` and `fieldset`. Naming rules
+`symbolset` is `ticker=BTCUSD,venue=coinbase`. Please note the mandatory space between `symbolset` and `columnset`. Naming rules
 for columns are subject to [duplicate rules](#duplicate-column-names) and [name restrictions](#name-restrictions).
 
-### Tagset values
+### Symbolset values
 
-`tagset` values are always interpreted as [SYMBOL](/docs/concept/symbol/). Parser takes values literally so please beware of
+`symbolset` values are always interpreted as [SYMBOL](/docs/concept/symbol/). Parser takes values literally so please beware of
 accidentally using high cardinality types such as `9092i` or `1.245667`. This will result in a significant
 performance loss due to bulging mapping tables.
 
-`tagset` values are not quoted. They are allowed to have special characters, such as ` ` (space), `,` and `\`,
+`symbolset` values are not quoted. They are allowed to have special characters, such as ` ` (space), `,` and `\`,
 which must be escaped. Example:
 
 ```shell
@@ -140,10 +140,10 @@ trade,ticker=BTC\\USD\,All,venue=coin\ base price=30 1638202821000000000
 
 
 
-Whenever `tagset` column does not exist, it will be added on-the-fly with type `SYMBOL`. On other hand when
+Whenever `symbolset` column does not exist, it will be added on-the-fly with type `SYMBOL`. On other hand when
 column does exist, it is expected to be of `SYMBOL` type, otherwise line is rejected.
 
-### Fieldset
+### Columnset
 
 Area of the message that contains comma-separated set of `name=value` pairs for non-symbol columns.
 For example in a message like this:
@@ -152,12 +152,12 @@ For example in a message like this:
 trade,ticker=BTCUSD priceLow=30,priceHigh=60 1638202821000000000
 ```
 
-`fieldset` is `priceLow=30,priceHigh=60`. Naming rules
+`columnset` is `priceLow=30,priceHigh=60`. Naming rules
 for columns are subject to [duplicate rules](#duplicate-column-names) and [name restrictions](#name-restrictions).
 
-### Fieldset values
+### Columnset values
 
-`fieldset` supports several values types, which are used to either derive type of new column or mapping strategy when
+`columnset` supports several values types, which are used to either derive type of new column or mapping strategy when
 column already exists. These types are limited by existing Influx Line Protocol specification. Wider QuestDB type system is
 available by creating table via SQL upfront. The following are supported value types:
 
@@ -381,7 +381,7 @@ In this example we're populating _non-designated_ timestamp field `ts1`:
 tracking,obj=VLCC\ STEPHANIE gh="9v1s8hm7wpkssv1h",ts1=10000t 1000000000
 ```
 
-It is possible to populate _designated_ timestamp using `fieldset`, although this is not recommended. Let's see
+It is possible to populate _designated_ timestamp using `columnset`, although this is not recommended. Let's see
 how this works in practice. Assuming table:
 
 ```sql
@@ -395,7 +395,7 @@ tracking,loc=north ts=2000000000t 1000000000
 tracking,loc=south ts=3000000000t
 ```
 
-The result is `fieldset` value always wins:
+The result is `columnset` value always wins:
 
 
 | loc   | ts         |
@@ -411,7 +411,7 @@ The result is `fieldset` value always wins:
 
 ### GEOHASH values
 
-`geohash` values can be passed via `fieldset` as `string`. Please refer to [`fieldset` values](#fieldset-values)
+`geohash` values can be passed via `columnset` as `string`. Please refer to [`columnset` values](#columnset-values)
 
 ### Designated timestamp
 
