@@ -178,7 +178,7 @@ import TabItem from "@theme/TabItem"
 
 <TabItem value="integer">
 
-64-bit singed integer values, which correspond to QuestDB type `long`. The values are required to have `i` suffix, for
+64-bit signed integer values, which correspond to QuestDB type `long`. The values are required to have `i` suffix. For
 example.
 
 ```shell
