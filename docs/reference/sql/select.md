@@ -280,12 +280,12 @@ This function requires a
 
 #### Syntax
 
-![Flow chart showing the syntax of the LATEST BY keyword](/img/docs/diagrams/latestBy.svg)
+![Flow chart showing the syntax of the LATEST ON keyword](/img/docs/diagrams/latestBy.svg)
 
 :::info
 
 For more information, please refer to the
-[LATEST BY reference](/docs/reference/sql/latest-by/).
+[LATEST ON reference](/docs/reference/sql/latest-on/).
 
 :::
 
@@ -311,7 +311,7 @@ For more information, please refer to the
 Dynamically creates a
 [designated timestamp](/docs/concept/designated-timestamp/) on the output of a
 query. This allows to perform timestamp operations like [SAMPLE BY](#sample-by)
-or [LATEST BY](#latest-by) on tables which originally do not have a designated
+or [LATEST ON](#latest-on) on tables which originally do not have a designated
 timestamp.
 
 :::caution

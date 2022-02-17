@@ -16,13 +16,13 @@ might find in SQL but not in QuestDB's dialect.
 We have extended SQL to support our data storage model and simplify semantics of
 time series analytics.
 
-### LATEST BY
+### LATEST ON
 
-[LATEST BY](/docs/reference/sql/latest-by/) is a clause introduced to help find
+[LATEST ON](/docs/reference/sql/latest-on/) is a clause introduced to help find
 the latest entry by timestamp for a given key or combination of keys as part of
 a `SELECT` statement.
 
-```questdb-sql title="LATEST BY customer ID and currency"
+```questdb-sql title="LATEST ON customer ID and currency"
 SELECT * FROM balances
 WHERE balance > 800
 LATEST ON ts PARTITION BY customer_id, currency;

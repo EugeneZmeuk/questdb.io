@@ -108,7 +108,7 @@ This syntax makes the LATEST BY clause consistent with the query execution order
 since LATEST BY now must follow the WHERE clause. Release 6.2 also includes a
 number of fixes to make sure that the WHERE always gets applied before the
 LATEST BY. For more details on the new syntax, see the
-[LATEST BY documentation](/docs/reference/sql/latest-by/).
+[LATEST BY documentation](/docs/reference/sql/latest-on/).
 
 ## Optimize LIMIT SQL queries
 

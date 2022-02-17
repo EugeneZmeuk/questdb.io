@@ -180,7 +180,7 @@ module.exports = {
             "reference/sql/group-by",
             "reference/sql/insert",
             "reference/sql/join",
-            "reference/sql/latest-by",
+            "reference/sql/latest-on",
             "reference/sql/limit",
             "reference/sql/order-by",
             "reference/sql/rename",

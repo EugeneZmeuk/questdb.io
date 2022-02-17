@@ -15,7 +15,7 @@ implements these clauses which have the following execution order:
 2. [ON](/docs/reference/sql/join/)
 3. [JOIN](/docs/reference/sql/join/)
 4. [WHERE](/docs/reference/sql/where/)
-5. [LATEST BY](/docs/reference/sql/latest-by/)
+5. [LATEST ON](/docs/reference/sql/latest-on/)
 6. [GROUP BY](/docs/reference/sql/group-by/) (optional)
 7. [WITH](/docs/reference/sql/with/)
 8. [HAVING](/docs/concept/sql-extensions/#implicit-having/) (implicit)

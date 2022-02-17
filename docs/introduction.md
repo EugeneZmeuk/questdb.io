@@ -159,7 +159,7 @@ when starting services:
 - [GROUP BY](/docs/reference/sql/group-by/)
 - [INSERT](/docs/reference/sql/insert/)
 - [JOIN](/docs/reference/sql/join/)
-- [LATEST BY](/docs/reference/sql/latest-by/)
+- [LATEST BY](/docs/reference/sql/latest-on/)
 - [LIMIT](/docs/reference/sql/limit/)
 - [ORDER BY](/docs/reference/sql/order-by/)
 - [RENAME TABLE](/docs/reference/sql/rename/)

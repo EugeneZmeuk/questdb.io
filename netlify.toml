@@ -105,3 +105,7 @@
 [[redirects]]
   from = "/people-and-talent-acquisition"
   to = "/careers"
+
+[[redirects]]
+  from = "/docs/reference/sql/latest-by"
+  to = "/docs/reference/sql/latest-on"
