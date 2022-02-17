@@ -24,7 +24,7 @@ table_name,symbolset columnset timestamp\n
 | `columnset`  | A set of `name=value` pairs separated by commas that will be parsed as non-symbol columns. |
 | `timestamp`  | UNIX timestamp. By default in nanoseconds. Can be changed in the configuration.            |
 
-`name` in `name=value` pair always corresponds to `column name` in the table
+`name` in the `name=value` pair always corresponds to `column name` in the table.
 
 :::note
 Each ILP message has to end with new line `\n` character. 
