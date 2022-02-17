@@ -215,7 +215,7 @@ The following `cast` operations are supported when existing table column type is
 <TabItem value="long256">
 
 
-Custom type, which correspond to QuestDB type `long256`. The values are hex encoded 256-bit integer values with `i`
+Custom type, which correspond to QuestDB type `long256`. The values are hex encoded 256-bit unsigned integer values with `i`
 suffix. For example:
 
 ```shell
