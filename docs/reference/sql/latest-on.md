@@ -98,10 +98,10 @@ CREATE TABLE balances (
     ts TIMESTAMP
 ) TIMESTAMP(ts) PARTITION BY DAY;
 
-insert into balances values ('1', 'USD', 600.5, '2020-04-22T16:03:43.504432Z');
-insert into balances values ('2', 'USD', 950, '2020-04-22T16:08:34.404665Z');
-insert into balances values ('2', 'EUR', 780.2, '2020-04-22T16:11:22.704665Z');
-insert into balances values ('1', 'USD', 1500, '2020-04-22T16:11:32.904234Z');
+insert into balances values ('1', 'USD', 600.5, '2020-04-21T16:03:43.504432Z');
+insert into balances values ('2', 'USD', 950, '2020-04-21T16:08:34.404665Z');
+insert into balances values ('2', 'EUR', 780.2, '2020-04-21T16:11:22.704665Z');
+insert into balances values ('1', 'USD', 1500, '2020-04-21T16:11:32.904234Z');
 insert into balances values ('1', 'EUR', 650.5, '2020-04-22T16:11:32.904234Z');
 insert into balances values ('2', 'USD', 900.75, '2020-04-22T16:12:43.504432Z');
 insert into balances values ('2', 'EUR', 880.2, '2020-04-22T16:18:34.404665Z');
@@ -112,10 +112,10 @@ This provides us with a table with the following content:
 
 | cust_id | balance_ccy | balance | ts                          |
 | ------- | ----------- | ------- | --------------------------- |
-| 1       | USD         | 600.5   | 2020-04-22T16:01:22.104234Z |
-| 2       | USD         | 950     | 2020-04-22T16:03:43.504432Z |
-| 2       | EUR         | 780.2   | 2020-04-22T16:08:34.404665Z |
-| 1       | USD         | 1500    | 2020-04-22T16:11:22.704665Z |
+| 1       | USD         | 600.5   | 2020-04-21T16:01:22.104234Z |
+| 2       | USD         | 950     | 2020-04-21T16:03:43.504432Z |
+| 2       | EUR         | 780.2   | 2020-04-21T16:08:34.404665Z |
+| 1       | USD         | 1500    | 2020-04-21T16:11:22.704665Z |
 | 1       | EUR         | 650.5   | 2020-04-22T16:11:32.904234Z |
 | 2       | USD         | 900.75  | 2020-04-22T16:12:43.504432Z |
 | 2       | EUR         | 880.2   | 2020-04-22T16:18:34.404665Z |
@@ -186,14 +186,14 @@ CREATE TABLE unordered_balances (
     ts TIMESTAMP
 );
 
-insert into unordered_balances values ('2', 'USD', 950, '2020-04-22T16:08:34.404665Z');
+insert into unordered_balances values ('2', 'USD', 950, '2020-04-21T16:08:34.404665Z');
 insert into unordered_balances values ('1', 'USD', 330.5, '2020-04-22T16:20:14.404997Z');
 insert into unordered_balances values ('2', 'USD', 900.75, '2020-04-22T16:12:43.504432Z');
-insert into unordered_balances values ('1', 'USD', 1500, '2020-04-22T16:11:32.904234Z');
-insert into unordered_balances values ('1', 'USD', 600.5, '2020-04-22T16:03:43.504432Z');
+insert into unordered_balances values ('1', 'USD', 1500, '2020-04-21T16:11:32.904234Z');
+insert into unordered_balances values ('1', 'USD', 600.5, '2020-04-21T16:03:43.504432Z');
 insert into unordered_balances values ('1', 'EUR', 650.5, '2020-04-22T16:11:32.904234Z');
 insert into unordered_balances values ('2', 'EUR', 880.2, '2020-04-22T16:18:34.404665Z');
-insert into unordered_balances values ('2', 'EUR', 780.2, '2020-04-22T16:11:22.704665Z');
+insert into unordered_balances values ('2', 'EUR', 780.2, '2020-04-21T16:11:22.704665Z');
 ```
 
 Note that this table doesn't have a designated timestamp column and also
@@ -256,6 +256,23 @@ records, then filters out those below 800. The steps are
 | cust_id | balance_ccy | balance | inactive | ts                          |
 | ------- | ----------- | ------- | -------- | --------------------------- |
 | 2       | EUR         | 880.2   | FALSE    | 2020-04-22T16:18:34.404665Z |
+
+### Combination
+
+It's possible to combine a time-based filter with the balance filter from the
+previous example to query the latest values for the `2020-04-21` date and filter
+out those below 800.
+
+```questdb-sql
+(balances WHERE ts in '2020-04-21' LATEST ON ts PARTITION BY cust_id)
+WHERE balance > 800;
+```
+
+Note that QuestDB allows you to omit the `SELECT * FROM` part of the query, so
+we didn't include to keep the query compact.
+
+Such combination is very powerful since it allows you to find the latest values
+for a time-slice of the data and then apply a filter to them in a single query.
 
 ## Deprecated syntax
 
