@@ -424,7 +424,7 @@ The result in `columnset` value always wins:
 ### Designated timestamp
 
 Designated timestamp is trailing part of ILP message. It is optional. When present, designated timestamp is Epoch 
-`nanoseconds`. When timestamp is omitted, server will timestamp each message using system's clock. 
+nanoseconds. When the timestamp is omitted, the server will timestamp each message using the system's clock. 
 
 :::warning
 While `columnset` `timestamp` type units are `microseconds`, the designated timestamp units are `nanoseconds`.  These
