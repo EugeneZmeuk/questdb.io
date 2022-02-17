@@ -5,8 +5,7 @@ description: InfluxDB line protocol reference documentation.
 
 QuestDB implements the
 [InfluxDB line protocol](https://docs.influxdata.com/influxdb/v1.8/write_protocols/line_protocol_tutorial/)
-to ingest data. This enables you to use QuestDB as a drop-in replacement for
-InfluxDB and others implementing the protocol. QuestDB can listen for line
+to ingest data. QuestDB can listen for line
 protocol packets both over [TCP](#tcp-receiver) and [UDP](#udp-receiver).
 
 ## Usage
@@ -41,6 +40,13 @@ Each ILP message has to end with new line `\n` character.
   like to define a partition strategy, you should
   [CREATE](/docs/reference/sql/create-table/) the table beforehand.
 - When the timestamp is empty, QuestDB will use the server timestamp.
+
+
+### Difference from InfluxDB
+
+QuestDB TCP Receiver uses ILP as both serialization and the transport format. InfluxDB on other hand uses HTTP
+as the transport and ILP as serialization format. For this reason the existing InfluxDB client libraries will not work
+with QuestDB.
 
 ### Generic example
 
@@ -416,6 +422,8 @@ The result in `columnset` value always wins:
 
 
 </Tabs>
+
+---------------
 
 ### GEOHASH values
 
