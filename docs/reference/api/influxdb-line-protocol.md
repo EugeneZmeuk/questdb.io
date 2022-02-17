@@ -139,7 +139,7 @@ for columns are subject to [duplicate rules](#duplicate-column-names) and [name 
 
 `symbolset` values are always interpreted as [SYMBOL](/docs/concept/symbol/). Parser takes values literally so please beware of
 accidentally using high cardinality types such as `9092i` or `1.245667`. This will result in a significant
-performance loss due to bulging mapping tables.
+performance loss due to large mapping tables.
 
 `symbolset` values are not quoted. They are allowed to have special characters, such as ` ` (space), `,` and `\`,
 which must be escaped. Example:
