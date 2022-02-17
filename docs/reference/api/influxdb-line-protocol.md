@@ -539,7 +539,7 @@ committed and become visible. ILP derives the commit interval as a function of
 the commit lag value for each table. The difference is that the commit interval
 is a wall clock.
 
-To ease understanding of how time interval interacts with commit lag , let's
+To ease understanding of how time interval interacts with commit lag, let's
 look at how real-time data stream will become visible. The wall clock is roughly
 aligned with time in the data stream in real-time data. Let's assume that table
 has a commit lag value of 60 seconds and a commit interval of 20 seconds. After
