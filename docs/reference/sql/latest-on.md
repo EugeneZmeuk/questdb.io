@@ -6,14 +6,29 @@ description:
   illustration.
 ---
 
-`LATEST ON PARTITION BY` is used as part of a
-[SELECT statement](/docs/reference/sql/select/) for returning the most recent
-records per unique column value, commonly on `STRING` and `SYMBOL` column types.
-For the sake of brevity we to refer to this clause as `LATEST ON`.
+For scenarios where multiple time series are stored in the same table it is
+relatively difficult to identify the lastest items of these time series with
+standard SQL syntax. QuestDB introduces `LATEST ON` clause for
+[SELECT statement](/docs/reference/sql/select/) to remove the boilerplate
+clutter and splice the table with relative ease.
 
 ## Syntax
 
 ![Flow chart showing the syntax of the LATEST ON keyword](/img/docs/diagrams/latestOn.svg)
+
+where:
+
+- `columnName` used in the `LATEST ON` part of the clause is a `TIMESTAMP`
+  column.
+- `columnName` list used in the `PARTITION BY` part of the clause is a list of
+  columns of one of the following types: `SYMBOL`, `STRING`, `BOOLEAN`, `SHORT`,
+  `INT`, `LONG`, `LONG256`, `CHAR`.
+
+## Description
+
+`LATEST ON` is used as part of a [SELECT statement](/docs/reference/sql/select/)
+for returning the most recent records per unique time series identified by the
+`PARTITION BY` column values.
 
 To illustrate how `LATEST ON` is intended to be used, we can consider the
 `trips` table [in the QuestDB demo instance](https://demo.questdb.io/). This
@@ -36,13 +51,13 @@ LATEST ON pickup_datetime PARTITION BY payment_type;
 | Cash         | 2019-06-30T23:59:54.000000Z | 2             |
 | Card         | 2019-06-30T23:59:56.000000Z | 1             |
 
-The above query returns the latest value within each timeseries stored in the
-table. Those timeseries are determined based on the column(s) specified in the
-`PARTITION BY` part of the `LATEST ON` clause. In our example those timeseries
+The above query returns the latest value within each time series stored in the
+table. Those time series are determined based on the column(s) specified in the
+`PARTITION BY` part of the `LATEST ON` clause. In our example those time series
 are represented by different payment types. Then the column used in the
 `LATEST ON` part of the clause stands for the designated timestamp column for
 the table. This allows the database to find the latest value within each of the
-timeseries.
+time series.
 
 The below sections will demonstrate other ways to use the `LATEST ON` clause.
 
@@ -54,7 +69,7 @@ FROM trips
 LATEST BY payment_type;
 ```
 
-The old `LATEST ON` syntax is considered deprecated. While it's still supported
+The old `LATEST BY` syntax is considered deprecated. While it's still supported
 by the database, you should use the new `LATEST ON PARTITION BY` syntax in your
 applications. The first key difference is that the new syntax requires a
 timestamp column to be always specified. The second difference is that with the
@@ -148,7 +163,7 @@ The results return the most recent records for each unique combination of
 
 :::info
 
-For single `SYMBOL` columns, QuestDB will know all distinct values upfront and
+For a single `SYMBOL` column, QuestDB will know all distinct values upfront and
 stop scanning table contents once the latest entry has been found for each
 distinct symbol value. When `LATEST ON` is provided multiple columns, QuestDB
 has to scan the entire table to find distinct combinations of column values.
@@ -182,7 +197,7 @@ insert into unordered_balances values ('2', 'EUR', 780.2, '2020-04-22T16:11:22.7
 ```
 
 Note that this table doesn't have a designated timestamp column and also
-contains timeseries that are unordered by `ts` column.
+contains time series that are unordered by `ts` column.
 
 Due to the absent designated timestamp column, we can't use `LATEST ON` directly
 on this table, but it's possible to use `LATEST ON` over a sub-query:
@@ -234,7 +249,7 @@ WHERE balance > 800;
 This query executes `LATEST ON` before `WHERE` and returns the most recent
 records, then filters out those below 800. The steps are
 
-- Find the latest balances by customer ID
+- Find the latest balances by customer ID.
 - Filter out balances below 800. Since the latest balance for customer 1 is
   equal to 330.5, it is filtered out in this step.
 
