@@ -104,7 +104,7 @@ pair on each line. For example:
 trade,ticker=USD price=30,price=60 1638202821000000000\n
 ```
 
-Price `30` is ignored, `60` is stored.
+Price `30` is stored, `60` is ignored.
 
 ### Name restrictions
 
