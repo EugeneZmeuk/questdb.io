@@ -387,7 +387,7 @@ It is possible to populate _designated_ timestamp using `columnset`, although th
 how this works in practice. Assuming table:
 
 ```sql
-create table (loc symbol, ts timestamp) timestamp(ts) partition by day
+CREATE TABLE (loc SYMBOL, ts timestamp) TIMESTAMP(ts) PARTITION BY DAY;
 ```
 
 When we send:
