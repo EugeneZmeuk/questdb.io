@@ -331,7 +331,7 @@ Casting strings with 2 or more characters to `char` will cause entire line to be
 
 ##### Casting to GeoHash
 
-String value can be cast to `GeoHah` type when destination column exists and is of a `GEOHASH` type already. Do make
+String value can be cast to `geohash` type when the destination column exists and is of a `GEOHASH` type already. Do make
 sure that column is created upfront. Otherwise, ILP will create `STRING` column regardless of the value.
 
 Example:
