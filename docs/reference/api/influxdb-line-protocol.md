@@ -563,7 +563,7 @@ line.tcp.maintenance.job.interval=1000
 
 TCP receiver makes use of 3 logical thread pools:
 
-- io worker pool - `line.tcp.io.worker.count`, threads responsible for handling incoming TCP connections 
+- I/O worker pool - `line.tcp.io.worker.count`, threads responsible for handling incoming TCP connections and parsing received ILP messages
 - writer pool - `line.tcp.writer.worker.count`, threads responsible for table writes
 - shared pool - `shared.worker.count`, threads responsible for handling O3 data
 
