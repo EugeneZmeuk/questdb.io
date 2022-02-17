@@ -143,7 +143,7 @@ trade,ticker=BTC\\USD\,All,venue=coin\ base price=30 1638202821000000000\n
 ```
 
 Whenever `symbolset` column does not exist, it will be added on-the-fly with type `SYMBOL`. On other hand when
-column does exist, it is expected to be of `SYMBOL` type, otherwise line is rejected.
+the column does exist, it is expected to be of `SYMBOL` type, otherwise the line is rejected.
 
 ### Columnset
 
