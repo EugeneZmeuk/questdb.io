@@ -594,7 +594,7 @@ IP address and port, load balancing, etc.
 ## UDP receiver
 
 The UDP receiver can handle both single and multi row write requests. It is
-currently single-threaded, and performs both network IO and write jobs out of
+currently single-threaded, and performs both network I/O and write jobs out of
 one thread. The UDP worker thread can work either on its own thread or use the
 common thread pool. It supports both multicast and unicast.
 
