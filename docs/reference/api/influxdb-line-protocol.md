@@ -60,6 +60,12 @@ readings,city=Bristol,make=Honeywell temperature=23.2,humidity=0.443 14658398301
 readings,city=London,make=Omron temperature=23.6,humidity=0.348 1465839830100700000\n
 ```
 
+This would create table similar to this SQL statement and populate it.
+
+```sql
+create table readings (timestamp timestamp, city symbol, temperature double, humidity double, make symbol) timestamp(timestamp) partition by DAY;
+```
+
 ### Irregularly-structured data
 
 InfluxDB line protocol makes it possible to send data under different shapes.
