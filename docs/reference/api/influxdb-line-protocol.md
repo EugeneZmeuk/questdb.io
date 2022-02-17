@@ -588,7 +588,7 @@ When ingesting data out of order (O3) `shared pool` accelerates O3 tasks. It is 
 
 The TCP receiver configuration can be completely customized using
 [configuration keys](/docs/reference/configuration/#influxdb-line-protocol).
-You can use this to configure the tread pool, buffer and queue sizes, receiver
+You can use this to configure the thread pools, buffer and queue sizes, receiver
 IP address and port, load balancing etc.
 
 ## UDP receiver
