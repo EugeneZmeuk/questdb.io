@@ -40,7 +40,7 @@ For example, the server configuration key for shared workers must be passed as
 described below:
 
 | `server.conf` key     | env var                   |
-| --------------------- | ------------------------- |
+|-----------------------|---------------------------|
 | `shared.worker.count` | `QDB_SHARED_WORKER_COUNT` |
 
 :::note
@@ -69,7 +69,7 @@ This section describes how configure QuestDB server settings when running
 QuestDB in a Docker container. A command to run QuestDB via Docker with default
 interfaces is as follows:
 
-```shell
+```shell title="Example of running docker container with built-in storage"
 docker run -p 9000:9000 \
  -p 9009:9009 \
  -p 8812:8812 \
@@ -151,8 +151,7 @@ in the format `n<unit>`, where `<unit>` can be one of the following:
 
 For example:
 
-```bash
-# Setting maximum send buffer size to 2MB per TCP socket
+```bash title="Setting maximum send buffer size to 2MB per TCP socket"
 http.net.connection.sndbuf=2m
 ```
 
@@ -162,7 +161,7 @@ Shared worker threads service SQL execution subsystems and (in the default
 configuration) every other subsystem.
 
 | Property                  | Default | Description                                                                                                                                                  |
-| ------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+|---------------------------|---------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | shared.worker.count       | 2       | Number of worker threads shared across the application. Increasing this number will increase parallelism in the application at the expense of CPU resources. |
 | shared.worker.affinity    |         | Comma-delimited list of CPU ids, one per thread specified in `shared.worker.count`. By default, threads have no CPU affinity.                                |
 | shared.worker.haltOnError | false   | Toggle whether worker should stop on error.                                                                                                                  |
@@ -173,7 +172,7 @@ This section describes configuration settings for the distribution of work by
 writer threads in a QuestDB instance.
 
 | Property                          | Default | Description                                                                                                                               |
-| --------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+|-----------------------------------|---------|-------------------------------------------------------------------------------------------------------------------------------------------|
 | cairo.max.uncommitted.rows        | 500000  | Maximum number of uncommitted rows per table, when the number of pending rows exceeds this parameter on a table, a commit will be issued. |
 | line.tcp.commit.timeout           | 1000    | Pending rows will be committed after `line.tcp.commit.timeout` milliseconds inactivity on each table.                                     |
 | line.tcp.maintenance.job.interval | 30000   | Maximum amount of time (in milliseconds) between maintenance jobs, these will commit any uncommitted data on inactive tables.             |
@@ -193,7 +192,7 @@ the [health monitoring page](/docs/operations/health-monitoring/).
 :::
 
 | Property                        | Default      | Description                                                                                                                                                                    |
-| ------------------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+|---------------------------------|--------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | http.min.enabled                | true         | Enable or disable Minimal HTTP server.                                                                                                                                         |
 | http.min.bind.to                | 0.0.0.0:9003 | IPv4 address and port of the server. `0` means it will bind to all network interfaces, otherwise the IP address must be one of the existing network adapters.                  |
 | http.min.net.connection.limit   | 4            | Active connection limit                                                                                                                                                        |
@@ -209,7 +208,7 @@ default on port `9000`. For details on the use of this component, refer to the
 [web console documentation](/docs/reference/web-console/) page.
 
 | Property                                     | Default        | Description                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| -------------------------------------------- | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|----------------------------------------------|----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | http.enabled                                 | true           | Enable or disable HTTP server.                                                                                                                                                                                                                                                                                                                                                                                                         |
 | http.bind.to                                 | 0.0.0.0:9000   | IP address and port of HTTP server. A value of `0` means that the HTTP server will bind to all network interfaces. You can specify IP address of any individual network interface on your system.                                                                                                                                                                                                                                      |
 | http.net.connection.limit                    | 256            | The number of simultaneous TCP connection to the HTTP server. The rationale of the value is to control server memory consumption.                                                                                                                                                                                                                                                                                                      |
@@ -266,7 +265,7 @@ This section describes configuration settings for the Cairo SQL engine in
 QuestDB.
 
 | Property                                       | Default           | Description                                                                                                                                                                                                              |
-| ---------------------------------------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+|------------------------------------------------|-------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | query.timeout.sec                              | 60                | A global timeout (in seconds) for long-running queries.                                                                                                                                                                  |
 | cairo.sql.copy.root                            | null              | Input root directory for CSV imports via `copy` SQL.                                                                                                                                                                     |
 | cairo.sql.backup.root                          | null              | Output root directory for backups.                                                                                                                                                                                       |
@@ -344,34 +343,34 @@ QuestDB.
 This section describes configuration settings for client connections using
 PostgresSQL wire protocol.
 
-| Property                            | Default      | Description                                                                                                                                                                                       |
-| ----------------------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| pg.enabled                          | true         | Configuration for enabling or disabling the Postres interface.                                                                                                                                    |
-| pg.net.bind.to                      | 0.0.0.0:8812 | IP address and port of Postgres wire protocol server. 0 means that the server will bind to all network interfaces. You can specify IP address of any individual network interface on your system. |
-| pg.net.connection.limit             | 10           | The number of simultaneous PostgreSQL connections to the server. This value is intended to control server memory consumption.                                                                     |
-| pg.net.connection.timeout           | 300000       | Connection idle timeout in milliseconds. Connections are closed by the server when this timeout lapses.                                                                                           |
-| pg.net.connection.rcvbuf            | -1           | Maximum send buffer size on each TCP socket. If value is -1 socket send buffer remains unchanged from OS default.                                                                                 |
-| pg.net.connection.sndbuf            | -1           | Maximum receive buffer size on each TCP socket. If value is -1, the socket receive buffer remains unchanged from OS default.                                                                      |
-| pg.net.connection.hint              | false        | Windows specific flag to overcome OS limitations on TCP backlog size                                                                                                                              |
-| pg.character.store.capacity         | 4096         | Size of the CharacterStore.                                                                                                                                                                       |
-| pg.character.store.pool.capacity    | 64           | Size of the CharacterStore pool capacity .                                                                                                                                                        |
-| pg.connection.pool.capacity         | 64           | The maximum amount of pooled connections this interface may have.                                                                                                                                 |
-| pg.password                         | quest        | Postgres database password.                                                                                                                                                                       |
-| pg.user                             | admin        | Postgres database username.                                                                                                                                                                       |
-| pg.select.cache.enabled             | true         | Enable or disable the SELECT query cache. Cache capacity is `number_of_blocks * number_of_rows`.                                                                                                  |
-| pg.select.cache.block.count         | 16           | Number of blocks to cache SELECT query execution plan against text to speed up execution.                                                                                                         |
-| pg.select.cache.row.count           | 16           | Number of rows to cache for SELECT query execution plan against text to speed up execution.                                                                                                       |
-| pg.insert.cache.enabled             | true         | Enable or disable the INSERT query cache. Cache capacity is `number_of_blocks * number_of_rows`.                                                                                                  |
-| pg.insert.cache.block.count         | 8            | Number of blocks to cache INSERT query execution plan against text to speed up execution.                                                                                                         |
-| pg.insert.cache.row.count           | 8            | Number of rows to cache for INSERT query execution plan against text to speed up execution.                                                                                                       |
-| pg.max.blob.size.on.query           | 512k         | For binary values, clients will receive an error when requesting blob sizes above this value.                                                                                                     |
-| pg.recv.buffer.size                 | 1M           | Size of the buffer for receiving data.                                                                                                                                                            |
-| pg.send.buffer.size                 | 1M           | Size of the buffer for sending data.                                                                                                                                                              |
-| pg.date.locale                      | en           | The locale to handle date types.                                                                                                                                                                  |
-| pg.timestamp.locale                 | en           | The locale to handle timestamp types.                                                                                                                                                             |
-| pg.worker.count                     | 2            | Number of dedicated worker threads assigned to write data. When `0`, the writer jobs will use the shared pool.                                                                                    |
-| pg.worker.affinity                  | -1,-1        | Comma-separated list of thread numbers which should be pinned for Postgres ingestion. Example `line.tcp.worker.affinity=1,2,3`.                                                                   |
-| pg.halt.on.error                    | false        | Whether ingestion should stop upon internal error.                                                                                                                                                |
+| Property                         | Default      | Description                                                                                                                                                                                       |
+|----------------------------------|--------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| pg.enabled                       | true         | Configuration for enabling or disabling the Postres interface.                                                                                                                                    |
+| pg.net.bind.to                   | 0.0.0.0:8812 | IP address and port of Postgres wire protocol server. 0 means that the server will bind to all network interfaces. You can specify IP address of any individual network interface on your system. |
+| pg.net.connection.limit          | 10           | The number of simultaneous PostgreSQL connections to the server. This value is intended to control server memory consumption.                                                                     |
+| pg.net.connection.timeout        | 300000       | Connection idle timeout in milliseconds. Connections are closed by the server when this timeout lapses.                                                                                           |
+| pg.net.connection.rcvbuf         | -1           | Maximum send buffer size on each TCP socket. If value is -1 socket send buffer remains unchanged from OS default.                                                                                 |
+| pg.net.connection.sndbuf         | -1           | Maximum receive buffer size on each TCP socket. If value is -1, the socket receive buffer remains unchanged from OS default.                                                                      |
+| pg.net.connection.hint           | false        | Windows specific flag to overcome OS limitations on TCP backlog size                                                                                                                              |
+| pg.character.store.capacity      | 4096         | Size of the CharacterStore.                                                                                                                                                                       |
+| pg.character.store.pool.capacity | 64           | Size of the CharacterStore pool capacity .                                                                                                                                                        |
+| pg.connection.pool.capacity      | 64           | The maximum amount of pooled connections this interface may have.                                                                                                                                 |
+| pg.password                      | quest        | Postgres database password.                                                                                                                                                                       |
+| pg.user                          | admin        | Postgres database username.                                                                                                                                                                       |
+| pg.select.cache.enabled          | true         | Enable or disable the SELECT query cache. Cache capacity is `number_of_blocks * number_of_rows`.                                                                                                  |
+| pg.select.cache.block.count      | 16           | Number of blocks to cache SELECT query execution plan against text to speed up execution.                                                                                                         |
+| pg.select.cache.row.count        | 16           | Number of rows to cache for SELECT query execution plan against text to speed up execution.                                                                                                       |
+| pg.insert.cache.enabled          | true         | Enable or disable the INSERT query cache. Cache capacity is `number_of_blocks * number_of_rows`.                                                                                                  |
+| pg.insert.cache.block.count      | 8            | Number of blocks to cache INSERT query execution plan against text to speed up execution.                                                                                                         |
+| pg.insert.cache.row.count        | 8            | Number of rows to cache for INSERT query execution plan against text to speed up execution.                                                                                                       |
+| pg.max.blob.size.on.query        | 512k         | For binary values, clients will receive an error when requesting blob sizes above this value.                                                                                                     |
+| pg.recv.buffer.size              | 1M           | Size of the buffer for receiving data.                                                                                                                                                            |
+| pg.send.buffer.size              | 1M           | Size of the buffer for sending data.                                                                                                                                                              |
+| pg.date.locale                   | en           | The locale to handle date types.                                                                                                                                                                  |
+| pg.timestamp.locale              | en           | The locale to handle timestamp types.                                                                                                                                                             |
+| pg.worker.count                  | 2            | Number of dedicated worker threads assigned to write data. When `0`, the writer jobs will use the shared pool.                                                                                    |
+| pg.worker.affinity               | -1,-1        | Comma-separated list of thread numbers which should be pinned for Postgres ingestion. Example `line.tcp.worker.affinity=1,2,3`.                                                                   |
+| pg.halt.on.error                 | false        | Whether ingestion should stop upon internal error.                                                                                                                                                |
 
 ### InfluxDB line protocol
 
@@ -379,33 +378,37 @@ This section describes ingestion settings for incoming messages using InfluxDB
 line protocol.
 
 | Property                  | Default | Description                                                                                             |
-| ------------------------- | ------- | ------------------------------------------------------------------------------------------------------- |
+|---------------------------|---------|---------------------------------------------------------------------------------------------------------|
 | line.default.partition.by | DAY     | The default partitioning strategy applied to new tables dynamically created by sending records via ILP. |
 
 #### TCP specific settings
 
-| Property                             | Default      | Description                                                                                                                                   |
-| ------------------------------------ | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| line.tcp.enabled                     | true         | Enable or disable line protocol over TCP.                                                                                                     |
-| line.tcp.net.bind.to                 | 0.0.0.0:9009 | IP address of the network interface to bind listener to and port. By default, TCP receiver listens on all network interfaces.                 |
-| line.tcp.net.connection.limit        | 10           | The number of simultaneous connections to the server. This value is intended to control server memory consumption.                            |
-| line.tcp.net.connection.timeout      | 300000       | Connection idle timeout in milliseconds. Connections are closed by the server when this timeout lapses.                                       |
-| line.tcp.net.connection.hint         | false        | Windows specific flag to overcome OS limitations on TCP backlog size                                                                          |
-| line.tcp.net.connection.rcvbuf       | -1           | Maximum buffer receive size on each TCP socket. If value is -1, the socket receive buffer remains unchanged from OS default.                  |
-| line.tcp.auth.db.path                |              | Path which points to the authentication db file.                                                                                              |
-| line.tcp.connection.pool.capacity    | 64           | The maximum amount of pooled connections this interface may have.                                                                             |
-| line.tcp.timestamp                   | n            | Input timestamp resolution. Possible values are `n`, `u`, `ms`, `s` and `h`.                                                                  |
-| line.tcp.msg.buffer.size             | 2048         | Size of the buffer read from queue. Maximum size of write request, regardless of the number of measurements.                                  |
-| line.tcp.max.measurement.size        | 2048         | Maximum size of any measurement.                                                                                                              |
-| line.tcp.writer.queue.size           | 128          | Size of the queue between network I/O and writer jobs. Each queue entry represents a measurement.                                             |
-| line.tcp.io.worker.count             | 0            | Number of dedicated worker threads assigned to write data. When `0`, the writer jobs will use the shared pool.                                |
-| line.tcp.io.worker.affinity          | 0            | Comma-separated list of thread numbers which should be pinned for line protocol ingestion over TCP. Example `line.tcp.worker.affinity=1,3,4`. |
-| line.tcp.halt.on.error               | false        | Whether ingestion should stop upon internal error.                                                                                            |
+| Property                          | Default      | Description                                                                                                                                   |
+|-----------------------------------|--------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
+| line.tcp.enabled                  | true         | Enable or disable line protocol over TCP.                                                                                                     |
+| line.tcp.net.bind.to              | 0.0.0.0:9009 | IP address of the network interface to bind listener to and port. By default, TCP receiver listens on all network interfaces.                 |
+| line.tcp.net.connection.limit     | 10           | The number of simultaneous connections to the server. This value is intended to control server memory consumption.                            |
+| line.tcp.net.connection.timeout   | 300000       | Connection idle timeout in milliseconds. Connections are closed by the server when this timeout lapses.                                       |
+| line.tcp.net.connection.hint      | false        | Windows specific flag to overcome OS limitations on TCP backlog size                                                                          |
+| line.tcp.net.connection.rcvbuf    | -1           | Maximum buffer receive size on each TCP socket. If value is -1, the socket receive buffer remains unchanged from OS default.                  |
+| line.tcp.auth.db.path             |              | Path which points to the authentication db file.                                                                                              |
+| line.tcp.connection.pool.capacity | 64           | The maximum amount of pooled connections this interface may have.                                                                             |
+| line.tcp.timestamp                | n            | Input timestamp resolution. Possible values are `n`, `u`, `ms`, `s` and `h`.                                                                  |
+| line.tcp.msg.buffer.size          | 32768        | Size of the buffer read from queue. Maximum size of write request, regardless of the number of measurements.                                  |
+| line.tcp.max.measurement.size     | 32768        | Maximum size of any measurement.                                                                                                              |
+| line.tcp.writer.queue.size        | 128          | Size of the queue between network I/O and writer jobs. Each queue entry represents a measurement.                                             |
+| line.tcp.writer.worker.count      | 1            | Number of dedicated I/O worker threads assigned to write data to tables. When `0`, the writer jobs will use the shared pool.                  |
+| line.tcp.writer.worker.affinity   |              | Comma-separated list of thread numbers which should be pinned for line protocol ingestion over TCP. CPU core indexes are 0-based.             |
+| line.tcp.io.worker.count          | 0            | Number of dedicated I/O worker threads assigned to parse TCP input. When `0`, the writer jobs will use the shared pool.                       |
+| line.tcp.io.worker.affinity       |              | Comma-separated list of thread numbers which should be pinned for line protocol ingestion over TCP. CPU core indexes are 0-based.             |
+| line.tcp.default.partition.by     | DAY          | Table partition strategy to be used with tables that are created automatically by ILP. Possible values are: `HOUR`, `DAY`, `MONTH` and `YEAR` |
+| line.tcp.disconnect.on.error      | true         | Disconnect TCP socket that sends malformed messages.                                                                                          |
+
 
 #### UDP specific settings
 
 | Property                     | Default      | Description                                                                                                                                                                                                                      |
-| ---------------------------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|------------------------------|--------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | line.udp.join                | 232.1.2.3    | Multicast address receiver joins. This values is ignored when receiver is in "unicast" mode.                                                                                                                                     |
 | line.udp.bind.to             | 0.0.0.0:9009 | IP address of the network interface to bind listener to and port. By default UDP receiver listens on all network interfaces.                                                                                                     |
 | line.udp.commit.rate         | 1000000      | For packet bursts the number of continuously received messages after which receiver will force commit. Receiver will commit irrespective of this parameter when there are no messages.                                           |
@@ -426,7 +429,7 @@ us improve the product over time. We do not collect any personally-identifying
 information, and we do not share any of this data with third parties.
 
 | Property          | Default | Description                                           |
-| ----------------- | ------- | ----------------------------------------------------- |
+|-------------------|---------|-------------------------------------------------------|
 | telemetry.enabled | true    | Enable or disable anonymous usage metrics collection. |
 
 ## Logging

@@ -390,12 +390,12 @@ create table (loc symbol, ts timestamp) timestamp(ts) partition by day
 
 When we send:
 
-```shell title=""
+```shell title="Sending mixed desginated timestamp values"
 tracking,loc=north ts=2000000000t 1000000000
 tracking,loc=south ts=3000000000t
 ```
 
-The result is `columnset` value always wins:
+The result in `columnset` value always wins:
 
 
 | loc   | ts         |
@@ -417,6 +417,11 @@ The result is `columnset` value always wins:
 
 Designated timestamp is trailing part of ILP message. It is optional. When present, designated timestamp is Epoch 
 `nanoseconds`. When timestamp is omitted, server will timestamp each message using system's clock. 
+
+:::warning
+While `columnset` `timestamp` type units are `microseconds`, the designated timestamp units are `nanoseconds`.  These
+are default units, which can be overridden via `line.tcp.timestamp`
+:::
 
 ```shell title="Example of ILP message with desginated timestamp value"
 tracking,loc=north val=200i 1000000000
@@ -510,8 +515,7 @@ visible to table readers.
 
 This parameter is set using in the following server configuration property:
 
-```shell
-# commit when this number of uncommitted records is reached
+```shell title="Commit when this number of uncommitted records is reached"
 cairo.max.uncommitted.rows=1000
 ```
 
@@ -522,8 +526,7 @@ uncommitted data is fully committed, and table data becomes fully visible. The
 timeout value is server-global and can be set via the following server
 configuration property:
 
-```shell
-# Minimum amount of idle time before a table writer is released
+```shell title="Minimum amount of idle time (millis) before table writer is released"
 line.tcp.min.idle.ms.before.writer.release=30000
 ```
 
