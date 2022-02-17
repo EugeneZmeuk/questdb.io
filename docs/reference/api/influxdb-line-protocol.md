@@ -110,7 +110,7 @@ trade,symbol\ ticker=USD price=30,details="Latest price" 1638202821000000000
 ```
 
 Table name and columns name must not contain any of the forbidden characters:
-`.`, `?`,`,`,`:`,`\`,`/`,`\0`,`)`,`(`,`+`,`*`,`~`,`%` and `-`
+`.`, `?`,`,`,`:`,`\`,`/`,`\0`,`)`,`(`,`+`,`*`,`~`,`%` and `-`.
 
 
 ### Symbolset
