@@ -280,7 +280,7 @@ This function requires a
 
 #### Syntax
 
-![Flow chart showing the syntax of the LATEST ON keyword](/img/docs/diagrams/latestBy.svg)
+![Flow chart showing the syntax of the LATEST ON keyword](/img/docs/diagrams/latestOn.svg)
 
 :::info
 
