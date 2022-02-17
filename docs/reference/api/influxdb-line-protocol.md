@@ -17,12 +17,12 @@ protocol packets both over [TCP](#tcp-receiver) and [UDP](#udp-receiver).
 table_name,symbolset columnset timestamp
 ```
 
-| Element      | Definition                                                                                |
-|--------------|-------------------------------------------------------------------------------------------|
-| `table_name` | Name of the table where QuestDB will write data.                                          |
-| `symbolset`     | A set of `name=value` pairs separated by commas that will be parsed as symbol columns     |
-| `columnset`   | A set of `name=value` pairs separated by commas that will be parsed as non-symbol columns |
-| `timestamp`  | UNIX timestamp. By default in nanoseconds. Can be changed in the configuration            |
+| Element      | Definition                                                                                 |
+|--------------|--------------------------------------------------------------------------------------------|
+| `table_name` | Name of the table where QuestDB will write data.                                           |
+| `symbolset`  | A set of `name=value` pairs separated by commas that will be parsed as symbol columns.     |
+| `columnset`  | A set of `name=value` pairs separated by commas that will be parsed as non-symbol columns. |
+| `timestamp`  | UNIX timestamp. By default in nanoseconds. Can be changed in the configuration.            |
 
 `name` in `name=value` pair always corresponds to `column name` in the table
 
@@ -555,8 +555,7 @@ be carefully chosen with both data visibility and ingestion performance in mind.
 
 This parameter is set using in the following server configuration property:
 
-```shell
-# commit uncommitted rows when this timer is reached
+```shell title="Setting maintenance insterval (millis)"
 line.tcp.maintenance.job.interval=1000
 ```
 
