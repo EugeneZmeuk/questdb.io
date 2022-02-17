@@ -14,7 +14,7 @@ protocol packets both over [TCP](#tcp-receiver) and [UDP](#udp-receiver).
 ### Syntax
 
 ```shell
-table_name,symbolset columnset timestamp
+table_name,symbolset columnset timestamp\n
 ```
 
 | Element      | Definition                                                                                 |
@@ -25,6 +25,10 @@ table_name,symbolset columnset timestamp
 | `timestamp`  | UNIX timestamp. By default in nanoseconds. Can be changed in the configuration.            |
 
 `name` in `name=value` pair always corresponds to `column name` in the table
+
+:::note
+Each ILP message has to end with new line `\n` character. 
+:::
 
 ### Behaviour
 
@@ -51,9 +55,9 @@ Let's assume the following data:
 The line protocol syntax for that table is:
 
 ```shell
-readings,city=London,make=Omron temperature=23.5,humidity=0.343 1465839830100400000
-readings,city=Bristol,make=Honeywell temperature=23.2,humidity=0.443 1465839830100600000
-readings,city=London,make=Omron temperature=23.6,humidity=0.348 1465839830100700000
+readings,city=London,make=Omron temperature=23.5,humidity=0.343 1465839830100400000\n
+readings,city=Bristol,make=Honeywell temperature=23.2,humidity=0.443 1465839830100600000\n
+readings,city=London,make=Omron temperature=23.6,humidity=0.348 1465839830100700000\n
 ```
 
 ### Irregularly-structured data
@@ -65,9 +69,9 @@ just above highlights structured data, it is possible for InfluxDB line protocol
 users to send data as follows:
 
 ```shell
-readings,city=London temperature=23.2 1465839830100400000
-readings,city=London temperature=23.6 1465839830100700000
-readings,make=Honeywell temperature=23.2,humidity=0.443 1465839830100800000
+readings,city=London temperature=23.2 1465839830100400000\n
+readings,city=London temperature=23.6 1465839830100700000\n
+readings,make=Honeywell temperature=23.2,humidity=0.443 1465839830100800000\n
 ```
 
 This would result in the following table:
@@ -91,7 +95,7 @@ If line contains duplicate column names, the value stored in the table will be t
 pair on each line. For example:
 
 ```shell
-trade,ticker=USD price=30,price=60 1638202821000000000
+trade,ticker=USD price=30,price=60 1638202821000000000\n
 ```
 
 Price `30` is ignored, `60` is stored.
@@ -102,11 +106,11 @@ Both table name and column names are allowed to have spaces ` `. These spaces ha
 both of these are valid lines.
 
 ```shell
-trade\ table,ticker=USD price=30,details="Latest price" 1638202821000000000
+trade\ table,ticker=USD price=30,details="Latest price" 1638202821000000000\n
 ```
 
 ```shell
-trade,symbol\ ticker=USD price=30,details="Latest price" 1638202821000000000
+trade,symbol\ ticker=USD price=30,details="Latest price" 1638202821000000000\n
 ```
 
 Table name and columns name must not contain any of the forbidden characters:
@@ -119,7 +123,7 @@ Area of the message that contains comma-separated set of `name=value` pairs for 
 For example in a message like this:
 
 ```shell
-trade,ticker=BTCUSD,venue=coinbase price=30,price=60 1638202821000000000
+trade,ticker=BTCUSD,venue=coinbase price=30,price=60 1638202821000000000\n
 ```
 
 `symbolset` is `ticker=BTCUSD,venue=coinbase`. Please note the mandatory space between `symbolset` and `columnset`. Naming rules
@@ -135,10 +139,8 @@ performance loss due to bulging mapping tables.
 which must be escaped. Example:
 
 ```shell
-trade,ticker=BTC\\USD\,All,venue=coin\ base price=30 1638202821000000000
+trade,ticker=BTC\\USD\,All,venue=coin\ base price=30 1638202821000000000\n
 ```
-
-
 
 Whenever `symbolset` column does not exist, it will be added on-the-fly with type `SYMBOL`. On other hand when
 column does exist, it is expected to be of `SYMBOL` type, otherwise line is rejected.
@@ -149,7 +151,7 @@ Area of the message that contains comma-separated set of `name=value` pairs for 
 For example in a message like this:
 
 ```shell
-trade,ticker=BTCUSD priceLow=30,priceHigh=60 1638202821000000000
+trade,ticker=BTCUSD priceLow=30,priceHigh=60 1638202821000000000\n
 ```
 
 `columnset` is `priceLow=30,priceHigh=60`. Naming rules
@@ -180,7 +182,7 @@ import TabItem from "@theme/TabItem"
 example.
 
 ```shell
-temps,device=cpu,location=south value=96i 1638202821000000000
+temps,device=cpu,location=south value=96i 1638202821000000000\n
 ```
 
 Sometimes integer values are small and do not warrant 64 bits to store them. To reduce storage for such values
@@ -217,7 +219,7 @@ Custom type, which correspond to QuestDB type `long256`. The values are hex enco
 suffix. For example:
 
 ```shell
-temps,device=cpu,location=south value=0x123a4i 1638202821000000000
+temps,device=cpu,location=south value=0x123a4i 1638202821000000000\n
 ```
 
 When column does not exist, it will be created with type `long256`. Values overflowing 256-bit integer will cause the
@@ -235,7 +237,7 @@ These values correspond to QuestDB type `double`. They actually do not have any 
 For example:
 
 ```shell
-trade,ticker=BTCUSD price=30 1638202821000000000
+trade,ticker=BTCUSD price=30 1638202821000000000\n
 ```
 
 `price` value will be stored as `double` even though it does not look like a conventional double value would.
@@ -266,7 +268,7 @@ any of the following ways:
 Example:
 
 ```shell
-sensors,location=south warning=false
+sensors,location=south warning=false\n
 ```
 
 ##### Cast table
@@ -287,7 +289,7 @@ These value correspond to QuestDB type `string`. They must be enclosed in quotes
 escaped using `\`. For example:
 
 ```shell
-trade,ticker=BTCUSD description="this is a \"rare\" value",user="John" 1638202821000000000
+trade,ticker=BTCUSD description="this is a \"rare\" value",user="John" 1638202821000000000\n
 ```
 
 The result:
@@ -314,8 +316,8 @@ String value can be cast to `char` type if its length is less than 2 characters.
 lines:
 
 ```shell
-trade,ticker=BTCUSD status="A" 1638202821000000000
-trade,ticker=BTCUSD status="" 1638202821000000001
+trade,ticker=BTCUSD status="A" 1638202821000000000\n
+trade,ticker=BTCUSD status="" 1638202821000000001\n
 ```
 
 The result:
@@ -344,7 +346,7 @@ create table tracking (geohash GEOHASH(4b), ts timestamp) timestamp(ts) partitio
 Send message including `16c` `geohash` value:
 
 ```shell
-tracking,obj=VLCC\ STEPHANIE gh="9v1s8hm7wpkssv1h" 1000000000
+tracking,obj=VLCC\ STEPHANIE gh="9v1s8hm7wpkssv1h" 1000000000\n
 ```
 
 The result. `geohash` value has been truncated to size of the column.
@@ -356,7 +358,7 @@ The result. `geohash` value has been truncated to size of the column.
 Sending empty string value will insert `null` into `geohash` column of any size:
 
 ```shell
-tracking,obj=VLCC\ STEPHANIE gh="" 2000000000
+tracking,obj=VLCC\ STEPHANIE gh="" 2000000000\n
 ```
 
 | ts                          | gh     |
@@ -378,7 +380,7 @@ These value correspond to QuestDB type `timestamp`. Timestamp values are epoch `
 In this example we're populating _non-designated_ timestamp field `ts1`:
 
 ```shell
-tracking,obj=VLCC\ STEPHANIE gh="9v1s8hm7wpkssv1h",ts1=10000t 1000000000
+tracking,obj=VLCC\ STEPHANIE gh="9v1s8hm7wpkssv1h",ts1=10000t 1000000000\n
 ```
 
 It is possible to populate _designated_ timestamp using `columnset`, although this is not recommended. Let's see
@@ -391,8 +393,8 @@ create table (loc symbol, ts timestamp) timestamp(ts) partition by day
 When we send:
 
 ```shell title="Sending mixed desginated timestamp values"
-tracking,loc=north ts=2000000000t 1000000000
-tracking,loc=south ts=3000000000t
+tracking,loc=north ts=2000000000t 1000000000\n
+tracking,loc=south ts=3000000000t\n
 ```
 
 The result in `columnset` value always wins:
@@ -424,11 +426,11 @@ are default units, which can be overridden via `line.tcp.timestamp`
 :::
 
 ```shell title="Example of ILP message with desginated timestamp value"
-tracking,loc=north val=200i 1000000000
+tracking,loc=north val=200i 1000000000\n
 ```
 
 ```shell title="Example of ILP message sans timestamp"
-tracking,loc=north val=200i
+tracking,loc=north val=200i\n
 ```
 
 ## TCP receiver
