@@ -148,6 +148,7 @@ The following metrics are available:
 | `questdb_memory_free_count`              | gauge   | Number of times native memory was freed.                          |
 | `questdb_memory_mem_used`                | gauge   | Current amount of allocated native memory.                        |
 | `questdb_memory_malloc_count`            | gauge   | Number of times native memory was allocated.                      |
+| `questdb_memory_realloc_count`           | gauge   | Number of times native memory was reallocated.                    |
 
 ## Configuring Prometheus Alertmanager
 
