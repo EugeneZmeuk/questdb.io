@@ -408,7 +408,7 @@ G, P, E, W, K
   one symbol is provided in the list, this symbol will be chosen with 100%
   probability, in which case it is more efficient to use
   `cast('your_symbol' as symbol`
-- `rnd_symbol(count, minLength, maxLength, nullRate)` generated a finite list of
+- `rnd_symbol(list_size, minLength, maxLength, nullRate)` generated a finite list of
   distinct random symbols and chooses one symbol from the list at random. The
   finite list is of size `list_size`. The generated symbols length is between
   `minLength` and `maxLength` (both inclusive). The function will also generate
@@ -460,7 +460,7 @@ FROM long_sequence(5);
   finite list (e.g `BUY, SELL` or `AUTUMN, WINTER, SPRING, SUMMER`. Strings are
   randomly chosen from the list with equal probability. When only one string is
   provided in the list, this string will be chosen with 100% probability.
-- `rnd_str(count, minLength, maxLength, nullRate)` generated a finite list of
+- `rnd_str(list_size, minLength, maxLength, nullRate)` generated a finite list of
   distinct random string and chooses one string from the list at random. The
   finite list is of size `list_size`. The generated strings length is between
   `minLength` and `maxLength` (both inclusive). The function will also generate
